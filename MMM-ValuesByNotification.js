@@ -42,7 +42,6 @@ Module.register('MMM-ValuesByNotification', {
   },
 
   getValueDomElement: function(groupIdx, itemIdx, valueIdx){
-    console.log("CREATING: "+groupIdx+"/"+itemIdx+"/"+valueIdx)
     const self = this
     let curGroupConfig = self.config["groups"][groupIdx]
     let curItemConfig = curGroupConfig["items"][itemIdx]
@@ -66,8 +65,6 @@ Module.register('MMM-ValuesByNotification', {
       if (!profilesConfig.includes(self.currentProfile)){
         console.log("Stopping value creation because "+profilesConfig+" does not include "+self.currentProfile)
         return null
-      } else {
-        console.log("Current profile is: "+self.currentProfile)
       }
     }
 
@@ -134,13 +131,16 @@ Module.register('MMM-ValuesByNotification', {
     let additionalClasses = []
 
     let value = curNotificationValueObj["currentRawValue"]
-    curNotificationValueObj.curReuseCount = curNotificationValueObj.curReuseCount+1
-    if ((typeof value === "undefined") || (curNotificationValueObj.curReuseCount > curNotificationValueObj["reuseCount"])) {
+    curNotificationValueObj["currentUses"] = curNotificationValueObj["currentUses"]+1
+    if ((typeof value === "undefined") || (curNotificationValueObj["currentUses"] > curNotificationValueObj["reuseCount"])) {
+      curNotificationValueObj["currentUses"] = curNotificationValueObj["currentUses"]+1
       value = naValueConfig
       additionalClasses.push("naValue")
     } else {
+      curNotificationValueObj["currentUses"] = curNotificationValueObj["currentUses"]+1
       if(jsonpathConfig != null){
         value = JSONPath.JSONPath({path: jsonpathConfig, json: value});
+        console.log("JSONPath result: "+value)
       }
 
       value = eval(eval("`"+valueFormatConfig+"`"))
@@ -445,16 +445,17 @@ Module.register('MMM-ValuesByNotification', {
       console.log("PROFILE CHANGED TO: "+payload.to)
       self.currentProfile = payload.to
     } else if (typeof self.sensorsSortedByNotification[notification] !== "undefined"){
+      console.log("RECEIVED NOTI: "+notification)
       let curItems = self.sensorsSortedByNotification[notification]
       for (let curItemIdx = 0; curItemIdx < curItems.length; curItemIdx++){
         let curElement = curItems[curItemIdx]
-        curElement.currentUses = 0
+        curElement["currentUses"] = 0
         parsedPayload = payload
         try{
           parsedPayload = JSON.parse(payload)
         } catch (e) {console.log(e)}
 
-        curElement.currentRawValue = parsedPayload
+        curElement["currentRawValue"] = parsedPayload
       }
     }
   },
