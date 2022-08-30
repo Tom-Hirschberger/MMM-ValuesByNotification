@@ -5,7 +5,6 @@
  * MIT Licensed.
  */
 const NodeHelper = require('node_helper')
-const jp = require('jsonpath');
 
 module.exports = NodeHelper.create({
 
