@@ -5,7 +5,7 @@
 			classes: "pageOne pageTwo",
 			config: {
 				animationSpeed: 500,
-                updateInterval: 60,
+                updateInterval: 30,
 				positions: "tivu",
 				reuseCount: 1,
 				naValue: "na",
@@ -14,6 +14,7 @@
 				valueUnit: null,
 				valueFormat: "Number(${value}).toFixed(2)",
 				jsonPath: null,
+				profiles: null,
 				thresholds: [
 					{
 						type: "gt",
