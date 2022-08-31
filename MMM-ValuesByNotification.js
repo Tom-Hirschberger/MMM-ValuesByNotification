@@ -9,10 +9,14 @@
 Module.register('MMM-ValuesByNotification', {
 
   defaults: {
+    animationSpeed: 500,
     positions: "tivu",
     reuseCount: 1,
     naValue: "na",
-    title: null,
+    valueTitle: null,
+		itemTitle: null,
+		groupTitle: null,
+    classes: null,
     icon: null,
     valueUnit: null,
     valueFormat: "{value}",
@@ -63,22 +67,23 @@ Module.register('MMM-ValuesByNotification', {
 
     if (profilesConfig != null){
       if (!profilesConfig.includes(self.currentProfile)){
-        console.log("Stopping value creation because "+profilesConfig+" does not include "+self.currentProfile)
         return null
       }
     }
 
-    let elementWrapper = document.createElement("div")
-    elementWrapper.classList.add("elementWrapper")
+    let valueWrapper = document.createElement("div")
+    valueWrapper.classList.add("valueWrapper")
 
     let curNotification = self.config.notificationPrefix+curItemConfig["notification"]
-    let curNotificationValueObj = self.sensorsSortedByNotification[curNotification]
+    let curNotifcationObj = self.sensorsSortedByNotification[curNotification]
 
-    let title = self.config["title"]
-    if(typeof curValueConfig["title"] !== "undefined"){
-      title = curValueConfig["title"]
-    } else if (typeof curItemConfig["title"] !== "undefined"){
-      title = curItemConfig["title"]
+    let valueTitle = self.config["valueTitle"]
+    if(typeof curValueConfig["valueTitle"] !== "undefined"){
+      valueTitle = curValueConfig["valueTitle"]
+    } else if (typeof curItemConfig["valueTitle"] !== "undefined"){
+      valueTitle = curItemConfig["valueTitle"]
+    } else if (typeof curGroupConfig["valueTitle"] !== "undefined"){
+      valueTitle = curGroupConfig["valueTitle"]
     }
 
     let iconConfig = self.config["icon"]
@@ -129,18 +134,30 @@ Module.register('MMM-ValuesByNotification', {
     }
 
     let additionalClasses = []
+    if(self.config["classes"] != null){
+      self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
 
-    let value = curNotificationValueObj["currentRawValue"]
-    curNotificationValueObj["currentUses"] = curNotificationValueObj["currentUses"]+1
-    if ((typeof value === "undefined") || (curNotificationValueObj["currentUses"] > curNotificationValueObj["reuseCount"])) {
-      curNotificationValueObj["currentUses"] = curNotificationValueObj["currentUses"]+1
+    if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
+      curGroupConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
+
+    if((typeof curItemConfig["classes"] !== "undefined") && (curItemConfig["classes"] != null)){
+      curItemConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
+
+    if((typeof curValueConfig["classes"] !== "undefined") && (curValueConfig["classes"] != null)){
+      curValueConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
+
+    let value = curNotifcationObj["currentRawValue"]
+
+    if ((typeof value === "undefined") || (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"])) {
       value = naValueConfig
       additionalClasses.push("naValue")
     } else {
-      curNotificationValueObj["currentUses"] = curNotificationValueObj["currentUses"]+1
       if(jsonpathConfig != null){
         value = JSONPath.JSONPath({path: jsonpathConfig, json: value});
-        console.log("JSONPath result: "+value)
       }
 
       value = eval(eval("`"+valueFormatConfig+"`"))
@@ -155,7 +172,7 @@ Module.register('MMM-ValuesByNotification', {
                 iconConfig = curThresholdConfig["icon"]
               }
               if (typeof curThresholdConfig["classes"] !== "undefined"){
-                additionalClasses = curThresholdConfig["classes"].split(" ")
+                curThresholdConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
               }
               break
             }
@@ -165,7 +182,7 @@ Module.register('MMM-ValuesByNotification', {
                 iconConfig = curThresholdConfig["icon"]
               }
               if (typeof curThresholdConfig["classes"] !== "undefined"){
-                additionalClasses = curThresholdConfig["classes"].split(" ")
+                curThresholdConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
               }
               break
             }
@@ -175,7 +192,7 @@ Module.register('MMM-ValuesByNotification', {
                 iconConfig = curThresholdConfig["icon"]
               }
               if (typeof curThresholdConfig["classes"] !== "undefined"){
-                additionalClasses = curThresholdConfig["classes"].split(" ")
+                curThresholdConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
               }
               break
             }
@@ -190,9 +207,7 @@ Module.register('MMM-ValuesByNotification', {
     if (positionsConfig.includes("v")){
       valueElement = document.createElement("div")
       valueElement.classList.add("value")
-      if (additionalClasses.length > 0){
-        valueElement.classList.add(additionalClasses)
-      }
+      additionalClasses.forEach(element => valueElement.classList.add(element))
       valueElement.innerHTML = value
     }
 
@@ -201,62 +216,57 @@ Module.register('MMM-ValuesByNotification', {
       iconElement = document.createElement("i")
       iconElement.classes = iconConfig
       iconElement.classList.add("icon")
-      if (additionalClasses.length > 0){
-        iconElement.classList.add(additionalClasses)
-      }
+      iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
+      additionalClasses.forEach(element => iconElement.classList.add(element))
       iconElement.setAttribute("aria-hidden", "true")
     }
 
-    let titleElement = null
-    if (title != null){
-      titleElement = document.createElement("div")
-      titleElement.classList.add("title")
-      if (additionalClasses.length > 0){
-        titleElement.classList.add(additionalClasses)
-      }
-      titleElement.innerHTML = title
+    let valueTitleElement = null
+    if (valueTitle != null){
+      valueTitleElement = document.createElement("div")
+      valueTitleElement.classList.add("valueTitle")
+      additionalClasses.forEach(element => valueTitleElement.classList.add(element))
+      valueTitleElement.innerHTML = valueTitle
     }
 
     let unitElement = null
     if (valueUnitConfig != null){
       unitElement = document.createElement("div")
       unitElement.classList.add("unit")
-      if (additionalClasses.length > 0){
-        unitElement.classList.add(additionalClasses)
-      }
+      additionalClasses.forEach(element => unitElement.classList.add(element))
       unitElement.innerHTML = valueUnitConfig
     }
 
     let atLeastOneAdded = false
     for (let posChar of positionsConfig) {
       if(posChar === "t"){
-        if (titleElement != null){
-          console.log(title)
+        if (valueTitleElement != null){
           atLeastOneAdded = true
-          elementWrapper.appendChild(titleElement)
+          valueWrapper.appendChild(valueTitleElement)
         }
       } else if (posChar === "i"){
         if (iconElement != null){
           atLeastOneAdded = true
-          elementWrapper.appendChild(iconElement)
+          valueWrapper.appendChild(iconElement)
         }
       } else if (posChar === "v"){
         if (valueElement != null){
           atLeastOneAdded = true
-          elementWrapper.appendChild(valueElement)
+          valueWrapper.appendChild(valueElement)
         }
       } else if (posChar === "u"){
         if (unitElement != null){
           atLeastOneAdded = true
-          elementWrapper.appendChild(unitElement)
+          valueWrapper.appendChild(unitElement)
         }
       } else {
-        console.log("UNKNOWN CHARACHTER")
+        console.log("UNKNOWN CHARACTER")
       }
     }
 
     if (atLeastOneAdded === true){
-      return elementWrapper
+      additionalClasses.forEach(element => valueWrapper.classList.add(element))
+      return valueWrapper
     } else {
       return null
     }
@@ -276,9 +286,28 @@ Module.register('MMM-ValuesByNotification', {
 
     if (profilesConfig != null){
       if (!profilesConfig.includes(self.currentProfile)){
-        console.log("Stopping item creation because "+profilesConfig+" does not include "+self.currentProfile)
         return null
       }
+    }
+
+    let additionalClasses = []
+    if(self.config["classes"] != null){
+      self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
+
+    if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
+      curGroupConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
+
+    if((typeof curItemConfig["classes"] !== "undefined") && (curItemConfig["classes"] != null)){
+      curItemConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
+
+    let itemTitle = self.config["itemTitle"]
+    if(typeof curItemConfig["itemTitle"] !== "undefined"){
+      itemTitle = curItemConfig["itemTitle"]
+    } else if (typeof curGroupConfig["itemTitle"] !== "undefined"){
+      itemTitle = curGroupConfig["itemTitle"]
     }
 
     let valueElements = []
@@ -301,6 +330,18 @@ Module.register('MMM-ValuesByNotification', {
     } else {
       let itemWrapper = document.createElement("div")
       itemWrapper.classList.add("itemWrapper")
+      additionalClasses.forEach(element => itemWrapper.classList.add(element))
+
+      if (itemTitle != null){
+        let itemTitleElement = null
+        itemTitleElement = document.createElement("div")
+        itemTitleElement.classList.add("itemTitle")
+        additionalClasses.forEach(element => itemTitleElement.classList.add(element))
+        itemTitleElement.innerHTML = itemTitle
+
+        itemWrapper.appendChild(itemTitleElement)
+      }
+
       for(let elementIdx = 0; elementIdx < valueElements.length; elementIdx++){
         itemWrapper.appendChild(valueElements[elementIdx])
       }
@@ -318,9 +359,17 @@ Module.register('MMM-ValuesByNotification', {
 
     if (profilesConfig != null){
       if (!profilesConfig.includes(self.currentProfile)){
-        console.log("Stopping group creation because "+profilesConfig+" does not include "+self.currentProfile)
         return null
       }
+    }
+
+    let additionalClasses = []
+    if(self.config["classes"] != null){
+      self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    }
+
+    if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
+      curGroupConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
     }
 
     let itemElements = []
@@ -336,6 +385,23 @@ Module.register('MMM-ValuesByNotification', {
     } else {
       let groupWrapper = document.createElement("div")
       groupWrapper.classList.add("groupWrapper")
+      additionalClasses.forEach(element => groupWrapper.classList.add(element))
+
+      let groupTitle = self.config["groupTitle"]
+      if(typeof curGroupConfig["groupTitle"] !== "undefined"){
+        groupTitle = curGroupConfig["groupTitle"]
+      }
+
+      if (groupTitle != null){
+        let groupTitleElement = null
+        groupTitleElement = document.createElement("div")
+        groupTitleElement.classList.add("groupTitle")
+        additionalClasses.forEach(element => groupTitleElement.classList.add(element))
+        groupTitleElement.innerHTML = groupTitle
+
+        groupWrapper.appendChild(groupTitleElement)
+      }
+
       for(let elementIdx = 0; elementIdx < itemElements.length; elementIdx++){
         groupWrapper.appendChild(itemElements[elementIdx])
       }
@@ -350,9 +416,13 @@ Module.register('MMM-ValuesByNotification', {
 
     if (profilesConfig != null){
       if (!profilesConfig.includes(self.currentProfile)){
-        console.log("Stopping groups creation because "+profilesConfig+" does not include "+self.currentProfile)
         return null
       }
+    }
+
+    let additionalClasses = []
+    if(self.config["classes"] != null){
+      self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
     }
 
     let groupElements = []
@@ -368,6 +438,10 @@ Module.register('MMM-ValuesByNotification', {
     } else {
       let groupsWrapper = document.createElement("div")
       groupsWrapper.classList.add("groupsWrapper")
+      additionalClasses.forEach(element => {
+        groupsWrapper.classList.add(element)
+      })
+
       for(let elementIdx = 0; elementIdx < groupElements.length; elementIdx++){
         groupsWrapper.appendChild(groupElements[elementIdx])
       }
@@ -383,6 +457,11 @@ Module.register('MMM-ValuesByNotification', {
     if(groupsElement != null){
       wrapper.appendChild(groupsElement)
     }
+
+    for(let key in self.sensorsSortedByNotification){
+      self.sensorsSortedByNotification[key]["currentUses"] = self.sensorsSortedByNotification[key]["currentUses"] + 1
+    }
+
     return wrapper
   },
 
@@ -406,20 +485,24 @@ Module.register('MMM-ValuesByNotification', {
           curReuseCount = curItem["reuseCount"]
         }
         
-        let curElement = []
-        if (typeof self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation] !== "undefined"){
-          curElement = self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation]
-        }
-        curElement.push(
-          {
-            "groupIdx":groupIdx,
-            "itemIdx": itemIdx,
-            "reuseCount": curReuseCount,
-            "currentUses": curReuseCount
-          }
-        )
 
-        self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation] = curElement
+        let curNotificationElement = {}
+        if (typeof self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation] !== "undefined"){
+          curNotificationElement = self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation]
+        }
+
+        let curGroupElement = {}
+        if (typeof curNotificationElement[groupIdx] !== "undefined"){
+          curGroupElement = curNotificationElement[groupIdx]
+        }
+
+        let curItemElement = {
+            "reuseCount": curReuseCount,
+        }
+
+        curGroupElement[itemIdx] = curItemElement
+        curNotificationElement[groupIdx] = curGroupElement
+        self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation] = curNotificationElement
       }
     }
     this.sendSocketNotification("CONFIG", this.config);
@@ -433,10 +516,10 @@ Module.register('MMM-ValuesByNotification', {
       clearTimeout(self.refreshTimer)
       refreshTimer = null
     }
-    self.sendSocketNotification("UPDATE_SENSOR_VALUES")
     self.refreshTimer = setTimeout(()=>{
       self.resetTimer()
     }, self.config.updateInterval * 1000)
+    self.updateDom(self.config.animationSpeed)
   },
 
   notificationReceived: function (notification, payload) {
@@ -445,18 +528,13 @@ Module.register('MMM-ValuesByNotification', {
       console.log("PROFILE CHANGED TO: "+payload.to)
       self.currentProfile = payload.to
     } else if (typeof self.sensorsSortedByNotification[notification] !== "undefined"){
-      console.log("RECEIVED NOTI: "+notification)
-      let curItems = self.sensorsSortedByNotification[notification]
-      for (let curItemIdx = 0; curItemIdx < curItems.length; curItemIdx++){
-        let curElement = curItems[curItemIdx]
-        curElement["currentUses"] = 0
-        parsedPayload = payload
-        try{
-          parsedPayload = JSON.parse(payload)
-        } catch (e) {console.log(e)}
-
-        curElement["currentRawValue"] = parsedPayload
-      }
+      let curNotificationItem = self.sensorsSortedByNotification[notification]
+      curNotificationItem["currentUses"] = 0
+      parsedPayload = payload
+      try{
+        parsedPayload = JSON.parse(payload)
+      } catch (e) {}
+      curNotificationItem["currentRawValue"] = parsedPayload
     }
   },
 
