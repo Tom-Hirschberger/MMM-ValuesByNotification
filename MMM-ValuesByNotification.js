@@ -10,7 +10,7 @@ Module.register('MMM-ValuesByNotification', {
 
   defaults: {
     animationSpeed: 500,
-    positions: "tivu",
+    positions: "ti[vu]",
     reuseCount: 1,
     naValue: "na",
     valueTitle: null,
@@ -22,7 +22,7 @@ Module.register('MMM-ValuesByNotification', {
     valueFormat: "{value}",
     thresholds: null,
     groups: [],
-    notificationPrefix: "VALUES_BY_NOTIFICATION_",
+    notificationPrefix: "",
     profiles: null
   },
   
@@ -74,7 +74,14 @@ Module.register('MMM-ValuesByNotification', {
     let valueWrapper = document.createElement("div")
     valueWrapper.classList.add("valueWrapper")
 
-    let curNotification = self.config.notificationPrefix+curItemConfig["notification"]
+    let curNotifcationPrefix = self.config.notificationPrefix
+    if (typeof curItemConfig["notificationPrefix"] !== "undefined"){
+      curNotifcationPrefix = curItemConfig["notificationPrefix"]
+    } else if (typeof curGroupConfig["notificationPrefix"] !== "undefined"){
+      curNotifcationPrefix = curGroupConfig["notificationPrefix"]
+    }
+
+    let curNotification = curNotifcationPrefix+curItemConfig["notification"]
     let curNotifcationObj = self.sensorsSortedByNotification[curNotification]
 
     let valueTitle = self.config["valueTitle"]
@@ -161,11 +168,15 @@ Module.register('MMM-ValuesByNotification', {
       }
 
       value = eval(eval("`"+valueFormatConfig+"`"))
+    }
+
+    console.log("VALUE: "+value)
+      console.log("THRESHOLDS: "+JSON.stringify(thresholdsConfig))
     
-    
-      if (thresholdsConfig != null) {
-        for(let thresholdIdx = 0; thresholdIdx < thresholdsConfig.length; thresholdIdx++){
-          let curThresholdConfig = thresholdsConfig[thresholdIdx]
+    if (thresholdsConfig != null) {
+      for(let thresholdIdx = 0; thresholdIdx < thresholdsConfig.length; thresholdIdx++){
+        let curThresholdConfig = thresholdsConfig[thresholdIdx]
+        if(typeof curThresholdConfig.type !== "undefined"){
           if (curThresholdConfig.type === "eq"){
             if(value === curThresholdConfig["value"]){
               if (typeof curThresholdConfig["icon"] !== "undefined"){
@@ -176,8 +187,8 @@ Module.register('MMM-ValuesByNotification', {
               }
               break
             }
-          } else if(curThresholdConfig["type"] === "lt"){
-            if(value < curThresholdConfig["value"]){
+          } else if((curThresholdConfig["type"] === "lt") && (Number.parseFloat(value) !== NaN)){
+            if(Number.parseFloat(value) < curThresholdConfig["value"]){
               if (typeof curThresholdConfig["icon"] !== "undefined"){
                 iconConfig = curThresholdConfig["icon"]
               }
@@ -186,8 +197,8 @@ Module.register('MMM-ValuesByNotification', {
               }
               break
             }
-          } else if(curThresholdConfig["type"] === "gt"){
-            if(value > curThresholdConfig["value"]){
+          } else if((curThresholdConfig["type"] === "gt") && (Number.parseFloat(value) !== NaN)){
+            if(Number.parseFloat(value) > curThresholdConfig["value"]){
               if (typeof curThresholdConfig["icon"] !== "undefined"){
                 iconConfig = curThresholdConfig["icon"]
               }
@@ -201,6 +212,7 @@ Module.register('MMM-ValuesByNotification', {
       }
     }
 
+    console.log("ADDITONAL_CLASSES: "+JSON.stringify(additionalClasses))
     
 
     let valueElement = null
@@ -238,27 +250,39 @@ Module.register('MMM-ValuesByNotification', {
     }
 
     let atLeastOneAdded = false
+    let curWrapperCount = 0
+    let wrappers = []
+    let curWrapper = valueWrapper
     for (let posChar of positionsConfig) {
       if(posChar === "t"){
         if (valueTitleElement != null){
           atLeastOneAdded = true
-          valueWrapper.appendChild(valueTitleElement)
+          curWrapper.appendChild(valueTitleElement)
         }
       } else if (posChar === "i"){
         if (iconElement != null){
           atLeastOneAdded = true
-          valueWrapper.appendChild(iconElement)
+          curWrapper.appendChild(iconElement)
         }
       } else if (posChar === "v"){
         if (valueElement != null){
           atLeastOneAdded = true
-          valueWrapper.appendChild(valueElement)
+          curWrapper.appendChild(valueElement)
         }
       } else if (posChar === "u"){
         if (unitElement != null){
           atLeastOneAdded = true
-          valueWrapper.appendChild(unitElement)
+          curWrapper.appendChild(unitElement)
         }
+      } else if (posChar === "["){
+        curWrapperCount += 1
+        wrappers.push(curWrapper)
+        let newWrapper = document.createElement("div")
+          newWrapper.classList.add("wrap"+curWrapperCount)
+        curWrapper.appendChild(newWrapper)
+        curWrapper = newWrapper        
+      } else if (posChar === "]"){
+        curWrapper = wrappers.pop()
       } else {
         console.log("UNKNOWN CHARACTER")
       }
@@ -342,8 +366,13 @@ Module.register('MMM-ValuesByNotification', {
         itemWrapper.appendChild(itemTitleElement)
       }
 
+      let valuesWrapper = document.createElement("div")
+      itemWrapper.appendChild(valuesWrapper)
+      valuesWrapper.classList.add("valuesWrapper")
+      additionalClasses.forEach(element => valuesWrapper.classList.add(element))
+
       for(let elementIdx = 0; elementIdx < valueElements.length; elementIdx++){
-        itemWrapper.appendChild(valueElements[elementIdx])
+        valuesWrapper.appendChild(valueElements[elementIdx])
       }
       return itemWrapper
     }
@@ -402,8 +431,13 @@ Module.register('MMM-ValuesByNotification', {
         groupWrapper.appendChild(groupTitleElement)
       }
 
+      let itemsWrapper = document.createElement("div")
+      groupWrapper.appendChild(itemsWrapper)
+      itemsWrapper.classList.add("itemsWrapper")
+      additionalClasses.forEach(element => itemsWrapper.classList.add(element))
+
       for(let elementIdx = 0; elementIdx < itemElements.length; elementIdx++){
-        groupWrapper.appendChild(itemElements[elementIdx])
+        itemsWrapper.appendChild(itemElements[elementIdx])
       }
       return groupWrapper
     }
@@ -452,6 +486,7 @@ Module.register('MMM-ValuesByNotification', {
   getDom: function() {
     const self = this
     let wrapper = document.createElement('div')
+    wrapper.classList.add("vbn")
     wrapper.classList.add("groups")
     let groupsElement = self.getGroupsDomElement()
     if(groupsElement != null){
@@ -479,6 +514,12 @@ Module.register('MMM-ValuesByNotification', {
       for (let itemIdx = 0; itemIdx < curGroup.items.length; itemIdx++) {
         let curItem = curGroup.items[itemIdx]
         let curNotifcation = curItem.notification
+        let curNotifcationPrefix = self.config.notificationPrefix
+        if (typeof curItemConfig["notificationPrefix"] !== "undefined"){
+          curNotifcationPrefix = curItemConfig["notificationPrefix"]
+        } else if (typeof curGroupConfig["notificationPrefix"] !== "undefined"){
+          curNotifcationPrefix = curGroupConfig["notificationPrefix"]
+        }
         let curReuseCount = self.config["reuseCount"]
         //either use global reuse value or the one set for this item
         if (typeof curItem["reuseCount"] !== "undefined"){
@@ -487,8 +528,8 @@ Module.register('MMM-ValuesByNotification', {
         
 
         let curNotificationElement = {}
-        if (typeof self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation] !== "undefined"){
-          curNotificationElement = self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation]
+        if (typeof self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation] !== "undefined"){
+          curNotificationElement = self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation]
         }
 
         let curGroupElement = {}
@@ -502,7 +543,7 @@ Module.register('MMM-ValuesByNotification', {
 
         curGroupElement[itemIdx] = curItemElement
         curNotificationElement[groupIdx] = curGroupElement
-        self.sensorsSortedByNotification[self.config.notificationPrefix+curNotifcation] = curNotificationElement
+        self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation] = curNotificationElement
       }
     }
     this.sendSocketNotification("CONFIG", this.config);
