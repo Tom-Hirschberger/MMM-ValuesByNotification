@@ -515,10 +515,10 @@ Module.register('MMM-ValuesByNotification', {
         let curItem = curGroup.items[itemIdx]
         let curNotifcation = curItem.notification
         let curNotifcationPrefix = self.config.notificationPrefix
-        if (typeof curItemConfig["notificationPrefix"] !== "undefined"){
-          curNotifcationPrefix = curItemConfig["notificationPrefix"]
-        } else if (typeof curGroupConfig["notificationPrefix"] !== "undefined"){
-          curNotifcationPrefix = curGroupConfig["notificationPrefix"]
+        if (typeof curItem["notificationPrefix"] !== "undefined"){
+          curNotifcationPrefix = curItem["notificationPrefix"]
+        } else if (typeof curGroup["notificationPrefix"] !== "undefined"){
+          curNotifcationPrefix = curGroup["notificationPrefix"]
         }
         let curReuseCount = self.config["reuseCount"]
         //either use global reuse value or the one set for this item
