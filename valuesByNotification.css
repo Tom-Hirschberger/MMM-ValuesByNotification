@@ -30,8 +30,30 @@
     gap: 15px;
 }
 
+.vbn .valueWrapper {
+    position: relative;
+}
+
+.vbn .icon {
+    font-size: 15px;
+    display: block;
+    z-index: 5;
+}
+
+.vbn .imgIcon {
+    width: 15px;
+}
+/* 
+.vbn .red .imgIcon {
+    fill: red;
+    filter: brightness(0) saturate(100%) invert(22%) sepia(90%) saturate(4983%) hue-rotate(352deg) brightness(91%) contrast(127%);
+} */
+
 .vbn .wrap1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    /* position: absolute;
+    top: 20px;
+    z-index: 10; */
 }

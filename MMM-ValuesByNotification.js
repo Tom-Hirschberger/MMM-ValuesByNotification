@@ -9,21 +9,24 @@
 Module.register('MMM-ValuesByNotification', {
 
   defaults: {
-    animationSpeed: 500,
-    positions: "ti[vu]",
-    reuseCount: 1,
-    naValue: "na",
-    valueTitle: null,
-		itemTitle: null,
-		groupTitle: null,
-    classes: null,
-    icon: null,
-    valueUnit: null,
-    valueFormat: "{value}",
-    thresholds: null,
-    groups: [],
+    animationSpeed: 500, //use this animation speed if the dom objects of the module gets updated
+    positions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,use [] to create an wrapper
+    reuseCount: 1, //how often should an value of a notification be reused before the na value is used instead
+    naValue: "na", //the value which will be displayed if a specific notification has not reached within the reuse interval
+    valueTitle: null, //the default title of the values
+		itemTitle: null, //the default title of the items
+		groupTitle: null, //the default title of the groups
+    classes: null, //should classes be added additionally? Add them to a string separated by a space
+    icon: null, //which is the default font awesome 4.7 icon to use
+    imgIcon: null, //which is the default image icon url to use
+    valueUnit: null, //what is the default unit of the values
+    valueFormat: "{value}", //use an javascript script to format the value; {value} will be the value of the parsed notifcation; i.e. Number(${value}).toFixed(2) to display the number with two decimals
+    thresholds: null, //specifify thresholds to add classes or change the icon based on the current value; possible compare types are eq=equal,lt=lower then,le=lower equal,gt=greater than,ge=greater equal
+    groups: [], //specify groups of items which contain values; the used notification can be specified for each item
     notificationPrefix: "",
-    profiles: null
+    profiles: null,
+    addClassesRecursive: false,
+    automaticWrapperClassPrefix: "wrap"
   },
   
   suspend: function() {
@@ -32,7 +35,7 @@ Module.register('MMM-ValuesByNotification', {
 
   resume: function() {
     const self = this
-    self.updateDom()
+    self.updateDom(self.config.animationSpeed)
   },
 
   
@@ -93,9 +96,24 @@ Module.register('MMM-ValuesByNotification', {
       valueTitle = curGroupConfig["valueTitle"]
     }
 
-    let iconConfig = self.config["icon"]
-    if(typeof curValueConfig["icon"] !== "undefined"){
+    let iconConfig = null
+    let imgIconConfig = null
+    self.config["imgIcon"]
+    if (typeof curValueConfig["imgIcon"] !== "undefined"){
+      imgIconConfig = curValueConfig["imgIcon"]
+    } else if(typeof curValueConfig["icon"] !== "undefined"){
       iconConfig = curValueConfig["icon"]
+    } else if (typeof curItemConfig["imgIcon"] !== "undefined"){
+      imgIconConfig = curItemConfig["imgIcon"]
+    } else if (typeof curItemConfig["icon"] !== "undefined"){
+      iconConfig = curItemConfig["icon"]
+    } else if (typeof curGroupConfig["imgIcon"] !== "undefined"){
+      imgIconConfig = curGroupConfig["imgIcon"]
+    } else if (typeof curGroupConfig["icon"] !== "undefined"){
+      iconConfig = curGroupConfig["icon"]
+    } else {
+      iconConfig = self.config["icon"]
+      imgIconConfig = self.config["imgIcon"]
     }
 
     let positionsConfig = self.config["positions"]
@@ -103,6 +121,8 @@ Module.register('MMM-ValuesByNotification', {
       positionsConfig = curValueConfig["positions"]
     } else if (typeof curItemConfig["positions"] !== "undefined"){
       positionsConfig = curItemConfig["positions"]
+    } else if (typeof curGroupConfig["positions"] !== "undefined"){
+      positionsConfig = curGroupConfig["positions"]
     }
 
     let valueFormatConfig = self.config["valueFormat"]
@@ -110,6 +130,8 @@ Module.register('MMM-ValuesByNotification', {
       valueFormatConfig = curValueConfig["valueFormat"]
     } else if (typeof curItemConfig["valueFormat"] !== "undefined"){
       valueFormatConfig = curItemConfig["valueFormat"]
+    } else if (typeof curGroupConfig["valueFormat"] !== "undefined"){
+      positionsConfig = curGroupConfig["valueFormat"]
     }
 
     let valueUnitConfig = self.config["valueUnit"]
@@ -117,6 +139,8 @@ Module.register('MMM-ValuesByNotification', {
       valueUnitConfig = curValueConfig["valueUnit"]
     } else if (typeof curItemConfig["valueUnit"] !== "undefined"){
       valueUnitConfig = curItemConfig["valueUnit"]
+    } else if (typeof curGroupConfig["valueUnit"] !== "undefined"){
+      valueUnitConfig = curGroupConfig["valueUnit"]
     }
 
     let naValueConfig = self.config["naValue"]
@@ -124,6 +148,8 @@ Module.register('MMM-ValuesByNotification', {
       naValueConfig = curValueConfig["naValue"]
     } else if (typeof curItemConfig["naValue"] !== "undefined"){
       naValueConfig = curItemConfig["naValue"]
+    } else if (typeof curGroupConfig["naValue"] !== "undefined"){
+      naValueConfig = curGroupConfig["naValue"]
     }
 
     let thresholdsConfig = self.config["thresholds"]
@@ -131,6 +157,8 @@ Module.register('MMM-ValuesByNotification', {
       thresholdsConfig = curValueConfig["thresholds"]
     } else if (typeof curItemConfig["thresholds"] !== "undefined"){
       thresholdsConfig = curItemConfig["thresholds"]
+    } else if (typeof curGroupConfig["thresholds"] !== "undefined"){
+      thresholdsConfig = curGroupConfig["thresholds"]
     }
 
     let jsonpathConfig = self.config["jsonpath"]
@@ -138,19 +166,32 @@ Module.register('MMM-ValuesByNotification', {
       jsonpathConfig = curValueConfig["jsonpath"]
     } else if (typeof curItemConfig["jsonpath"] !== "undefined"){
       jsonpathConfig = curItemConfig["jsonpath"]
+    } else if (typeof curGroupConfig["jsonpath"] !== "undefined"){
+      jsonpathConfig = curGroupConfig["jsonpath"]
+    }
+
+    let automaticWrapperClassPrefix = self.config["automaticWrapperClassPrefix"]
+    if(typeof curValueConfig["automaticWrapperClassPrefix"] !== "undefined"){
+      automaticWrapperClassPrefix = curValueConfig["automaticWrapperClassPrefix"]
+    } else if (typeof curItemConfig["automaticWrapperClassPrefix"] !== "undefined"){
+      automaticWrapperClassPrefix = curItemConfig["automaticWrapperClassPrefix"]
+    } else if (typeof curGroupConfig["automaticWrapperClassPrefix"] !== "undefined"){
+      automaticWrapperClassPrefix = curGroupConfig["automaticWrapperClassPrefix"]
     }
 
     let additionalClasses = []
-    if(self.config["classes"] != null){
-      self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
-    }
+    if (self.config.addClassesRecursive){
+      if(self.config["classes"] != null){
+        self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      }
 
-    if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
-      curGroupConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
-    }
+      if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
+        curGroupConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      }
 
-    if((typeof curItemConfig["classes"] !== "undefined") && (curItemConfig["classes"] != null)){
-      curItemConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      if((typeof curItemConfig["classes"] !== "undefined") && (curItemConfig["classes"] != null)){
+        curItemConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      }
     }
 
     if((typeof curValueConfig["classes"] !== "undefined") && (curValueConfig["classes"] != null)){
@@ -163,57 +204,61 @@ Module.register('MMM-ValuesByNotification', {
       value = naValueConfig
       additionalClasses.push("naValue")
     } else {
-      if(jsonpathConfig != null){
-        value = JSONPath.JSONPath({path: jsonpathConfig, json: value});
+      if((jsonpathConfig != null) && (curNotifcationObj["isJSON"])){
+        try{
+          value = JSONPath.JSONPath({path: jsonpathConfig, json: value});
+        } catch {}
       }
 
-      value = eval(eval("`"+valueFormatConfig+"`"))
+      try{
+        value = eval(eval("`"+valueFormatConfig+"`"))
+      } catch{}
     }
-
-    console.log("VALUE: "+value)
-      console.log("THRESHOLDS: "+JSON.stringify(thresholdsConfig))
     
     if (thresholdsConfig != null) {
       for(let thresholdIdx = 0; thresholdIdx < thresholdsConfig.length; thresholdIdx++){
         let curThresholdConfig = thresholdsConfig[thresholdIdx]
         if(typeof curThresholdConfig.type !== "undefined"){
+          let match = false
           if (curThresholdConfig.type === "eq"){
             if(value === curThresholdConfig["value"]){
-              if (typeof curThresholdConfig["icon"] !== "undefined"){
-                iconConfig = curThresholdConfig["icon"]
-              }
-              if (typeof curThresholdConfig["classes"] !== "undefined"){
-                curThresholdConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
-              }
-              break
+              match = true
             }
           } else if((curThresholdConfig["type"] === "lt") && (Number.parseFloat(value) !== NaN)){
             if(Number.parseFloat(value) < curThresholdConfig["value"]){
-              if (typeof curThresholdConfig["icon"] !== "undefined"){
-                iconConfig = curThresholdConfig["icon"]
-              }
-              if (typeof curThresholdConfig["classes"] !== "undefined"){
-                curThresholdConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
-              }
-              break
+              match = true
             }
           } else if((curThresholdConfig["type"] === "gt") && (Number.parseFloat(value) !== NaN)){
             if(Number.parseFloat(value) > curThresholdConfig["value"]){
-              if (typeof curThresholdConfig["icon"] !== "undefined"){
-                iconConfig = curThresholdConfig["icon"]
-              }
-              if (typeof curThresholdConfig["classes"] !== "undefined"){
-                curThresholdConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
-              }
-              break
+              match = true
             }
+          } else if((curThresholdConfig["type"] === "ge") && (Number.parseFloat(value) !== NaN)){
+            if(Number.parseFloat(value) >= curThresholdConfig["value"]){
+              match = true
+            }
+          } else if((curThresholdConfig["type"] === "ge") && (Number.parseFloat(value) !== NaN)){
+            if(Number.parseFloat(value) >= curThresholdConfig["value"]){
+              match = true
+            }
+          }
+
+          if (match){
+            if (typeof curThresholdConfig["icon"] !== "undefined"){
+              iconConfig = curThresholdConfig["icon"]
+            }
+
+            if (typeof curThresholdConfig["imgIcon"] !== "undefined"){
+              iconConfig = curThresholdConfig["imgIcon"]
+            }
+
+            if (typeof curThresholdConfig["classes"] !== "undefined"){
+              curThresholdConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+            }
+            break
           }
         }
       }
-    }
-
-    console.log("ADDITONAL_CLASSES: "+JSON.stringify(additionalClasses))
-    
+    }    
 
     let valueElement = null
     if (positionsConfig.includes("v")){
@@ -224,7 +269,16 @@ Module.register('MMM-ValuesByNotification', {
     }
 
     let iconElement = null
-    if (iconConfig != null){
+    if (imgIconConfig != null){
+      iconElement = document.createElement("img")
+      iconElement.setAttribute("src", imgIconConfig)
+      iconElement.classList.add("imgIcon")
+      if (imgIconConfig.endsWith(".svg")) {
+        iconElement.classList.add("svgIcon")
+      }
+      
+      additionalClasses.forEach(element => iconElement.classList.add(element))
+    } else if (iconConfig != null){
       iconElement = document.createElement("i")
       iconElement.classes = iconConfig
       iconElement.classList.add("icon")
@@ -278,7 +332,7 @@ Module.register('MMM-ValuesByNotification', {
         curWrapperCount += 1
         wrappers.push(curWrapper)
         let newWrapper = document.createElement("div")
-          newWrapper.classList.add("wrap"+curWrapperCount)
+          newWrapper.classList.add(automaticWrapperClassPrefix+curWrapperCount)
         curWrapper.appendChild(newWrapper)
         curWrapper = newWrapper        
       } else if (posChar === "]"){
@@ -289,7 +343,9 @@ Module.register('MMM-ValuesByNotification', {
     }
 
     if (atLeastOneAdded === true){
-      additionalClasses.forEach(element => valueWrapper.classList.add(element))
+      if (self.config.addClassesRecursive){
+        additionalClasses.forEach(element => valueWrapper.classList.add(element))
+      }
       return valueWrapper
     } else {
       return null
@@ -315,12 +371,14 @@ Module.register('MMM-ValuesByNotification', {
     }
 
     let additionalClasses = []
-    if(self.config["classes"] != null){
-      self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
-    }
+    if (self.config.addClassesRecursive){
+      if(self.config["classes"] != null){
+        self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      }
 
-    if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
-      curGroupConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
+        curGroupConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      }
     }
 
     if((typeof curItemConfig["classes"] !== "undefined") && (curItemConfig["classes"] != null)){
@@ -360,7 +418,9 @@ Module.register('MMM-ValuesByNotification', {
         let itemTitleElement = null
         itemTitleElement = document.createElement("div")
         itemTitleElement.classList.add("itemTitle")
-        additionalClasses.forEach(element => itemTitleElement.classList.add(element))
+        if (self.config.addClassesRecursive){
+          additionalClasses.forEach(element => itemTitleElement.classList.add(element))
+        }
         itemTitleElement.innerHTML = itemTitle
 
         itemWrapper.appendChild(itemTitleElement)
@@ -369,7 +429,9 @@ Module.register('MMM-ValuesByNotification', {
       let valuesWrapper = document.createElement("div")
       itemWrapper.appendChild(valuesWrapper)
       valuesWrapper.classList.add("valuesWrapper")
-      additionalClasses.forEach(element => valuesWrapper.classList.add(element))
+      if (self.config.addClassesRecursive){
+        additionalClasses.forEach(element => valuesWrapper.classList.add(element))
+      }
 
       for(let elementIdx = 0; elementIdx < valueElements.length; elementIdx++){
         valuesWrapper.appendChild(valueElements[elementIdx])
@@ -393,8 +455,10 @@ Module.register('MMM-ValuesByNotification', {
     }
 
     let additionalClasses = []
-    if(self.config["classes"] != null){
-      self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
+    if (self.config.addClassesRecursive){
+      if(self.config["classes"] != null){
+        self.config["classes"].split(" ").forEach(element => additionalClasses.push(element))
+      }
     }
 
     if((typeof curGroupConfig["classes"] !== "undefined") && (curGroupConfig["classes"] != null)){
@@ -425,7 +489,9 @@ Module.register('MMM-ValuesByNotification', {
         let groupTitleElement = null
         groupTitleElement = document.createElement("div")
         groupTitleElement.classList.add("groupTitle")
-        additionalClasses.forEach(element => groupTitleElement.classList.add(element))
+        if (self.config.addClassesRecursive){
+          additionalClasses.forEach(element => groupTitleElement.classList.add(element))
+        }
         groupTitleElement.innerHTML = groupTitle
 
         groupWrapper.appendChild(groupTitleElement)
@@ -434,7 +500,9 @@ Module.register('MMM-ValuesByNotification', {
       let itemsWrapper = document.createElement("div")
       groupWrapper.appendChild(itemsWrapper)
       itemsWrapper.classList.add("itemsWrapper")
-      additionalClasses.forEach(element => itemsWrapper.classList.add(element))
+      if (self.config.addClassesRecursive){
+        additionalClasses.forEach(element => itemsWrapper.classList.add(element))
+      }
 
       for(let elementIdx = 0; elementIdx < itemElements.length; elementIdx++){
         itemsWrapper.appendChild(itemElements[elementIdx])
@@ -488,13 +556,12 @@ Module.register('MMM-ValuesByNotification', {
     let wrapper = document.createElement('div')
     wrapper.classList.add("vbn")
     wrapper.classList.add("groups")
+    if(self.config["classes"] != null){
+      self.config["classes"].split(" ").forEach(element => wrapper.classList.add(element))
+    }
     let groupsElement = self.getGroupsDomElement()
     if(groupsElement != null){
       wrapper.appendChild(groupsElement)
-    }
-
-    for(let key in self.sensorsSortedByNotification){
-      self.sensorsSortedByNotification[key]["currentUses"] = self.sensorsSortedByNotification[key]["currentUses"] + 1
     }
 
     return wrapper
@@ -560,22 +627,53 @@ Module.register('MMM-ValuesByNotification', {
     self.refreshTimer = setTimeout(()=>{
       self.resetTimer()
     }, self.config.updateInterval * 1000)
-    self.updateDom(self.config.animationSpeed)
+
+    if(!self.hidden){
+      self.updateDom(self.config.animationSpeed)
+    }
+
+    for(let key in self.sensorsSortedByNotification){
+      self.sensorsSortedByNotification[key]["currentUses"] = self.sensorsSortedByNotification[key]["currentUses"] + 1
+    }
+  },
+
+  //https://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string
+  tryParseJSONObject: function(jsonString){
+    try {
+        var o = JSON.parse(jsonString);
+
+        // Handle non-exception-throwing cases:
+        // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+        // but... JSON.parse(null) returns null, and typeof null === "object", 
+        // so we must check for that, too. Thankfully, null is falsey, so this suffices:
+        if (o && typeof o === "object") {
+            return o;
+        }
+    }
+    catch (e) { }
+
+    return false;
   },
 
   notificationReceived: function (notification, payload) {
     const self = this
     if (notification === "CHANGED_PROFILE") {
-      console.log("PROFILE CHANGED TO: "+payload.to)
       self.currentProfile = payload.to
     } else if (typeof self.sensorsSortedByNotification[notification] !== "undefined"){
       let curNotificationItem = self.sensorsSortedByNotification[notification]
       curNotificationItem["currentUses"] = 0
-      parsedPayload = payload
-      try{
-        parsedPayload = JSON.parse(payload)
-      } catch (e) {}
+      curNotificationItem["isJSON"] = false
+      parsedPayload = self.tryParseJSONObject(payload)
+      if(!parsedPayload){
+        parsedPayload = payload
+      } else {
+        curNotificationItem["isJSON"] = true
+      }
+
       curNotificationItem["currentRawValue"] = parsedPayload
+
+      console.log("NEW NOTIFICATION: "+notification)
+      console.log("CUR_SENSOR_VALUES: "+JSON.stringify(self.sensorsSortedByNotification))
     }
   },
 
