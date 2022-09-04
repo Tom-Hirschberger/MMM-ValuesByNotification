@@ -16,6 +16,9 @@ Module.register('MMM-ValuesByNotification', {
     valueTitle: null, //the default title of the values
 		itemTitle: null, //the default title of the items
 		groupTitle: null, //the default title of the groups
+    valueTitlesAreHtml: false, //treat value titles as html or not?
+		itemTitlesAreHtml: false, //treat item titles as html or not?
+		groupTitlesAreHtml: false, //treat group titles as html or not?
     classes: null, //should classes be added additionally? Add them to a string separated by a space
     icon: null, //which is the default font awesome 4.7 icon to use
     imgIcon: null, //which is the default image icon url to use
@@ -46,6 +49,13 @@ Module.register('MMM-ValuesByNotification', {
 
   getStyles: function() {
     return ['font-awesome.css', 'valuesByNotification.css']
+  },
+
+  htmlToElement: function(theString) {
+    var template = document.createElement('template');
+    theString = theString.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = theString;
+    return template.content.firstChild;
   },
 
   getValueDomElement: function(groupIdx, itemIdx, valueIdx){
@@ -263,44 +273,46 @@ Module.register('MMM-ValuesByNotification', {
     let valueElement = null
     if (positionsConfig.includes("v")){
       valueElement = document.createElement("div")
+      valueElement.appendChild(self.htmlToElement(String(value)))
       valueElement.classList.add("value")
       additionalClasses.forEach(element => valueElement.classList.add(element))
-      valueElement.innerHTML = value
     }
 
     let iconElement = null
-    if (imgIconConfig != null){
-      iconElement = document.createElement("img")
-      iconElement.setAttribute("src", imgIconConfig)
-      iconElement.classList.add("imgIcon")
-      if (imgIconConfig.endsWith(".svg")) {
-        iconElement.classList.add("svgIcon")
+    if (positionsConfig.includes("i")){
+      if (imgIconConfig != null){
+        iconElement = document.createElement("img")
+        iconElement.setAttribute("src", imgIconConfig)
+        iconElement.classList.add("imgIcon")
+        if (imgIconConfig.endsWith(".svg")) {
+          iconElement.classList.add("svgIcon")
+        }
+        
+        additionalClasses.forEach(element => iconElement.classList.add(element))
+      } else if (iconConfig != null){
+        iconElement = document.createElement("i")
+        iconElement.classes = iconConfig
+        iconElement.classList.add("icon")
+        iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
+        additionalClasses.forEach(element => iconElement.classList.add(element))
+        iconElement.setAttribute("aria-hidden", "true")
       }
-      
-      additionalClasses.forEach(element => iconElement.classList.add(element))
-    } else if (iconConfig != null){
-      iconElement = document.createElement("i")
-      iconElement.classes = iconConfig
-      iconElement.classList.add("icon")
-      iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
-      additionalClasses.forEach(element => iconElement.classList.add(element))
-      iconElement.setAttribute("aria-hidden", "true")
     }
 
     let valueTitleElement = null
-    if (valueTitle != null){
+    if ((valueTitle != null) && (positionsConfig.includes("t"))){
       valueTitleElement = document.createElement("div")
+      valueTitleElement.appendChild(self.htmlToElement(String(valueTitle)))
       valueTitleElement.classList.add("valueTitle")
       additionalClasses.forEach(element => valueTitleElement.classList.add(element))
-      valueTitleElement.innerHTML = valueTitle
     }
 
     let unitElement = null
-    if (valueUnitConfig != null){
+    if ((valueUnitConfig != null) && (positionsConfig.includes("u"))){
       unitElement = document.createElement("div")
+      unitElement.appendChild(self.htmlToElement(String(valueUnitConfig)))
       unitElement.classList.add("unit")
       additionalClasses.forEach(element => unitElement.classList.add(element))
-      unitElement.innerHTML = valueUnitConfig
     }
 
     let atLeastOneAdded = false
@@ -421,7 +433,7 @@ Module.register('MMM-ValuesByNotification', {
         if (self.config.addClassesRecursive){
           additionalClasses.forEach(element => itemTitleElement.classList.add(element))
         }
-        itemTitleElement.innerHTML = itemTitle
+        itemTitleElement.appendChild(self.htmlToElement(String(itemTitle)))
 
         itemWrapper.appendChild(itemTitleElement)
       }
@@ -492,7 +504,7 @@ Module.register('MMM-ValuesByNotification', {
         if (self.config.addClassesRecursive){
           additionalClasses.forEach(element => groupTitleElement.classList.add(element))
         }
-        groupTitleElement.innerHTML = groupTitle
+        groupTitleElement.appendChild(self.htmlToElement(String(groupTitle)))
 
         groupWrapper.appendChild(groupTitleElement)
       }
