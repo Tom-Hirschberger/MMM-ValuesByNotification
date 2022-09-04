@@ -69,6 +69,11 @@ Module.register('MMM-ValuesByNotification', {
     const self = this
     let curGroupConfig = self.config["groups"][groupIdx]
     let curItemConfig = curGroupConfig["items"][itemIdx]
+
+    if(typeof curItemConfig["notification"] === "undefined"){
+      return null
+    }
+
     let curValueConfig
     if (typeof curItemConfig["values"] != "undefined"){
       curValueConfig = curItemConfig["values"][valueIdx]
@@ -605,37 +610,39 @@ Module.register('MMM-ValuesByNotification', {
       let curGroup =  self.config.groups[groupIdx]
       for (let itemIdx = 0; itemIdx < curGroup.items.length; itemIdx++) {
         let curItem = curGroup.items[itemIdx]
-        let curNotifcation = curItem.notification
-        let curNotifcationPrefix = self.config.notificationPrefix
-        if (typeof curItem["notificationPrefix"] !== "undefined"){
-          curNotifcationPrefix = curItem["notificationPrefix"]
-        } else if (typeof curGroup["notificationPrefix"] !== "undefined"){
-          curNotifcationPrefix = curGroup["notificationPrefix"]
-        }
-        let curReuseCount = self.config["reuseCount"]
-        //either use global reuse value or the one set for this item
-        if (typeof curItem["reuseCount"] !== "undefined"){
-          curReuseCount = curItem["reuseCount"]
-        }
-        
+        if(typeof curItem["notification"]){
+          let curNotifcation = curItem["notification"]
+          let curNotifcationPrefix = self.config.notificationPrefix
+          if (typeof curItem["notificationPrefix"] !== "undefined"){
+            curNotifcationPrefix = curItem["notificationPrefix"]
+          } else if (typeof curGroup["notificationPrefix"] !== "undefined"){
+            curNotifcationPrefix = curGroup["notificationPrefix"]
+          }
+          let curReuseCount = self.config["reuseCount"]
+          //either use global reuse value or the one set for this item
+          if (typeof curItem["reuseCount"] !== "undefined"){
+            curReuseCount = curItem["reuseCount"]
+          }
+          
 
-        let curNotificationElement = {}
-        if (typeof self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation] !== "undefined"){
-          curNotificationElement = self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation]
-        }
+          let curNotificationElement = {}
+          if (typeof self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation] !== "undefined"){
+            curNotificationElement = self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation]
+          }
 
-        let curGroupElement = {}
-        if (typeof curNotificationElement[groupIdx] !== "undefined"){
-          curGroupElement = curNotificationElement[groupIdx]
-        }
+          let curGroupElement = {}
+          if (typeof curNotificationElement[groupIdx] !== "undefined"){
+            curGroupElement = curNotificationElement[groupIdx]
+          }
 
-        let curItemElement = {
-            "reuseCount": curReuseCount,
-        }
+          let curItemElement = {
+              "reuseCount": curReuseCount,
+          }
 
-        curGroupElement[itemIdx] = curItemElement
-        curNotificationElement[groupIdx] = curGroupElement
-        self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation] = curNotificationElement
+          curGroupElement[itemIdx] = curItemElement
+          curNotificationElement[groupIdx] = curGroupElement
+          self.sensorsSortedByNotification[curNotifcationPrefix+curNotifcation] = curNotificationElement
+        }
       }
     }
     this.sendSocketNotification("CONFIG", this.config);
@@ -696,9 +703,6 @@ Module.register('MMM-ValuesByNotification', {
       }
 
       curNotificationItem["currentRawValue"] = parsedPayload
-
-      console.log("NEW NOTIFICATION: "+notification)
-      console.log("CUR_SENSOR_VALUES: "+JSON.stringify(self.sensorsSortedByNotification))
     }
   },
 
