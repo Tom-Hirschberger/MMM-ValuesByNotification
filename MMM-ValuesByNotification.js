@@ -26,10 +26,10 @@ Module.register('MMM-ValuesByNotification', {
     valueFormat: "{value}", //use an javascript script to format the value; {value} will be the value of the parsed notifcation; i.e. Number(${value}).toFixed(2) to display the number with two decimals
     thresholds: null, //specifify thresholds to add classes or change the icon based on the current value; possible compare types are eq=equal,lt=lower then,le=lower equal,gt=greater than,ge=greater equal
     groups: [], //specify groups of items which contain values; the used notification can be specified for each item
-    notificationPrefix: "",
-    profiles: null,
-    addClassesRecursive: false,
-    automaticWrapperClassPrefix: "wrap"
+    notificationPrefix: "", //a prefix that will be added to all notifications
+    profiles: null, //should some elements only be visible if some of this profiles is the current active one? Enter the profiles in this string separted by spaces
+    addClassesRecursive: false, //should classes that are defined for elements be added to all sub elements as well?
+    automaticWrapperClassPrefix: "wrap" //if wrappers are configured in the positions string what is the prefix of the classes that should be added?
   },
   
   suspend: function() {
@@ -51,6 +51,10 @@ Module.register('MMM-ValuesByNotification', {
     return ['font-awesome.css', 'valuesByNotification.css']
   },
 
+  /* 
+  ** creates html objects based on a given string
+  ** see: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
+  */ 
   htmlToElement: function(theString) {
     var template = document.createElement('template');
     theString = theString.trim(); // Never return a text node of whitespace as the result
@@ -58,11 +62,14 @@ Module.register('MMM-ValuesByNotification', {
     return template.content.firstChild;
   },
 
+  /* 
+  ** creates the dom object of a value object which is specified by its in indices in the configuration
+  */ 
   getValueDomElement: function(groupIdx, itemIdx, valueIdx){
     const self = this
     let curGroupConfig = self.config["groups"][groupIdx]
     let curItemConfig = curGroupConfig["items"][itemIdx]
-    let curValueConfig = null
+    let curValueConfig
     if (typeof curItemConfig["values"] != "undefined"){
       curValueConfig = curItemConfig["values"][valueIdx]
     } else {
@@ -367,7 +374,13 @@ Module.register('MMM-ValuesByNotification', {
   getItemDomElement: function(groupIdx, itemIdx){
     const self = this
     let curGroupConfig = self.config["groups"][groupIdx]
-    let curItemConfig = curGroupConfig["items"][itemIdx]
+    let curItemConfig
+    if((curGroupConfig["items"] !== "undefined") && (curGroupConfig["items"][itemIdx] !== "undefined")){
+      curItemConfig = curGroupConfig["items"][itemIdx]
+    } else {
+      curItemConfig = {}
+    }
+    
 
     let profilesConfig = self.config["profiles"]
     if (typeof curItemConfig["profiles"] !== "undefined"){
