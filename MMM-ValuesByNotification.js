@@ -153,7 +153,7 @@ Module.register('MMM-ValuesByNotification', {
     } else if (typeof curItemConfig["valueFormat"] !== "undefined"){
       valueFormatConfig = curItemConfig["valueFormat"]
     } else if (typeof curGroupConfig["valueFormat"] !== "undefined"){
-      positionsConfig = curGroupConfig["valueFormat"]
+      valueFormatConfig = curGroupConfig["valueFormat"]
     }
 
     let valueUnitConfig = self.config["valueUnit"]
