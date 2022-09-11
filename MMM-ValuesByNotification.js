@@ -270,7 +270,7 @@ Module.register('MMM-ValuesByNotification', {
             }
 
             if (typeof curThresholdConfig["imgIcon"] !== "undefined"){
-              iconConfig = curThresholdConfig["imgIcon"]
+              imgIconConfig = curThresholdConfig["imgIcon"]
             }
 
             if (typeof curThresholdConfig["classes"] !== "undefined"){
