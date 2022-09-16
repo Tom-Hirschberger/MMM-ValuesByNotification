@@ -293,29 +293,80 @@ Module.register('MMM-ValuesByNotification', {
     let iconElement = null
     if (positionsConfig.includes("i")){
       if (imgIconConfig != null){
-        iconElement = document.createElement("img")
-        iconElement.setAttribute("src", imgIconConfig)
-        iconElement.classList.add("imgIcon")
-        if (imgIconConfig.endsWith(".svg")) {
-          iconElement.classList.add("svgIcon")
+        if(Array.isArray(imgIconConfig)){
+          iconElement = document.createElement("div")
+          iconElement.classList.add("imgIconWrapper")
+          
+          let idx = 0
+          for (let curImgIconConfig of imgIconConfig){
+            let curIconElement = document.createElement("img")
+            curIconElement.setAttribute("src", curImgIconConfig)
+            curIconElement.classList.add("imgIcon")
+            curIconElement.classList.add("imgIcon"+idx)
+            additionalClasses.forEach(element => curIconElement.classList.add(element))
+            if (curImgIconConfig.endsWith(".svg")) {
+              curIconElement.classList.add("svgIcon")
+            }
+            iconElement.appendChild(curIconElement)
+            idx += 1
+          }
+        } else {
+          iconElement = document.createElement("img")
+          iconElement.setAttribute("src", imgIconConfig)
+          iconElement.classList.add("imgIcon")
+          if (imgIconConfig.endsWith(".svg")) {
+            iconElement.classList.add("svgIcon")
+          }
         }
-        
         additionalClasses.forEach(element => iconElement.classList.add(element))
       } else if (iconConfig != null){
-        iconElement = document.createElement("i")
-        iconElement.classes = iconConfig
-        iconElement.classList.add("icon")
-        iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
+        if(Array.isArray(iconConfig)){
+          iconElement = document.createElement("div")
+          iconElement.classList.add("iconWrapper")
+          additionalClasses.forEach(element => iconElement.classList.add(element))
+          let idx = 0
+          for (let curIconConfig of iconConfig){
+            let curIconElement = document.createElement("i")
+            curIconElement.classes = curIconConfig
+            curIconElement.classList.add("icon")
+            curIconElement.classList.add("icon"+idx)
+            curIconElement.split(" ").forEach(element => curIconElement.classList.add(element))
+            additionalClasses.forEach(element => curIconElement.classList.add(element))
+            curIconElement.setAttribute("aria-hidden", "true")
+            iconElement.appendChild(curIconElement)
+            idx += 1
+          }
+        } else {
+          iconElement = document.createElement("i")
+          iconElement.classes = iconConfig
+          iconElement.classList.add("icon")
+          iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
+          additionalClasses.forEach(element => iconElement.classList.add(element))
+          iconElement.setAttribute("aria-hidden", "true")
+        }
         additionalClasses.forEach(element => iconElement.classList.add(element))
-        iconElement.setAttribute("aria-hidden", "true")
       }
     }
 
     let valueTitleElement = null
     if ((valueTitle != null) && (positionsConfig.includes("t"))){
       valueTitleElement = document.createElement("div")
-      valueTitleElement.appendChild(self.htmlToElement(String(valueTitle)))
-      valueTitleElement.classList.add("valueTitle")
+      if(Array.isArray(valueTitle)){
+        valueTitleElement.classList.add("valueTitleWrapper")
+        let idx = 0
+        for(let curValueTitle of valueTitle){
+          let curValueTitleElement = document.createElement("div")
+          curValueTitleElement.appendChild(self.htmlToElement(String(curValueTitle)))
+          curValueTitleElement.classList.add("valueTitle")
+          curValueTitleElement.classList.add("valueTitle"+idx)
+          valueTitleElement.appendChild(curValueTitleElement)
+          idx += 1
+        }
+      } else {
+        valueTitleElement.appendChild(self.htmlToElement(String(valueTitle)))
+        valueTitleElement.classList.add("valueTitle")
+      }
+      
       additionalClasses.forEach(element => valueTitleElement.classList.add(element))
     }
 
@@ -444,8 +495,8 @@ Module.register('MMM-ValuesByNotification', {
       itemWrapper.classList.add("itemWrapper")
       additionalClasses.forEach(element => itemWrapper.classList.add(element))
 
+      let itemTitleElement = null
       if (itemTitle != null){
-        let itemTitleElement = null
         itemTitleElement = document.createElement("div")
         itemTitleElement.classList.add("itemTitle")
         if (self.config.addClassesRecursive){
