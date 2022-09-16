@@ -498,11 +498,27 @@ Module.register('MMM-ValuesByNotification', {
       let itemTitleElement = null
       if (itemTitle != null){
         itemTitleElement = document.createElement("div")
-        itemTitleElement.classList.add("itemTitle")
-        if (self.config.addClassesRecursive){
-          additionalClasses.forEach(element => itemTitleElement.classList.add(element))
+        if(Array.isArray(itemTitle)){
+          itemTitleElement.classList.add("itemTitleWrapper")
+          let idx = 0
+          for(let curItemTitle of itemTitle){
+            let curItemTitleElement = document.createElement("div")
+            curItemTitleElement.appendChild(self.htmlToElement(String(curItemTitle)))
+            curItemTitleElement.classList.add("itemTitle")
+            curItemTitleElement.classList.add("itemTitle"+idx)
+            if (self.config.addClassesRecursive){
+              additionalClasses.forEach(element => curItemTitleElement.classList.add(element))
+            }
+            itemTitleElement.appendChild(curItemTitleElement)
+            idx += 1
+          }
+        } else {
+          itemTitleElement.classList.add("itemTitle")
+          if (self.config.addClassesRecursive){
+            additionalClasses.forEach(element => itemTitleElement.classList.add(element))
+          }
+          itemTitleElement.appendChild(self.htmlToElement(String(itemTitle)))
         }
-        itemTitleElement.appendChild(self.htmlToElement(String(itemTitle)))
 
         itemWrapper.appendChild(itemTitleElement)
       }
@@ -567,14 +583,29 @@ Module.register('MMM-ValuesByNotification', {
       }
 
       if (groupTitle != null){
-        let groupTitleElement = null
-        groupTitleElement = document.createElement("div")
-        groupTitleElement.classList.add("groupTitle")
-        if (self.config.addClassesRecursive){
-          additionalClasses.forEach(element => groupTitleElement.classList.add(element))
-        }
-        groupTitleElement.appendChild(self.htmlToElement(String(groupTitle)))
+        let groupTitleElement = document.createElement("div")
 
+        if(Array.isArray(groupTitle)){
+          groupTitleElement.classList.add("groupTitleWrapper")
+          let idx = 0
+          for(let curGroupTitle of groupTitle){
+            let curGroupTitleElement = document.createElement("div")
+            curGroupTitleElement.appendChild(self.htmlToElement(String(curGroupTitle)))
+            curGroupTitleElement.classList.add("groupTitle")
+            curGroupTitleElement.classList.add("groupTitle"+idx)
+            if (self.config.addClassesRecursive){
+              additionalClasses.forEach(element => curGroupTitleElement.classList.add(element))
+            }
+            groupTitleElement.appendChild(curGroupTitleElement)
+            idx += 1
+          }
+        } else {
+          groupTitleElement.classList.add("groupTitle")
+          if (self.config.addClassesRecursive){
+            additionalClasses.forEach(element => groupTitleElement.classList.add(element))
+          }
+          groupTitleElement.appendChild(self.htmlToElement(String(groupTitle)))
+        }
         groupWrapper.appendChild(groupTitleElement)
       }
 
