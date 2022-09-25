@@ -10,18 +10,15 @@ Module.register('MMM-ValuesByNotification', {
 
 	defaults: {
 		animationSpeed: 500, //use this animation speed if the dom objects of the module gets updated
-		positions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,use [] to create an wrapper
+		valuePositions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,use [] to create an wrapper
 		reuseCount: 1, //how often should an value of a notification be reused before the na value is used instead
 		naValue: "na", //the value which will be displayed if a specific notification has not reached within the reuse interval
 		valueTitle: null, //the default title of the values
 		itemTitle: null, //the default title of the items
 		groupTitle: null, //the default title of the groups
-		valueTitlesAreHtml: false, //treat value titles as html or not?
-		itemTitlesAreHtml: false, //treat item titles as html or not?
-		groupTitlesAreHtml: false, //treat group titles as html or not?
 		classes: null, //should classes be added additionally? Add them to a string separated by a space
-		icon: null, //which is the default font awesome 4.7 icon to use
-		imgIcon: null, //which is the default image icon url to use
+		valueIcon: null, //which is the default font awesome 4.7 icon to use
+		valueImgIcon: null, //which is the default image icon url to use
 		valueUnit: null, //what is the default unit of the values
 		valueFormat: "{value}", //use an javascript script to format the value; {value} will be the value of the parsed notifcation; i.e. Number(${value}).toFixed(2) to display the number with two decimals
 		thresholds: null, //specifify thresholds to add classes or change the icon based on the current value; possible compare types are eq=equal,lt=lower then,le=lower equal,gt=greater than,ge=greater equal
@@ -120,31 +117,31 @@ Module.register('MMM-ValuesByNotification', {
 
 		let iconConfig = null
 		let imgIconConfig = null
-		self.config["imgIcon"]
-		if (typeof curValueConfig["imgIcon"] !== "undefined") {
-			imgIconConfig = curValueConfig["imgIcon"]
-		} else if (typeof curValueConfig["icon"] !== "undefined") {
-			iconConfig = curValueConfig["icon"]
-		} else if (typeof curItemConfig["imgIcon"] !== "undefined") {
-			imgIconConfig = curItemConfig["imgIcon"]
-		} else if (typeof curItemConfig["icon"] !== "undefined") {
-			iconConfig = curItemConfig["icon"]
-		} else if (typeof curGroupConfig["imgIcon"] !== "undefined") {
-			imgIconConfig = curGroupConfig["imgIcon"]
-		} else if (typeof curGroupConfig["icon"] !== "undefined") {
-			iconConfig = curGroupConfig["icon"]
+
+		if (typeof curValueConfig["valueImgIcon"] !== "undefined") {
+			imgIconConfig = curValueConfig["valueImgIcon"]
+		} else if (typeof curValueConfig["valueIcon"] !== "undefined") {
+			iconConfig = curValueConfig["valueIcon"]
+		} else if (typeof curItemConfig["valueImgIcon"] !== "undefined") {
+			imgIconConfig = curItemConfig["valueImgIcon"]
+		} else if (typeof curItemConfig["valueIcon"] !== "undefined") {
+			iconConfig = curItemConfig["valueIcon"]
+		} else if (typeof curGroupConfig["valueImgIcon"] !== "undefined") {
+			imgIconConfig = curGroupConfig["valueImgIcon"]
+		} else if (typeof curGroupConfig["valueIcon"] !== "undefined") {
+			iconConfig = curGroupConfig["ivalueIcon"]
 		} else {
-			iconConfig = self.config["icon"]
-			imgIconConfig = self.config["imgIcon"]
+			iconConfig = self.config["valueIcon"]
+			imgIconConfig = self.config["valueImgIcon"]
 		}
 
-		let positionsConfig = self.config["positions"]
-		if (typeof curValueConfig["positions"] !== "undefined") {
-			positionsConfig = curValueConfig["positions"]
-		} else if (typeof curItemConfig["positions"] !== "undefined") {
-			positionsConfig = curItemConfig["positions"]
-		} else if (typeof curGroupConfig["positions"] !== "undefined") {
-			positionsConfig = curGroupConfig["positions"]
+		let positionsConfig = self.config["valuePositions"]
+		if (typeof curValueConfig["valuePositions"] !== "undefined") {
+			positionsConfig = curValueConfig["valuePositions"]
+		} else if (typeof curItemConfig["valuePositions"] !== "undefined") {
+			positionsConfig = curItemConfig["valuePositions"]
+		} else if (typeof curGroupConfig["valuePositions"] !== "undefined") {
+			positionsConfig = curGroupConfig["valuePositions"]
 		}
 
 		let valueFormatConfig = self.config["valueFormat"]
@@ -295,17 +292,17 @@ Module.register('MMM-ValuesByNotification', {
 			if (imgIconConfig != null) {
 				if (Array.isArray(imgIconConfig)) {
 					iconElement = document.createElement("div")
-					iconElement.classList.add("imgIconWrapper")
+					iconElement.classList.add("valueImgIconWrapper")
 
 					let idx = 0
 					for (let curImgIconConfig of imgIconConfig) {
 						let curIconElement = document.createElement("img")
 						curIconElement.setAttribute("src", curImgIconConfig)
-						curIconElement.classList.add("imgIcon")
-						curIconElement.classList.add("imgIcon" + idx)
+						curIconElement.classList.add("valueImgIcon")
+						curIconElement.classList.add("valueImgIcon" + idx)
 						additionalClasses.forEach(element => curIconElement.classList.add(element))
 						if (curImgIconConfig.endsWith(".svg")) {
-							curIconElement.classList.add("svgIcon")
+							curIconElement.classList.add("valueSvgIcon")
 						}
 						iconElement.appendChild(curIconElement)
 						idx += 1
@@ -313,23 +310,23 @@ Module.register('MMM-ValuesByNotification', {
 				} else {
 					iconElement = document.createElement("img")
 					iconElement.setAttribute("src", imgIconConfig)
-					iconElement.classList.add("imgIcon")
+					iconElement.classList.add("valueImgIcon")
 					if (imgIconConfig.endsWith(".svg")) {
-						iconElement.classList.add("svgIcon")
+						iconElement.classList.add("valueSvgIcon")
 					}
 				}
 				additionalClasses.forEach(element => iconElement.classList.add(element))
 			} else if (iconConfig != null) {
 				if (Array.isArray(iconConfig)) {
 					iconElement = document.createElement("div")
-					iconElement.classList.add("iconWrapper")
+					iconElement.classList.add("valueIconWrapper")
 					additionalClasses.forEach(element => iconElement.classList.add(element))
 					let idx = 0
 					for (let curIconConfig of iconConfig) {
 						let curIconElement = document.createElement("i")
 						curIconElement.classes = curIconConfig
-						curIconElement.classList.add("icon")
-						curIconElement.classList.add("icon" + idx)
+						curIconElement.classList.add("valueIcon")
+						curIconElement.classList.add("valueIcon" + idx)
 						curIconElement.split(" ").forEach(element => curIconElement.classList.add(element))
 						additionalClasses.forEach(element => curIconElement.classList.add(element))
 						curIconElement.setAttribute("aria-hidden", "true")
@@ -339,7 +336,7 @@ Module.register('MMM-ValuesByNotification', {
 				} else {
 					iconElement = document.createElement("i")
 					iconElement.classes = iconConfig
-					iconElement.classList.add("icon")
+					iconElement.classList.add("valueIcon")
 					iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
 					additionalClasses.forEach(element => iconElement.classList.add(element))
 					iconElement.setAttribute("aria-hidden", "true")

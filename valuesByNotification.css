@@ -34,17 +34,17 @@
     position: relative;
 }
 
-.vbn .icon {
+.vbn .valueIcon {
     font-size: 15px;
     display: block;
     z-index: 5;
 }
 
-.vbn .imgIcon {
+.vbn .valueImgIcon {
     width: 15px;
 }
-/* 
-.vbn .red .imgIcon {
+/*
+.vbn .red .valueImgIcon {
     fill: red;
     filter: brightness(0) saturate(100%) invert(22%) sepia(90%) saturate(4983%) hue-rotate(352deg) brightness(91%) contrast(127%);
 } */
