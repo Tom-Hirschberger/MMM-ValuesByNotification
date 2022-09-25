@@ -10,7 +10,7 @@ Module.register('MMM-ValuesByNotification', {
 
 	defaults: {
 		animationSpeed: 500, //use this animation speed if the dom objects of the module gets updated
-		valuePositions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,use [] to create an wrapper
+		valuePositions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,d=dummy, use [] to create an wrapper
 		reuseCount: 1, //how often should an value of a notification be reused before the na value is used instead
 		naValue: "na", //the value which will be displayed if a specific notification has not reached within the reuse interval
 		valueTitle: null, //the default title of the values
@@ -379,6 +379,7 @@ Module.register('MMM-ValuesByNotification', {
 		let curWrapperCount = 0
 		let wrappers = []
 		let curWrapper = valueWrapper
+		let dummyCount = 0
 		for (let posChar of positionsConfig) {
 			if (posChar === "t") {
 				if (valueTitleElement != null) {
@@ -400,6 +401,13 @@ Module.register('MMM-ValuesByNotification', {
 					atLeastOneAdded = true
 					curWrapper.appendChild(unitElement)
 				}
+			} else if (posChar === "d") {
+				let curDummyElement = document.createElement("div")
+				curDummyElement.classList.add("valueDummy")
+				curDummyElement.classList.add("valueDummy"+dummyCount)
+				dummyCount += 1
+				curWrapper.appendChild(curDummyElement)
+				atLeastOneAdded = true
 			} else if (posChar === "[") {
 				curWrapperCount += 1
 				wrappers.push(curWrapper)
