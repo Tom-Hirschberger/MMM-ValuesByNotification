@@ -9,6 +9,7 @@
 Module.register('MMM-ValuesByNotification', {
 
 	defaults: {
+		basicElementType: "span",
 		animationSpeed: 500, //use this animation speed if the dom objects of the module gets updated
 		valuePositions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,d=dummy, use [] to create an wrapper
 		reuseCount: 1, //how often should an value of a notification be reused before the na value is used instead
@@ -93,7 +94,7 @@ Module.register('MMM-ValuesByNotification', {
 			}
 		}
 
-		let valueWrapper = document.createElement("div")
+		let valueWrapper = document.createElement(self.config["basicElementType"])
 		valueWrapper.classList.add("valueWrapper")
 
 		let curNotifcationPrefix = self.config.notificationPrefix
@@ -281,7 +282,7 @@ Module.register('MMM-ValuesByNotification', {
 
 		let valueElement = null
 		if (positionsConfig.includes("v")) {
-			valueElement = document.createElement("div")
+			valueElement = document.createElement(self.config["basicElementType"])
 			valueElement.appendChild(self.htmlToElement(String(value)))
 			valueElement.classList.add("value")
 			additionalClasses.forEach(element => valueElement.classList.add(element))
@@ -291,7 +292,7 @@ Module.register('MMM-ValuesByNotification', {
 		if (positionsConfig.includes("i")) {
 			if (imgIconConfig != null) {
 				if (Array.isArray(imgIconConfig)) {
-					iconElement = document.createElement("div")
+					iconElement = document.createElement(self.config["basicElementType"])
 					iconElement.classList.add("valueImgIconWrapper")
 
 					let idx = 0
@@ -318,7 +319,7 @@ Module.register('MMM-ValuesByNotification', {
 				additionalClasses.forEach(element => iconElement.classList.add(element))
 			} else if (iconConfig != null) {
 				if (Array.isArray(iconConfig)) {
-					iconElement = document.createElement("div")
+					iconElement = document.createElement(self.config["basicElementType"])
 					iconElement.classList.add("valueIconWrapper")
 					additionalClasses.forEach(element => iconElement.classList.add(element))
 					let idx = 0
@@ -347,12 +348,12 @@ Module.register('MMM-ValuesByNotification', {
 
 		let valueTitleElement = null
 		if ((valueTitle != null) && (positionsConfig.includes("t"))) {
-			valueTitleElement = document.createElement("div")
+			valueTitleElement = document.createElement(self.config["basicElementType"])
 			if (Array.isArray(valueTitle)) {
 				valueTitleElement.classList.add("valueTitleWrapper")
 				let idx = 0
 				for (let curValueTitle of valueTitle) {
-					let curValueTitleElement = document.createElement("div")
+					let curValueTitleElement = document.createElement(self.config["basicElementType"])
 					curValueTitleElement.appendChild(self.htmlToElement(String(curValueTitle)))
 					curValueTitleElement.classList.add("valueTitle")
 					curValueTitleElement.classList.add("valueTitle" + idx)
@@ -369,7 +370,7 @@ Module.register('MMM-ValuesByNotification', {
 
 		let unitElement = null
 		if ((valueUnitConfig != null) && (positionsConfig.includes("u"))) {
-			unitElement = document.createElement("div")
+			unitElement = document.createElement(self.config["basicElementType"])
 			unitElement.appendChild(self.htmlToElement(String(valueUnitConfig)))
 			unitElement.classList.add("unit")
 			additionalClasses.forEach(element => unitElement.classList.add(element))
@@ -402,7 +403,7 @@ Module.register('MMM-ValuesByNotification', {
 					curWrapper.appendChild(unitElement)
 				}
 			} else if (posChar === "d") {
-				let curDummyElement = document.createElement("div")
+				let curDummyElement = document.createElement(self.config["basicElementType"])
 				curDummyElement.classList.add("valueDummy")
 				curDummyElement.classList.add("valueDummy"+dummyCount)
 				dummyCount += 1
@@ -411,7 +412,7 @@ Module.register('MMM-ValuesByNotification', {
 			} else if (posChar === "[") {
 				curWrapperCount += 1
 				wrappers.push(curWrapper)
-				let newWrapper = document.createElement("div")
+				let newWrapper = document.createElement(self.config["basicElementType"])
 				newWrapper.classList.add(automaticWrapperClassPrefix + curWrapperCount)
 				curWrapper.appendChild(newWrapper)
 				curWrapper = newWrapper
@@ -496,18 +497,18 @@ Module.register('MMM-ValuesByNotification', {
 		if (valueElements.length < 1) {
 			return null
 		} else {
-			let itemWrapper = document.createElement("div")
+			let itemWrapper = document.createElement(self.config["basicElementType"])
 			itemWrapper.classList.add("itemWrapper")
 			additionalClasses.forEach(element => itemWrapper.classList.add(element))
 
 			let itemTitleElement = null
 			if (itemTitle != null) {
-				itemTitleElement = document.createElement("div")
+				itemTitleElement = document.createElement(self.config["basicElementType"])
 				if (Array.isArray(itemTitle)) {
 					itemTitleElement.classList.add("itemTitleWrapper")
 					let idx = 0
 					for (let curItemTitle of itemTitle) {
-						let curItemTitleElement = document.createElement("div")
+						let curItemTitleElement = document.createElement(self.config["basicElementType"])
 						curItemTitleElement.appendChild(self.htmlToElement(String(curItemTitle)))
 						curItemTitleElement.classList.add("itemTitle")
 						curItemTitleElement.classList.add("itemTitle" + idx)
@@ -528,7 +529,7 @@ Module.register('MMM-ValuesByNotification', {
 				itemWrapper.appendChild(itemTitleElement)
 			}
 
-			let valuesWrapper = document.createElement("div")
+			let valuesWrapper = document.createElement(self.config["basicElementType"])
 			itemWrapper.appendChild(valuesWrapper)
 			valuesWrapper.classList.add("valuesWrapper")
 			if (self.config.addClassesRecursive) {
@@ -578,7 +579,7 @@ Module.register('MMM-ValuesByNotification', {
 		if (itemElements.length < 1) {
 			return null
 		} else {
-			let groupWrapper = document.createElement("div")
+			let groupWrapper = document.createElement(self.config["basicElementType"])
 			groupWrapper.classList.add("groupWrapper")
 			additionalClasses.forEach(element => groupWrapper.classList.add(element))
 
@@ -588,13 +589,13 @@ Module.register('MMM-ValuesByNotification', {
 			}
 
 			if (groupTitle != null) {
-				let groupTitleElement = document.createElement("div")
+				let groupTitleElement = document.createElement(self.config["basicElementType"])
 
 				if (Array.isArray(groupTitle)) {
 					groupTitleElement.classList.add("groupTitleWrapper")
 					let idx = 0
 					for (let curGroupTitle of groupTitle) {
-						let curGroupTitleElement = document.createElement("div")
+						let curGroupTitleElement = document.createElement(self.config["basicElementType"])
 						curGroupTitleElement.appendChild(self.htmlToElement(String(curGroupTitle)))
 						curGroupTitleElement.classList.add("groupTitle")
 						curGroupTitleElement.classList.add("groupTitle" + idx)
@@ -614,7 +615,7 @@ Module.register('MMM-ValuesByNotification', {
 				groupWrapper.appendChild(groupTitleElement)
 			}
 
-			let itemsWrapper = document.createElement("div")
+			let itemsWrapper = document.createElement(self.config["basicElementType"])
 			groupWrapper.appendChild(itemsWrapper)
 			itemsWrapper.classList.add("itemsWrapper")
 			if (self.config.addClassesRecursive) {
@@ -655,7 +656,7 @@ Module.register('MMM-ValuesByNotification', {
 		if (groupElements.length < 1) {
 			return null
 		} else {
-			let groupsWrapper = document.createElement("div")
+			let groupsWrapper = document.createElement(self.config["basicElementType"])
 			groupsWrapper.classList.add("groupsWrapper")
 			additionalClasses.forEach(element => {
 				groupsWrapper.classList.add(element)
@@ -670,7 +671,7 @@ Module.register('MMM-ValuesByNotification', {
 
 	getDom: function () {
 		const self = this
-		let wrapper = document.createElement('div')
+		let wrapper = document.createElement(self.config["basicElementType"])
 		wrapper.classList.add("vbn")
 		wrapper.classList.add("groups")
 		if (self.config["classes"] != null) {
