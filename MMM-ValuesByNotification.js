@@ -262,12 +262,12 @@ Module.register('MMM-ValuesByNotification', {
 					}
 
 					if (match) {
-						if (typeof curThresholdConfig["icon"] !== "undefined") {
-							iconConfig = curThresholdConfig["icon"]
+						if (typeof curThresholdConfig["valueIcon"] !== "undefined") {
+							iconConfig = curThresholdConfig["valueIcon"]
 						}
 
-						if (typeof curThresholdConfig["imgIcon"] !== "undefined") {
-							imgIconConfig = curThresholdConfig["imgIcon"]
+						if (typeof curThresholdConfig["valueImgIcon"] !== "undefined") {
+							imgIconConfig = curThresholdConfig["valueImgIcon"]
 						}
 
 						if (typeof curThresholdConfig["classes"] !== "undefined") {
