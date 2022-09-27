@@ -1,4 +1,4 @@
-{
+		{
 			module: "MMM-ValuesByNotification",
 			position: "top_center",
 			header: "Sensors",
@@ -6,13 +6,13 @@
 			config: {
 				animationSpeed: 500,
 				updateInterval: 10,
-				//positions: "ti[vu]",
+				//valuePositions: "ti[vu]",
 				reuseCount: 1,
 				naValue: "na",
 				valueTitle: null,
 				itemTitle: null,
 				groupTitle: null,
-				icon: null,
+				valueIcon: null,
 				valueUnit: null,
 				valueFormat: "Number(${value}).toFixed(2)",
 				jsonPath: null,
@@ -42,7 +42,7 @@
 								reuseCount: 6,
 								classes: "test1ItemClass",
 								naValue: "notYet",
-								//positions: "it[vu]",
+								//valuePositions: "it[vu]",
 								valueFormat: "${value}",
 								valueUnit: "",
 								valueTitle: "middleValueTitle1",
@@ -50,7 +50,7 @@
 									{
 										valueTitle: "Temperatur",
 										classes: "temperature",
-										icon: "fa fa-thermometer-empty",
+										valueIcon: "fa fa-thermometer-empty",
 										jsonpath: "temperature",
 										valueFormat: "Number(${value}).toFixed(2)",
 										valueUnit: "°C",
@@ -59,7 +59,7 @@
 										profiles: "pageC",
 										thresholds: [
 											{
-												icon: "fa fa-thermometer-full",
+												valueIcon: "fa fa-thermometer-full",
 												type: "gt",
 												value: 100,
 												classes: "gt100"
@@ -82,7 +82,7 @@
 										jsonpath: "moisture",
 										valueFormat: "{value}",
 										valueUnit: "%rH",
-										positions: "i[vu]t",
+										valuePositions: "i[vu]t",
 										thresholds: [
 											{
 												type: "gt",
@@ -105,7 +105,7 @@
 										jsonpath: "battery",
 										valueFormat: "{value}",
 										valueUnit: "%",
-										//positions: "iutv",
+										//valuePositions: "iutv",
 										thresholds: [
 											{
 												type: "lt",
@@ -161,7 +161,7 @@
 							{
 								notification: "Test3",
 								reuseCount: 3,
-								icon: "fa fa-font"
+								valueIcon: "fa fa-font"
 							}
 						]
 					}
