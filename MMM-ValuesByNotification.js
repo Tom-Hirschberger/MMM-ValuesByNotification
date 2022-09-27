@@ -37,6 +37,7 @@ Module.register('MMM-ValuesByNotification', {
 		notificationPrefix: "", //a prefix that will be added to all notifications
 		profiles: null, //should some elements only be visible if some of this profiles is the current active one? Enter the profiles in this string separted by spaces
 		addClassesRecursive: false, //should classes that are defined for elements be added to all sub elements as well?
+		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
 		automaticWrapperClassPrefix: "wrap" //if wrappers are configured in the positions string what is the prefix of the classes that should be added?
 	},
 
@@ -433,10 +434,11 @@ Module.register('MMM-ValuesByNotification', {
 		}
 
 		if (atLeastOneAdded === true) {
-			if (self.config.addClassesRecursive) {
+			if ((self.config.addClassesRecursive) || (self.config.letClassesBubbleUp)){
 				additionalClasses.forEach(element => valueWrapper.classList.add(element))
 			}
-			return valueWrapper
+
+			return [valueWrapper, additionalClasses]
 		} else {
 			return null
 		}
@@ -510,17 +512,20 @@ Module.register('MMM-ValuesByNotification', {
 		}
 
 		let valueElements = []
+		let allAdditionalClasses = [].concat(additionalClasses)
 		if (typeof curItemConfig["values"] !== "undefined") {
 			for (let valueIdx = 0; valueIdx < curItemConfig["values"].length; valueIdx++) {
 				let valueElement = self.getValueDomElement(groupIdx, itemIdx, valueIdx)
 				if (valueElement != null) {
-					valueElements.push(valueElement)
+					valueElements.push(valueElement[0])
+					allAdditionalClasses = allAdditionalClasses.concat(valueElement[1])
 				}
 			}
 		} else {
 			let valueElement = self.getValueDomElement(groupIdx, itemIdx, null)
 			if (valueElement != null) {
-				valueElements.push(valueElement)
+				valueElements.push(valueElement[0])
+				allAdditionalClasses = allAdditionalClasses.concat(valueElement[1])
 			}
 		}
 
@@ -529,7 +534,11 @@ Module.register('MMM-ValuesByNotification', {
 		} else {
 			let itemWrapper = document.createElement(self.config["basicElementType"])
 			itemWrapper.classList.add("itemWrapper")
-			additionalClasses.forEach(element => itemWrapper.classList.add(element))
+			if (self.config.letClassesBubbleUp){
+				allAdditionalClasses.forEach(element => itemWrapper.classList.add(element))
+			} else {
+				additionalClasses.forEach(element => itemWrapper.classList.add(element))
+			}
 
 			let iconElement = null
 			if (positionsConfig.includes("i")) {
@@ -621,6 +630,10 @@ Module.register('MMM-ValuesByNotification', {
 				additionalClasses.forEach(element => valuesWrapper.classList.add(element))
 			}
 
+			if (self.config.letClassesBubbleUp){
+				allAdditionalClasses.forEach(element => valuesWrapper.classList.add(element))
+			}
+
 			for (let elementIdx = 0; elementIdx < valueElements.length; elementIdx++) {
 				valuesWrapper.appendChild(valueElements[elementIdx])
 			}
@@ -660,7 +673,7 @@ Module.register('MMM-ValuesByNotification', {
 				}
 			}
 
-			return itemWrapper
+			return [itemWrapper, allAdditionalClasses]
 		}
 	},
 
@@ -706,10 +719,12 @@ Module.register('MMM-ValuesByNotification', {
 		}
 
 		let itemElements = []
+		let allAdditionalClasses = [].concat(additionalClasses)
 		for (let itemIdx = 0; itemIdx < curGroupConfig["items"].length; itemIdx++) {
 			let itemElement = self.getItemDomElement(groupIdx, itemIdx)
 			if (itemElement != null) {
-				itemElements.push(itemElement)
+				itemElements.push(itemElement[0])
+				allAdditionalClasses = allAdditionalClasses.concat(itemElement[1])
 			}
 		}
 
@@ -718,7 +733,11 @@ Module.register('MMM-ValuesByNotification', {
 		} else {
 			let groupWrapper = document.createElement(self.config["basicElementType"])
 			groupWrapper.classList.add("groupWrapper")
-			additionalClasses.forEach(element => groupWrapper.classList.add(element))
+			if (self.config.letClassesBubbleUp){
+				allAdditionalClasses.forEach(element => groupWrapper.classList.add(element))
+			} else {
+				additionalClasses.forEach(element => groupWrapper.classList.add(element))
+			}
 
 			let iconElement = null
 			if (positionsConfig.includes("i")) {
@@ -855,7 +874,7 @@ Module.register('MMM-ValuesByNotification', {
 				}
 			}
 
-			return groupWrapper
+			return [groupWrapper, allAdditionalClasses]
 		}
 	},
 
@@ -966,19 +985,23 @@ Module.register('MMM-ValuesByNotification', {
 		}
 
 		let groupElements = []
+		let allAdditionalClasses = [].concat(additionalClasses)
 		for (let groupIdx = 0; groupIdx < curGroupsConfig.length; groupIdx++) {
 			let groupElement = self.getGroupDomElement(groupIdx)
 			if (groupElement != null) {
-				groupElements.push(groupElement)
+				groupElements.push(groupElement[0])
+				allAdditionalClasses = allAdditionalClasses.concat(groupElement[1])
 			}
 		}
 
 		let groupsWrapper = document.createElement(self.config["basicElementType"])
 		groupsWrapper.classList.add("groupsWrapper")
-		additionalClasses.forEach(element => {
-			groupsWrapper.classList.add(element)
-		})
 
+		if (self.config.letClassesBubbleUp){
+			allAdditionalClasses.forEach(element => groupsWrapper.classList.add(element))
+		} else {
+			additionalClasses.forEach(element => groupsWrapper.classList.add(element))
+		}
 
 		let curWrapperCount = 0
 		let wrappers = []
@@ -1017,7 +1040,7 @@ Module.register('MMM-ValuesByNotification', {
 			}
 		}
 
-		return groupsWrapper
+		return [groupsWrapper, allAdditionalClasses]
 	},
 
 	getDom: function () {
@@ -1030,7 +1053,11 @@ Module.register('MMM-ValuesByNotification', {
 		}
 		let groupsElement = self.getGroupsDomElement()
 		if (groupsElement != null) {
-			wrapper.appendChild(groupsElement)
+			wrapper.appendChild(groupsElement[0])
+		}
+
+		if (self.config.letClassesBubbleUp){
+			groupsElement[1].forEach(element => wrapper.classList.add(element))
 		}
 
 		return wrapper

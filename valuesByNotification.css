@@ -1,7 +1,19 @@
+.vbn .groupWrapper {
+    border-radius: 5px;
+    border: 3px;
+    border-color: gray;
+    border-style: solid;
+    padding: 5px;
+}
+
 .vbn .groupsWrapper, .vbn .groupWrapper, .vbn .itemsWrapper, .vbn .valueWrapper{
     display:flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.vbn .groupsWrapper {
+    row-gap: 10px;
 }
 
 .vbn .itemsWrapper {
