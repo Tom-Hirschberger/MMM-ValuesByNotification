@@ -1,0 +1,9 @@
+.vbn .itemWrapper {
+  flex-direction: row;
+}
+
+.vbn .itemTitle {
+  min-width: 105px;
+  margin-top: 17px;
+  text-decoration: none;
+}

@@ -1,0 +1,20 @@
+.vbn .itemWrapper {
+  flex-direction: row;
+}
+
+.vbn .itemTitle {
+  min-width: 105px;
+  text-decoration: none;
+}
+
+.vbn .itemTitle.withIcons {
+  margin-top: 17px;
+}
+
+.vbn .itemWrapper.withIcons {
+  line-height: 22px;
+}
+
+.vbn .itemWrapper:not(.withIcons) {
+  line-height: 10px;
+}

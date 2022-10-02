@@ -1,0 +1,7 @@
+.vbn .groupWrapper.group1 {
+  border-color: green;
+}
+
+.vbn .groupWrapper.group1.lt0 {
+  border-color: red;
+}
