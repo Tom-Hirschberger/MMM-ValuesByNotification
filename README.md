@@ -11,7 +11,9 @@ Then this is the module you need!
 BUT i think i created a monster. The configuration can be very tricky!
 Look a the <a href="doc/screenshots">screenshots</a> and at the provided configuration <a href="doc/configs">examples</a>.
 
-<img src="doc/screenshots/twoModulesWarning.png" alt="Screen showing two intances of the module with differnt style" width="600px"/>
+<p align="center">
+	<img src="doc/screenshots/twoModulesWarning.png" alt="Screen showing two intances of the module with differnt style" width="600px"/>
+</p>
 
 <a href="doc/configs/twoModulesOneWithAlert.config.js" target="_blank">Example-Config</a>  
 <a href="doc/configs/twoModulesOneWithAlert.custom.css" target="_blank">Example-CSS</a>
