@@ -63,7 +63,7 @@ npm install
 ## Basic configuration
 Add the following code to your ~/MagicMirror/config/config.js:
 
-```
+```json5
 		{
 			module: "MMM-ValuesByNotification",
 			position: "top_left",
