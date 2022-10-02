@@ -92,4 +92,5 @@ Restart your mirror and you should see something like this:
 
 This very basic example has the following features:
 * Display one group which does not have any icon or title
-* Display one item in this group which does not have an icon or unit set
+* Display one item in this group which does not have an icon but title Item-1 set
+* Display one value Value-1 with no unit or icon within Item-1
