@@ -13,8 +13,8 @@ Look a the <a href="doc/screenshots">screenshots</a> and at the provided configu
 
 <img src="doc/screenshots/twoModulesWarning.png" alt="Screen showing two intances of the module with differnt style" width="600px"/>
 
-<a href="doc/configs/towModulesOneWithAlert.config.js" target="_blank">Example-Config</a>  
-<a href="doc/configs/towModulesOneWithAlert.custom.css" target="_blank">Example-CSS</a>
+<a href="doc/configs/twoModulesOneWithAlert.config.js" target="_blank">Example-Config</a>  
+<a href="doc/configs/twoModulesOneWithAlert.custom.css" target="_blank">Example-CSS</a>
 
 In this screenshot you see two instances of the module which are called MODULE-1 and MODULE-2.  
 MODULE-1:
