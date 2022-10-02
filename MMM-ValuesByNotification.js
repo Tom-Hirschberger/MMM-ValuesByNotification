@@ -338,7 +338,7 @@ Module.register('MMM-ValuesByNotification', {
 						curIconElement.classes = curIconConfig
 						curIconElement.classList.add("valueIcon")
 						curIconElement.classList.add("valueIcon" + idx)
-						curIconElement.split(" ").forEach(element => curIconElement.classList.add(element))
+						curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 						additionalClasses.forEach(element => curIconElement.classList.add(element))
 						curIconElement.setAttribute("aria-hidden", "true")
 						iconElement.appendChild(curIconElement)
@@ -467,6 +467,13 @@ Module.register('MMM-ValuesByNotification', {
 			}
 		}
 
+		let automaticWrapperClassPrefix = self.config["automaticWrapperClassPrefix"]
+		if (typeof curItemConfig["automaticWrapperClassPrefix"] !== "undefined") {
+			automaticWrapperClassPrefix = curItemConfig["automaticWrapperClassPrefix"]
+		} else if (typeof curGroupConfig["automaticWrapperClassPrefix"] !== "undefined") {
+			automaticWrapperClassPrefix = curGroupConfig["automaticWrapperClassPrefix"]
+		}
+
 		let additionalClasses = []
 		if (self.config.addClassesRecursive) {
 			if (self.config["classes"] != null) {
@@ -580,7 +587,7 @@ Module.register('MMM-ValuesByNotification', {
 							curIconElement.classes = curIconConfig
 							curIconElement.classList.add("itemIcon")
 							curIconElement.classList.add("itemIcon" + idx)
-							curIconElement.split(" ").forEach(element => curIconElement.classList.add(element))
+							curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 							additionalClasses.forEach(element => curIconElement.classList.add(element))
 							curIconElement.setAttribute("aria-hidden", "true")
 							iconElement.appendChild(curIconElement)
@@ -691,6 +698,11 @@ Module.register('MMM-ValuesByNotification', {
 			}
 		}
 
+		let automaticWrapperClassPrefix = self.config["automaticWrapperClassPrefix"]
+		if (typeof curGroupConfig["automaticWrapperClassPrefix"] !== "undefined") {
+			automaticWrapperClassPrefix = curGroupConfig["automaticWrapperClassPrefix"]
+		}
+
 		let additionalClasses = []
 		if (self.config.addClassesRecursive) {
 			if (self.config["classes"] != null) {
@@ -779,7 +791,7 @@ Module.register('MMM-ValuesByNotification', {
 							curIconElement.classes = curIconConfig
 							curIconElement.classList.add("groupIcon")
 							curIconElement.classList.add("groupIcon" + idx)
-							curIconElement.split(" ").forEach(element => curIconElement.classList.add(element))
+							curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 							additionalClasses.forEach(element => curIconElement.classList.add(element))
 							curIconElement.setAttribute("aria-hidden", "true")
 							iconElement.appendChild(curIconElement)
@@ -939,7 +951,7 @@ Module.register('MMM-ValuesByNotification', {
 						curIconElement.classes = curIconConfig
 						curIconElement.classList.add("groupsIcon")
 						curIconElement.classList.add("groupsIcon" + idx)
-						curIconElement.split(" ").forEach(element => curIconElement.classList.add(element))
+						curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 						additionalClasses.forEach(element => curIconElement.classList.add(element))
 						curIconElement.setAttribute("aria-hidden", "true")
 						iconElement.appendChild(curIconElement)

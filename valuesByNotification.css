@@ -1,15 +1,16 @@
 .vbn .groupWrapper {
     border-radius: 5px;
-    border: 3px;
     border-color: gray;
     border-style: solid;
     padding: 5px;
+    width: fit-content;
 }
 
 .vbn .groupsWrapper, .vbn .groupWrapper, .vbn .itemsWrapper, .vbn .valueWrapper{
     display:flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .vbn .groupsWrapper {
@@ -27,12 +28,14 @@
 .vbn .itemTitle {
     text-align: left;
     text-decoration: underline;
+    margin: 5px;
 }
 
 .vbn .itemWrapper {
     display:flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 .vbn .valuesWrapper {
     display:flex;
@@ -46,13 +49,13 @@
     position: relative;
 }
 
-.vbn .valueIcon {
+.vbn .groupIcon, .vbn .itemIcon, .vbn .valueIcon {
     font-size: 15px;
     display: block;
     z-index: 5;
 }
 
-.vbn .valueImgIcon {
+.vbn .groupImgIcon, .vbn .itemImgIcon, .vbn .valueImgIcon {
     width: 15px;
 }
 /*
@@ -68,4 +71,11 @@
     /* position: absolute;
     top: 20px;
     z-index: 10; */
+}
+
+.vbn .itemIconWrapper, .vbn .itemTitleWrapper, .vbn .itemImgIconWrapper{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
 }
