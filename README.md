@@ -49,3 +49,47 @@ MODULE-2
 * Group the values into items and groups and add icons either to the values, items or groups
 * Change the icons and/or add classes based on thresholds
 * Display multiple instances of this module with different styling in different positions
+
+## Basic installation
+```
+cd ~/MagicMirror/modules
+git clone https://github.com/Tom-Hirschberger/MMM-ValuesByNotification.git
+cd MMM-ValuesByNotification
+npm install
+```
+
+## Basic configuration
+Add the following code to your ~/MagicMirror/config/config.js:
+
+```
+		{
+			module: "MMM-ValuesByNotification",
+			position: "top_left",
+			header: "Module-1",
+			config: {
+				groups: [
+					{
+						items: [
+							{
+								notification: "TEST1",
+								itemTitle: "Item-1",
+								values: [
+									{
+                                        valueTitle: "Value-1",
+									},
+								]
+							},
+						]
+					},
+				]
+			},
+		},
+```
+<a href="doc/configs/basicConfiguration.config.js" target="_blank">Basic configuration</a>
+
+Restart your mirror and you should see something like this:  
+<img src="doc/screenshots/basicConfiguration.png" alt="Screen showing one intances of the module with one item and one value" width="100px"/>
+
+This very basic example has the following features:
+* Display one group which does not have any icon or title
+* Display one item in this group which does not have an icon or unit set
