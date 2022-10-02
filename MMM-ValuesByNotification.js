@@ -10,12 +10,13 @@ Module.register('MMM-ValuesByNotification', {
 
 	defaults: {
 		basicElementType: "span",
+		updateInterval: 60, //how often should the module be refreshed
+		reuseCount: 1, //how often should an value of a notification be reused before the na value is used instead
 		animationSpeed: 500, //use this animation speed if the dom objects of the module gets updated
 		groupsPositions: "tie", //decides in which order the elments of a group object get added to the wrapper; t=title,i=icon,d=dummy,e=elements, use [] to create an wrapper
 		groupPositions: "tie", //decides in which order the elments of a group object get added to the wrapper; t=title,i=icon,d=dummy,e=elements, use [] to create an wrapper
 		itemPositions: "tie", //decides in which order the elments of a item object get added to the wrapper; t=title,i=icon,d=dummy,e=elements, use [] to create an wrapper
 		valuePositions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,d=dummy, use [] to create an wrapper
-		reuseCount: 1, //how often should an value of a notification be reused before the na value is used instead
 		naValue: "na", //the value which will be displayed if a specific notification has not reached within the reuse interval
 		groupsTitle: null,
 		groupTitle: null, //the default title of the groups
