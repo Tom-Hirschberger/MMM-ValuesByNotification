@@ -231,7 +231,8 @@ Module.register('MMM-ValuesByNotification', {
 
 		let value = curNotifcationObj["currentRawValue"]
 
-		if ((typeof value === "undefined") || (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"])) {
+		if ((typeof value === "undefined") || 
+		    ((curNotifcationObj[groupIdx][itemIdx]["reuseCount"] > 0) && (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"]))) {
 			value = naValueConfig
 			additionalClasses.push("naValue")
 		} else {
