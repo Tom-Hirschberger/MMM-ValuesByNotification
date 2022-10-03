@@ -1,25 +1,28 @@
 # MMM-ValuesByNotification
-Need a MagicMirror² module which is able to display information which is send by a other module like [MMM-MQTTbridge](https://github.com/sergge1/MMM-MQTTbridge) or [MMM-CommandToNotification](https://github.com/Tom-Hirschberger/MMM-CommandToNotification)?  
-The information is provided as a simple message or as an JSON-Object?  
-You want to re-format the message before displaying it or want to select single values within the JSON-Object?  
-You need more than one instance and do want to style the instances different?  
+
+Need a MagicMirror² module which is able to display information which is send by a other module like [MMM-MQTTbridge](https://github.com/sergge1/MMM-MQTTbridge) or [MMM-CommandToNotification](https://github.com/Tom-Hirschberger/MMM-CommandToNotification)?
+The information is provided as a simple message or as an JSON-Object?
+You want to re-format the message before displaying it or want to select single values within the JSON-Object?
+You need more than one instance and do want to style the instances different?
 Do you want to style the elements or change displayed icons based on thresholds?
+Do you want some elements to only be visible if a certain profile is active?
 
-
-Then this is the module you need!  
+Then this is the module you need!
 
 BUT i think i created a monster. The configuration can be very tricky!
-Look a the <a href="doc/screenshots">screenshots</a> and at the provided configuration <a href="doc/configs">examples</a>.
+Look a the [screenshots](doc/screenshots) and at the provided configuration [examples](doc/configs).
 
 <p align="center">
-	<img src="doc/screenshots/twoModulesWarning.png" alt="Screen showing two intances of the module with differnt style" width="600px"/>
+ <img src="doc/screenshots/twoModulesWarning.png" alt="Screen showing two intances of the module with differnt style" width="600px"/>
 </p>
 
-<a href="doc/configs/twoModulesOneWithAlert.config.js" target="_blank">Example-Config</a>  
-<a href="doc/configs/twoModulesOneWithAlert.custom.css" target="_blank">Example-CSS</a>
+[Example-Config](doc/configs/twoModulesOneWithAlert.config.js)
 
-In this screenshot you see two instances of the module which are called MODULE-1 and MODULE-2.  
+[Example-CSS](doc/configs/twoModulesOneWithAlert.custom.css)
+
+In this screenshot you see two instances of the module which are called MODULE-1 and MODULE-2.
 MODULE-1:
+
 * Contains two groups (Group-1 and Group-2)
 * Group-1 shows two items (Item-1 and Item-2) which do have added titles
   * Item-1 shows a temperature value with unit °C
@@ -30,6 +33,7 @@ MODULE-1:
   * Item-2 has two titles (Item-2 twice) and two values which do have an additional title but no icons
 
 MODULE-2
+
 * Contains one group (Group-1)
 * Group-1 has an additional image icon
 * The default color of the border of Group-1 has been changed to green
@@ -42,6 +46,7 @@ MODULE-2
 * The values of Item-2 show an title (Value-1, Value-2), the values with units and an image icon
 
 ## Basic features
+
 * Display the content of notifications (either simple values or elements of JSON objects)
 * Use JSONPath syntax to select the values in messages sending a JSON object
 * Re-format the values with JavaScript functions
@@ -51,9 +56,11 @@ MODULE-2
 * Group the values into items and groups and add icons either to the values, items or groups
 * Change the icons and/or add classes based on thresholds
 * Display multiple instances of this module with different styling in different positions
+* Display some elements only if a certain profile is active ([MMM-ProfileSwitcher](https://github.com/tosti007/MMM-ProfileSwitcher))
 
 ## Basic installation
-```
+
+```bash
 cd ~/MagicMirror/modules
 git clone https://github.com/Tom-Hirschberger/MMM-ValuesByNotification.git
 cd MMM-ValuesByNotification
@@ -61,38 +68,42 @@ npm install
 ```
 
 ## Basic configuration
+
 Add the following code to your ~/MagicMirror/config/config.js:
 
 ```json5
-		{
-			module: "MMM-ValuesByNotification",
-			position: "top_left",
-			header: "Module-1",
-			config: {
-				groups: [
-					{
-						items: [
-							{
-								notification: "TEST1",
-								itemTitle: "Item-1",
-								values: [
-									{
-                                        valueTitle: "Value-1",
-									},
-								]
-							},
-						]
-					},
-				]
-			},
-		},
+  {
+   module: "MMM-ValuesByNotification",
+   position: "top_left",
+   header: "Module-1",
+   config: {
+    groups: [
+     {
+      items: [
+       {
+        notification: "TEST1",
+        itemTitle: "Item-1",
+        values: [
+         {
+            valueTitle: "Value-1",
+         },
+        ]
+       },
+      ]
+     },
+    ]
+   },
+  },
 ```
-<a href="doc/configs/basicConfiguration.config.js" target="_blank">Basic configuration</a>
 
-Restart your mirror and you should see something like this:  
+[Basic configuration](doc/configs/basicConfiguration.config.js)
+
+Restart your mirror and you should see something like this:
+
 <img src="doc/screenshots/basicConfiguration.png" alt="Screen showing one intances of the module with one item and one value" width="100px"/>
 
 This very basic example has the following features:
+
 * Display one group which does not have any icon or title
 * Display one item in this group which does not have an icon but title Item-1 set
-* Display one value Value-1 with no unit or icon within Item-1
+* Display one value Value-1 with no unit or icon but with a title and value within Item-1

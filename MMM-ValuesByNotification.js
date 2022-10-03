@@ -9,9 +9,9 @@
 Module.register('MMM-ValuesByNotification', {
 
 	defaults: {
-		basicElementType: "span",
+		basicElementType: "span", //this module uses a lot of wrappers and basic elements. This option decides about the basic element (div or span)
 		updateInterval: 60, //how often should the module be refreshed
-		reuseCount: 1, //how often should an value of a notification be reused before the na value is used instead
+		reuseCount: 1, //how often should a value of a notification be reused before it is marked as stale and the na value is used instead
 		animationSpeed: 500, //use this animation speed if the dom objects of the module gets updated
 		groupsPositions: "tie", //decides in which order the elments of a group object get added to the wrapper; t=title,i=icon,d=dummy,e=elements, use [] to create an wrapper
 		groupPositions: "tie", //decides in which order the elments of a group object get added to the wrapper; t=title,i=icon,d=dummy,e=elements, use [] to create an wrapper
@@ -231,7 +231,7 @@ Module.register('MMM-ValuesByNotification', {
 
 		let value = curNotifcationObj["currentRawValue"]
 
-		if ((typeof value === "undefined") || 
+		if ((typeof value === "undefined") ||
 		    ((curNotifcationObj[groupIdx][itemIdx]["reuseCount"] > 0) && (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"]))) {
 			value = naValueConfig
 			additionalClasses.push("naValue")
