@@ -28,11 +28,13 @@ And this it will look like in the module:
 
 In the sections below you will see that the titles do not need to be the first element, that it will be possible to add custom css classes to elements if needed or if thresholds are reached and much more.
 
-[Group](group.md)
+Best thing to start would be the values configuration head up to the items and to the groups.
+
+[Value](value.md)
 
 [Item](item.md)
 
-[Value](value.md)
+[Group](group.md)
 
 [Titles](titles.md)
 
