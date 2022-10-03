@@ -244,7 +244,9 @@ Module.register('MMM-ValuesByNotification', {
 
 			try {
 				value = eval(eval("`" + valueFormatConfig + "`"))
-			} catch { }
+			} catch (exception){
+				console.log(exception)
+			 }
 		}
 
 		if (thresholdsConfig != null) {

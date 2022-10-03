@@ -118,27 +118,29 @@ This very basic example has the following features:
 | reuseCount | How many intervals should values of notifications be used before they get marked as stale and the "not available" value is used instead? You will learn to override this counter in the [Groups](doc/groups.md) and [Items](doc/items.md) section later. | Integer | 1 |
 | animationSpeed | How many milliseconds should be used to animate the refresh | Integer | 500 |
 | notificationPrefix | Do the notifications you want to use for the values start all with the same prefix. You can specify a prefix here and use only the suffix in the item configurations later. | String | null |
-| classes | Should css classes be added to each html element? Configure them as a space separated string here. This is useful if you have two instances of the module and like to style them different. You will learn how to add more classes to specific groups, items, values in later sections ([Classes](doc/classes.md)). | String | null |
+| classes | Should css classes be added to each html element? Configure them as a space separated string here. This is useful if you have two instances of the module and like to style them different. | String | null |
 | addClassesRecursive | Should classes that are configured at a higher level (here, groups, items) automatically be added to all sub elements as well or only at that level they are configured in? | Boolean | false |
 | letClassesBubbleUp | Should classes that are configured at a lower level be set to elements in higher levels as well? This is useful if you configure [Thresholds](doc/thresholds.md) and want to change the style of wrapper elements. | Boolean | true |
 | basicElementType | The modules uses a lot of wrapper elments. What kind of html element should be used for this ("span" or "div" in most cases) | String | "span" |
+| groupsTitle | Specify a string or a array of strings containing title(s) which will be added as element(s) to the groups element. | String or Array of String | null |
+| groupsIcon | Specify one or more icon(s) you want to add to the groups elment either as String (which contains the [fontawesome 4.7](https://fontawesome.com/v4/icons/) classes of the single icon) or a array of strings which do contain the classes. Look at in the section [Icons](icons.md) for more information. | String or array of Strings | null |
+| groupsImgIcon | Specify one or more images that should be displayed as icon(s) **instead** of [fontawesome 4.7](https://fontawesome.com/v4/icons/) icon(s). This value needs to be either a string which contains the path to the icon or an array of strings containing the paths in each element. Look at in the section [Icons](icons.md) for more information. | String or array of Strings | null |
+| groupPositions | Specify in which order the elements should be added to the groups element. t=title(s), i=icon(s), e=elements (the group elements), d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](positions.md) section to get more information. | String | "tie" |
 
 ## More configuration
 
 Look at [Documentation](doc/README.md) to get more configuration options!
 
-[Values](doc/values.md)
+[Value](doc/value.md)
 
-[Items](doc/items.md)
+[Item](doc/item.md)
 
-[Groups](doc/groups.md)
+[Group](doc/group.md)
 
 [Icons](doc/icons.md)
 
 [Titles](doc/titles.md)
 
-[Classes](doc/classes.md)
+[Positions](doc/positions.md)
 
 [Thresholds](doc/thresholds.md)
-
-[Profiles](doc/profiles.md)
