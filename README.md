@@ -1,7 +1,6 @@
 # MMM-ValuesByNotification
 
 Need a MagicMirror² module which is able to display information which is send by a other module like [MMM-MQTTbridge](https://github.com/sergge1/MMM-MQTTbridge) or [MMM-CommandToNotification](https://github.com/Tom-Hirschberger/MMM-CommandToNotification)?  
-
 The information is provided as a simple message or as an JSON-Object?  
 You want to re-format the message before displaying it or want to select single values within the JSON-Object?  
 You need more than one instance and do want to style the instances different?  
