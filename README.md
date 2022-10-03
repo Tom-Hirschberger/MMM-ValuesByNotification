@@ -1,16 +1,21 @@
 # MMM-ValuesByNotification
 
 Need a MagicMirror² module which is able to display information which is send by a other module like [MMM-MQTTbridge](https://github.com/sergge1/MMM-MQTTbridge) or [MMM-CommandToNotification](https://github.com/Tom-Hirschberger/MMM-CommandToNotification)?
+
 The information is provided as a simple message or as an JSON-Object?
+
 You want to re-format the message before displaying it or want to select single values within the JSON-Object?
+
 You need more than one instance and do want to style the instances different?
+
 Do you want to style the elements or change displayed icons based on thresholds?
+
 Do you want some elements to only be visible if a certain profile is active?
 
 Then this is the module you need!
 
 BUT i think i created a monster. The configuration can be very tricky!
-Look a the [screenshots](doc/screenshots) and at the provided configuration [examples](doc/configs).
+Take a look at the [screenshots](doc/screenshots) and at the provided configuration [examples](doc/configs) if you want to see some possible configurations.
 
 <p align="center">
  <img src="doc/screenshots/twoModulesWarning.png" alt="Screen showing two intances of the module with differnt style" width="600px"/>
@@ -131,17 +136,3 @@ This very basic example has the following features:
 ## More configuration
 
 Look at [Documentation](doc/README.md) to get more configuration options!
-
-[Value](doc/value.md)
-
-[Item](doc/item.md)
-
-[Group](doc/group.md)
-
-[Icons](doc/icons.md)
-
-[Titles](doc/titles.md)
-
-[Positions](doc/positions.md)
-
-[Thresholds](doc/thresholds.md)
