@@ -9,8 +9,9 @@
 | groupPositions | Specify in which order the elements should be added to the group element. t=title(s), i=icon(s), e=elements (the item elements), d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](positions.md) section to get more information. | String | "tie" |
 | classes | Specify css classes here that will be configured to each element of the group element. The classes need to be specified space separated in a string. | String | null |
 | profiles | Specify a space separated list of profiles if you like this group element only to be displayed if a certain profile is active currently. | Stirng | null |
+| automaticWrapperClassPrefix | If a wrapper is specified in the groupPositions option this class will be added to every wrapper. Additionally a class starting with this prefix and a number starting with 0 will be added. | String | null |
 
-The options "groupTitle", "groupIcon", "groupImgIcon" and "groupPositions" can be configured within the general configuration as well. If they are configured the deepest hirarchical option overrides the other ones.
+The options "groupTitle", "groupIcon", "groupImgIcon", "groupPositions" and "automaticWrapperClassPrefix" can be configured within the general configuration as well. If they are configured the deepest hirarchical option overrides the other ones.
 If for example a "groupTitle" is configured directly in the "config" section but there is one configured in the current group the one of the group will be used. In the following example "Group-1" will use the title "Group" while the second group uses "Group-2".
 
 ```json5

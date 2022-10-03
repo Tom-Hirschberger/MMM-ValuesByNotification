@@ -9,8 +9,9 @@
 | itemPositions | Specify in which order the elements should be added to the item element. t=title(s), i=icon(s), e=elements (the value elements), d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](positions.md) section to get more information. | String | "tie" |
 | classes | Specify css classes here that will be configured to each element of the item element. The classes need to be specified space separated in a string. | String | null |
 | profiles | Specify a space separated list of profiles if you like this item element only to be displayed if a certain profile is active currently. | Stirng | null |
+| automaticWrapperClassPrefix | If a wrapper is specified in the itemPositions option this class will be added to every wrapper. Additionally a class starting with this prefix and a number starting with 0 will be added. | String | null |
 
-The options "itemTitle", "itemIcon", "itemImgIcon" and "itemPositions" can be configured within the or groups or general configuration as well. If they are configured the deepest hirarchical option overrides the other ones.
+The options "itemTitle", "itemIcon", "itemImgIcon", "itemPositions" and "automaticWrapperClassPrefix" can be configured within the or groups or general configuration as well. If they are configured the deepest hirarchical option overrides the other ones.
 If for example a "itemTitle" is configured directly in the "config" section but there is one configured in the current item the one of the item will be used. In the following example "Item-1" will use the title "Item" while the second item uses "Item-2".
 
 ```json5

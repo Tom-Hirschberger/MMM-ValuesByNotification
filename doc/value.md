@@ -13,8 +13,9 @@
 | classes | Specify css classes here that will be configured to each element of the value element. The classes need to be specified space separated in a string. | String | null |
 | thresholds | Specify a array of thresholds which can be used to add classes or manipulate the icons. Look to the [Thresholds](thresholds.md) section to get more information. | Array | null |
 | profiles | Specify a space separated list of profiles if you like this value element only to be displayed if a certain profile is active currently. | Stirng | null |
+| automaticWrapperClassPrefix | If a wrapper is specified in the valuePositions option this class will be added to every wrapper. Additionally a class starting with this prefix and a number starting with 0 will be added. | String | null |
 
-The options "valueUnit", "naValue", "valueTitle", "valueIcon", "valueImgIcon", "valueFormat", "jsonpath", "valuePositions" and "thresholds" can be configured within the items or groups or general configuration as well. If they are configured the deepest hirarchical option overrides the other ones.
+The options "valueUnit", "naValue", "valueTitle", "valueIcon", "valueImgIcon", "valueFormat", "jsonpath", "valuePositions", "thresholds" and "automaticWrapperClassPrefix" can be configured within the items or groups or general configuration as well. If they are configured the deepest hirarchical option overrides the other ones.
 If for example a "naValue" is configured directly in the "config" section but there is one configured in the current item and current value the configured in the value will be used. In the following example "Value-1" will use the "naValue" "n3" while "Value-2" uses "n2". Both values use "valueUnit" "abc".
 
 ```json5
