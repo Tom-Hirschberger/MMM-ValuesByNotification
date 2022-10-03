@@ -20,7 +20,8 @@ Take a look at the [screenshots](doc/screenshots) and at the provided configurat
 
 [Example-CSS](doc/configs/twoModulesOneWithAlert.custom.css)
 
-In this screenshot you see two instances of the module which are called MODULE-1 and MODULE-2.
+In this screenshot you see two instances of the module which are called MODULE-1 and MODULE-2.  
+
 MODULE-1:
 
 * Contains two groups (Group-1 and Group-2)
