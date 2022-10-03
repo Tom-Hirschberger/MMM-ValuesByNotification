@@ -107,3 +107,38 @@ This very basic example has the following features:
 * Display one group which does not have any icon or title
 * Display one item in this group which does not have an icon but title Item-1 set
 * Display one value Value-1 with no unit or icon but with a title and value within Item-1
+
+## General options
+
+| Option  | Description | Type | Default |
+| ------- | --- | --- | --- |
+| groups | This is the array containing the configuration of the groups, which contain the items, which contain the values... | Array | [] |
+| updateInterval | How often should the module be refreshed (in seconds) | Integer | 60 |
+| naValue | Which value should be displayed if a specific notifcation has not be received till now or if the information was to long in the past? You will learn to override this value in the group, item or value section later. | String | "na" |
+| reuseCount | How many intervals should values of notifications be used before they get marked as stale and the "not available" value is used instead? You will learn to override this counter in the [Groups](doc/groups.md) and [Items](doc/items.md) section later. | Integer | 1 |
+| animationSpeed | How many milliseconds should be used to animate the refresh | Integer | 500 |
+| notificationPrefix | Do the notifications you want to use for the values start all with the same prefix. You can specify a prefix here and use only the suffix in the item configurations later. | String | null |
+| classes | Should css classes be added to each html element? Configure them as a space separated string here. This is useful if you have two instances of the module and like to style them different. You will learn how to add more classes to specific groups, items, values in later sections ([Classes](doc/classes.md)). | String | null |
+| addClassesRecursive | Should classes that are configured at a higher level (here, groups, items) automatically be added to all sub elements as well or only at that level they are configured in? | Boolean | false |
+| letClassesBubbleUp | Should classes that are configured at a lower level be set to elements in higher levels as well? This is useful if you configure [Thresholds](doc/thresholds.md) and want to change the style of wrapper elements. | Boolean | true |
+| basicElementType | The modules uses a lot of wrapper elments. What kind of html element should be used for this ("span" or "div" in most cases) | String | "span" |
+
+## More configuration
+
+Look at [Documentation](doc/README.md) to get more configuration options!
+
+[Values](doc/values.md)
+
+[Items](doc/items.md)
+
+[Groups](doc/groups.md)
+
+[Icons](doc/icons.md)
+
+[Titles](doc/titles.md)
+
+[Classes](doc/classes.md)
+
+[Thresholds](doc/thresholds.md)
+
+[Profiles](doc/profiles.md)

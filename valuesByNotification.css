@@ -55,7 +55,7 @@
     z-index: 5;
 }
 
-.vbn .groupImgIcon, .vbn .itemImgIcon, .vbn .valueImgIcon {
+.vbn .groupsImgIcon, .vbn .groupImgIcon, .vbn .itemImgIcon, .vbn .valueImgIcon {
     width: 15px;
 }
 /*
@@ -78,4 +78,11 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
+}
+
+.vbn .groupsImgIconWrapper, .vbn .groupsTitleWrapper, .vbn .groupTitleWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 }

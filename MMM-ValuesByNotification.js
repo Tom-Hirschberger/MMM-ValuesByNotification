@@ -18,16 +18,16 @@ Module.register('MMM-ValuesByNotification', {
 		itemPositions: "tie", //decides in which order the elments of a item object get added to the wrapper; t=title,i=icon,d=dummy,e=elements, use [] to create an wrapper
 		valuePositions: "ti[vu]", //decides in which order the elments of a value object get added to the wrapper; t=title,i=icon,v=value,u=unit,d=dummy, use [] to create an wrapper
 		naValue: "na", //the value which will be displayed if a specific notification has not reached within the reuse interval
-		groupsTitle: null,
+		groupsTitle: null, //the title(s) which are added before/after all groups
 		groupTitle: null, //the default title of the groups
 		itemTitle: null, //the default title of the items
 		valueTitle: null, //the default title of the values
 		classes: null, //should classes be added additionally? Add them to a string separated by a space
-		groupsIcon: null,
+		groupsIcon: null, //the icons which are added before/after all groups
 		groupIcon: null, //which is the default font awesome 4.7 icon to use for groups
 		itemIcon: null, //which is the default font awesome 4.7 icon to use for items
 		valueIcon: null, //which is the default font awesome 4.7 icon to use for values
-		groupsImgIcon: null, //which is the default image icon url to use for groups
+		groupsImgIcon: null, //the imgIcons which are added before/after all groups
 		groupImgIcon: null, //which is the default image icon url to use for groups
 		itemImgIcon: null, //which is the default image icon url to use for items
 		valueImgIcon: null, //which is the default image icon url to use for values
@@ -39,7 +39,7 @@ Module.register('MMM-ValuesByNotification', {
 		profiles: null, //should some elements only be visible if some of this profiles is the current active one? Enter the profiles in this string separted by spaces
 		addClassesRecursive: false, //should classes that are defined for elements be added to all sub elements as well?
 		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
-		automaticWrapperClassPrefix: "wrap" //if wrappers are configured in the positions string what is the prefix of the classes that should be added?
+		automaticWrapperClassPrefix: "wrap" //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
 	},
 
 	suspend: function () {
