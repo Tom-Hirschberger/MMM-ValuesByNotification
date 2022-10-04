@@ -1,10 +1,10 @@
         {
             module: "MMM-ValuesByNotification",
             position: "top_right",
-            //header: "Sensors",
             config: {
                 animationSpeed: 500,
                 updateInterval: 30,
+                letClassesBubbleUp: false,
                 valuePositions: "tivu",
                 classes: "environment",
                 naValue: "na.na",
