@@ -1,0 +1,70 @@
+.vbn.environment.groups{
+    min-width: 300px;
+  }
+  
+  .vbn.environment .itemsWrapper{
+    flex-direction: row;
+    column-gap: 20px;
+  }
+  
+  .vbn.environment .itemWrapper{
+    width: 100%;
+  }
+  
+  .vbn.environment .valueWrapper{
+    flex-direction: row;
+    justify-content: left;
+    row-gap: 10px;
+  }
+  
+  .vbn.environment .valueTitle{
+    min-width: 110px;
+    text-align: left;
+  }
+  
+  .vbn.environment .valueIcon {
+    font-size: 17px;
+    margin-top: 6px;
+    margin-right: 5px;
+  }
+  
+  .vbn.environment .value {
+    margin-right: 3px;
+    min-width: 45px;
+    text-align: right;
+  }
+  
+  .vbn.environment .groupWrapper.zisterne {
+    margin-top: 10px;
+  }
+  
+  .vbn.environment .zisterne .valueWrapper {
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 0px;
+    align-items: center;
+  }
+  
+  .vbn.environment .zisterne .valuesWrapper {
+    justify-content: right;
+  }
+  
+  .vbn.environment .zisterne .valueTitle{
+    min-width: auto;
+  }
+  
+  .vbn.environment .zisterne .value {
+    min-width: auto;
+  }
+  
+  .vbn.environment .zisterne .valueImgIcon {
+    width: 50px;
+  }
+  
+  .vbn.environment .zisterne .itemWrapper{
+    width: auto;
+  }
+  
+  .vbn.environment .zisterne .itemsWrapper{
+    display:block;
+  }
