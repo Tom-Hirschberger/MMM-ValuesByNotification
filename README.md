@@ -1,15 +1,15 @@
 # MMM-ValuesByNotification
 
-Need a MagicMirror² module which is able to display information which is send by a other module like [MMM-MQTTbridge](https://github.com/sergge1/MMM-MQTTbridge) or [MMM-CommandToNotification](https://github.com/Tom-Hirschberger/MMM-CommandToNotification)?  
-The information is provided as a simple message or as an JSON-Object?  
-You want to re-format the message before displaying it or want to select single values within the JSON-Object?  
-You need more than one instance and do want to style the instances different?  
-Do you want to style the elements or change displayed icons based on thresholds?  
-Do you want some elements to only be visible if a certain profile is active?  
+Need a MagicMirror² module which is able to display information which is send by a other module like [MMM-MQTTbridge](https://github.com/sergge1/MMM-MQTTbridge) or [MMM-CommandToNotification](https://github.com/Tom-Hirschberger/MMM-CommandToNotification)?
+The information is provided as a simple message or as an JSON-Object?
+You want to re-format the message before displaying it or want to select single values within the JSON-Object?
+You need more than one instance and do want to style the instances different?
+Do you want to style the elements or change displayed icons based on thresholds?
+Do you want some elements to only be visible if a certain profile is active?
 
-Then this is the module you need!  
+Then this is the module you need!
 
-BUT i think i created a monster. The configuration can be very tricky!  
+BUT i think i created a monster. The configuration can be very tricky!
 Take a look at the [screenshots](doc/screenshots) and at the provided configuration [examples](doc/configs) if you want to see some possible configurations.
 
 <p align="center">
@@ -20,7 +20,7 @@ Take a look at the [screenshots](doc/screenshots) and at the provided configurat
 
 [Example-CSS](doc/configs/twoModulesOneWithAlert.custom.css)
 
-In this screenshot you see two instances of the module which are called MODULE-1 and MODULE-2.  
+In this screenshot you see two instances of the module which are called MODULE-1 and MODULE-2.
 
 MODULE-1:
 
@@ -121,7 +121,7 @@ This very basic example has the following features:
 | notificationPrefix | Do the notifications you want to use for the values start all with the same prefix. You can specify a prefix here and use only the suffix in the item configurations later. | String | null |
 | classes | Should css classes be added to each html element? Configure them as a space separated string here. This is useful if you have two instances of the module and like to style them different. | String | null |
 | addClassesRecursive | Should classes that are configured at a higher level (here, groups, items) automatically be added to all sub elements as well or only at that level they are configured in? | Boolean | false |
-| letClassesBubbleUp | Should classes that are configured at a lower level be set to elements in higher levels as well? This is useful if you configure [Thresholds](doc/thresholds.md) and want to change the style of wrapper elements. | Boolean | true |
+| letClassesBubbleUp | Should classes that are added because of [Thresholds](doc/thresholds.md) be set to elements in higher levels as well? | Boolean | true |
 | basicElementType | The modules uses a lot of wrapper elments. What kind of html element should be used for this ("span" or "div" in most cases) | String | "span" |
 | groupsTitle | Specify a string or a array of strings containing title(s) which will be added as element(s) to the groups element. | String or Array of String | null |
 | groupsIcon | Specify one or more icon(s) you want to add to the groups elment either as String (which contains the [fontawesome 4.7](https://fontawesome.com/v4/icons/) classes of the single icon) or a array of strings which do contain the classes. Look at in the section [Icons](doc/icons.md) for more information. | String or array of Strings | null |
