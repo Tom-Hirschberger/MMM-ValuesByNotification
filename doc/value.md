@@ -57,7 +57,7 @@ Remeber that \${value} contains the actual value!
 ### Formating a float value to fixed number of fractions
 
 ```json
-valueFormat="Number(${value}).toFixed(2)"
+valueFormat: "Number(${value}).toFixed(2)"
 ```
 
 will lead to a float that is fixed to two fractions.
