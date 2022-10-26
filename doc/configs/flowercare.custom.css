@@ -1,0 +1,36 @@
+.vbn.flowercare .valueIcon {
+    font-size: 20px;
+}
+  
+.vbn.flowercare .valueImgIcon {
+    width: 50px;
+}
+  
+.vbn.flowercare .valueImgIcon.moisture {
+    margin-right: 15px;
+    /*https://codepen.io/sosuke/pen/Pjoqqp
+      start with filter: brightness(0) saturate(100%) to make sure the old colore is cleared first
+    */
+    filter: brightness(0) saturate(100%) invert(18%) sepia(59%) saturate(3504%) hue-rotate(121deg) brightness(93%) contrast(98%);
+}
+  
+.vbn.flowercare .itemIcon {
+    display: none;
+}
+  
+.vbn.flowercare .itemWrapper.bat-lt5 .itemIcon,  .vbn.flowercare .itemWrapper.bat-lt10 .itemIcon{
+    display: block;
+    margin-bottom: 10px;
+}
+  
+.vbn.flowercare .itemWrapper.bat-lt5 .itemIcon{
+    color: red;
+}
+  
+.vbn.flowercare .itemWrapper.bat-lt10 .itemIcon{
+    color: yellow;
+}
+  
+.vbn.flowercare .groupWrapper{
+    border-style: none;
+}

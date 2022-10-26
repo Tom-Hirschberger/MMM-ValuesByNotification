@@ -40,7 +40,8 @@ Module.register('MMM-ValuesByNotification', {
 		profiles: null, //should some elements only be visible if some of this profiles is the current active one? Enter the profiles in this string separted by spaces
 		addClassesRecursive: false, //should classes that are defined for elements be added to all sub elements as well?
 		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
-		automaticWrapperClassPrefix: "wrap" //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
+		automaticWrapperClassPrefix: "wrap", //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
+		newlineReplacement: " ",
 	},
 
 	suspend: function () {
@@ -211,6 +212,15 @@ Module.register('MMM-ValuesByNotification', {
 			jsonpathConfig = curGroupConfig["jsonpath"]
 		}
 
+		let newlineReplacement = self.config["newlineReplacement"]
+		if (typeof curValueConfig["newlineReplacement"] !== "undefined") {
+			newlineReplacement = curValueConfig["newlineReplacement"]
+		} else if (typeof curItemConfig["newlineReplacement"] !== "undefined") {
+			newlineReplacement = curItemConfig["newlineReplacement"]
+		} else if (typeof curGroupConfig["newlineReplacement"] !== "undefined") {
+			newlineReplacement = curGroupConfig["newlineReplacement"]
+		}
+
 		let automaticWrapperClassPrefix = self.config["automaticWrapperClassPrefix"]
 		if (typeof curValueConfig["automaticWrapperClassPrefix"] !== "undefined") {
 			automaticWrapperClassPrefix = curValueConfig["automaticWrapperClassPrefix"]
@@ -239,7 +249,7 @@ Module.register('MMM-ValuesByNotification', {
 			curValueConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
 		}
 
-		let value = curNotifcationObj["currentRawValue"]
+		let value = curNotifcationObj["currentRawValue"];
 
 		if ((typeof value === "undefined") ||
 		    ((curNotifcationObj[groupIdx][itemIdx]["reuseCount"] > 0) && (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"]))) {
@@ -264,6 +274,9 @@ Module.register('MMM-ValuesByNotification', {
 
 			try {
 				if((!isNaValue) || formatNaValue){
+					if (newlineReplacement != null) {
+						value = value.replace(/(?:\r\n|\r|\n)/g, newlineReplacement)
+					}
 					value = eval(eval("`" + valueFormatConfig + "`"))
 				}
 			} catch (exception){
@@ -394,6 +407,7 @@ Module.register('MMM-ValuesByNotification', {
 					curValueTitleElement.appendChild(self.htmlToElement(String(curValueTitle)))
 					curValueTitleElement.classList.add("valueTitle")
 					curValueTitleElement.classList.add("valueTitle" + idx)
+					additionalClasses.concat(thresholdClasses).forEach(element => curValueTitleElement.classList.add(element))
 					valueTitleElement.appendChild(curValueTitleElement)
 					idx += 1
 				}
@@ -443,6 +457,7 @@ Module.register('MMM-ValuesByNotification', {
 				let curDummyElement = document.createElement(self.config["basicElementType"])
 				curDummyElement.classList.add("valueDummy")
 				curDummyElement.classList.add("valueDummy"+dummyCount)
+				additionalClasses.concat(thresholdClasses).forEach(element => curDummyElement.classList.add(element))
 				dummyCount += 1
 				curWrapper.appendChild(curDummyElement)
 				atLeastOneAdded = true
@@ -451,6 +466,7 @@ Module.register('MMM-ValuesByNotification', {
 				wrappers.push(curWrapper)
 				let newWrapper = document.createElement(self.config["basicElementType"])
 				newWrapper.classList.add(automaticWrapperClassPrefix + curWrapperCount)
+				additionalClasses.concat(thresholdClasses).forEach(element => newWrapper.classList.add(element))
 				curWrapper.appendChild(newWrapper)
 				curWrapper = newWrapper
 			} else if (posChar === "]") {
@@ -471,7 +487,7 @@ Module.register('MMM-ValuesByNotification', {
 
 			return [valueWrapper, thresholdClasses]
 		} else {
-			return null
+			return [null, thresholdClasses]
 		}
 	},
 
@@ -494,7 +510,7 @@ Module.register('MMM-ValuesByNotification', {
 
 		if (profilesConfig != null) {
 			if (!profilesConfig.includes(self.currentProfile)) {
-				return null
+				return [null,[]]
 			}
 		}
 
@@ -554,21 +570,21 @@ Module.register('MMM-ValuesByNotification', {
 		if (typeof curItemConfig["values"] !== "undefined") {
 			for (let valueIdx = 0; valueIdx < curItemConfig["values"].length; valueIdx++) {
 				let valueElement = self.getValueDomElement(groupIdx, itemIdx, valueIdx)
-				if (valueElement != null) {
+				if (valueElement[0] != null) {
 					valueElements.push(valueElement[0])
-					bubbleClasses = valueElement[1]
 				}
+				bubbleClasses = bubbleClasses.concat(valueElement[1])
 			}
 		} else {
 			let valueElement = self.getValueDomElement(groupIdx, itemIdx, null)
-			if (valueElement != null) {
+			if (valueElement[0] != null) {
 				valueElements.push(valueElement[0])
-				bubbleClasses = valueElement[1]
 			}
+			bubbleClasses = bubbleClasses.concat(valueElement[1])
 		}
 
 		if (valueElements.length < 1) {
-			return null
+			return [null, bubbleClasses]
 		} else {
 			let itemWrapper = document.createElement(self.config["basicElementType"])
 			itemWrapper.classList.add("itemWrapper")
@@ -725,7 +741,7 @@ Module.register('MMM-ValuesByNotification', {
 
 		if (profilesConfig != null) {
 			if (!profilesConfig.includes(self.currentProfile)) {
-				return null
+				return [null,[]]
 			}
 		}
 
@@ -765,14 +781,14 @@ Module.register('MMM-ValuesByNotification', {
 		let bubbleClasses = []
 		for (let itemIdx = 0; itemIdx < curGroupConfig["items"].length; itemIdx++) {
 			let itemElement = self.getItemDomElement(groupIdx, itemIdx)
-			if (itemElement != null) {
+			if (itemElement[0] != null) {
 				itemElements.push(itemElement[0])
-				bubbleClasses = itemElement[1]
 			}
+			bubbleClasses = bubbleClasses.concat(itemElement[1])
 		}
 
 		if (itemElements.length < 1) {
-			return null
+			return [null, bubbleClasses]
 		} else {
 			let groupWrapper = document.createElement(self.config["basicElementType"])
 			groupWrapper.classList.add("groupWrapper")
@@ -928,7 +944,7 @@ Module.register('MMM-ValuesByNotification', {
 
 		if (profilesConfig != null) {
 			if (!profilesConfig.includes(self.currentProfile)) {
-				return null
+				return [null,[]]
 			}
 		}
 
@@ -1031,10 +1047,10 @@ Module.register('MMM-ValuesByNotification', {
 		let bubbleClasses = []
 		for (let groupIdx = 0; groupIdx < curGroupsConfig.length; groupIdx++) {
 			let groupElement = self.getGroupDomElement(groupIdx)
-			if (groupElement != null) {
+			if (groupElement[0] != null) {
 				groupElements.push(groupElement[0])
-				bubbleClasses = groupElement[1]
 			}
+			bubbleClasses = bubbleClasses.concat(groupElement[1])
 		}
 
 		let groupsWrapper = document.createElement(self.config["basicElementType"])
@@ -1095,7 +1111,7 @@ Module.register('MMM-ValuesByNotification', {
 			self.config["classes"].split(" ").forEach(element => wrapper.classList.add(element))
 		}
 		let groupsElement = self.getGroupsDomElement()
-		if (groupsElement != null) {
+		if (groupsElement[0] != null) {
 			wrapper.appendChild(groupsElement[0])
 		}
 
