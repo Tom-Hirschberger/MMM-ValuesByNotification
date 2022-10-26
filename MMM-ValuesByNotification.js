@@ -40,7 +40,8 @@ Module.register('MMM-ValuesByNotification', {
 		profiles: null, //should some elements only be visible if some of this profiles is the current active one? Enter the profiles in this string separted by spaces
 		addClassesRecursive: false, //should classes that are defined for elements be added to all sub elements as well?
 		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
-		automaticWrapperClassPrefix: "wrap" //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
+		automaticWrapperClassPrefix: "wrap", //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
+		newlineReplacement: " ",
 	},
 
 	suspend: function () {
@@ -211,6 +212,15 @@ Module.register('MMM-ValuesByNotification', {
 			jsonpathConfig = curGroupConfig["jsonpath"]
 		}
 
+		let newlineReplacement = self.config["newlineReplacement"]
+		if (typeof curValueConfig["newlineReplacement"] !== "undefined") {
+			newlineReplacement = curValueConfig["newlineReplacement"]
+		} else if (typeof curItemConfig["newlineReplacement"] !== "undefined") {
+			newlineReplacement = curItemConfig["newlineReplacement"]
+		} else if (typeof curGroupConfig["newlineReplacement"] !== "undefined") {
+			newlineReplacement = curGroupConfig["newlineReplacement"]
+		}
+
 		let automaticWrapperClassPrefix = self.config["automaticWrapperClassPrefix"]
 		if (typeof curValueConfig["automaticWrapperClassPrefix"] !== "undefined") {
 			automaticWrapperClassPrefix = curValueConfig["automaticWrapperClassPrefix"]
@@ -239,7 +249,7 @@ Module.register('MMM-ValuesByNotification', {
 			curValueConfig["classes"].split(" ").forEach(element => additionalClasses.push(element))
 		}
 
-		let value = curNotifcationObj["currentRawValue"]
+		let value = curNotifcationObj["currentRawValue"];
 
 		if ((typeof value === "undefined") ||
 		    ((curNotifcationObj[groupIdx][itemIdx]["reuseCount"] > 0) && (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"]))) {
@@ -264,6 +274,9 @@ Module.register('MMM-ValuesByNotification', {
 
 			try {
 				if((!isNaValue) || formatNaValue){
+					if (newlineReplacement != null) {
+						value = value.replace(/(?:\r\n|\r|\n)/g, newlineReplacement)
+					}
 					value = eval(eval("`" + valueFormatConfig + "`"))
 				}
 			} catch (exception){
