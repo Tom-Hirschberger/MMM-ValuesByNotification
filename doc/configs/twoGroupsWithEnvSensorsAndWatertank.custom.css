@@ -1,89 +1,89 @@
-.vbn.environment.groups{
+.MMM-ValuesByNotification .vbn.environment.groups{
   min-width: 300px;
 }
 
-.vbn .groupsWrapper {
+.MMM-ValuesByNotification .vbn .groupsWrapper {
   row-gap: 0px;
 }
 
-.vbn.environment .itemsWrapper{
+.MMM-ValuesByNotification .vbn.environment .itemsWrapper{
   flex-direction: row;
   column-gap: 20px;
 }
 
-.vbn.environment .itemWrapper{
+.MMM-ValuesByNotification .vbn.environment .itemWrapper{
   width: 100%;
 }
 
-.vbn.vbn.environment .valuesWrapper, .vbn.vbn.environment .itemsWrapper, .vbn.vbn.environment .groupWrapper{
+.MMM-ValuesByNotification .vbn.vbn.environment .valuesWrapper, .MMM-ValuesByNotification .vbn.vbn.environment .itemsWrapper, .MMM-ValuesByNotification .vbn.vbn.environment .groupWrapper{
   width: 100%
 }
 
-.vbn.environment .valueWrapper{
+.MMM-ValuesByNotification .vbn.environment .valueWrapper{
   flex-direction: row;
   justify-content: left;
   row-gap: 10px;
   align-items: unset;
 }
 
-.vbn.environment .valueTitle{
+.MMM-ValuesByNotification .vbn.environment .valueTitle{
   min-width: 110px;
   text-align: left;
 }
 
-.vbn.environment .valueIcon {
+.MMM-ValuesByNotification .vbn.environment .valueIcon {
   font-size: 17px;
   margin-top: 6px;
   margin-right: 5px;
 }
 
-.vbn.environment .value {
+.MMM-ValuesByNotification .vbn.environment .value {
   margin-right: 3px;
   min-width: 45px;
   text-align: right;
 }
 
-.vbn.environment .groupWrapper.zisterne {
+.MMM-ValuesByNotification .vbn.environment .groupWrapper.zisterne {
   margin-top: 10px;
 }
 
-.vbn.environment .zisterne .valueWrapper {
+.MMM-ValuesByNotification .vbn.environment .zisterne .valueWrapper {
   flex-direction: column;
   justify-content: center;
   row-gap: 0px;
   align-items: center;
 }
 
-.vbn.environment .zisterne .valuesWrapper {
+.MMM-ValuesByNotification .vbn.environment .zisterne .valuesWrapper {
   width: 100%;
   justify-content: right;
 }
 
-.vbn.environment .zisterne .valueTitle {
+.MMM-ValuesByNotification .vbn.environment .zisterne .valueTitle {
   min-width: auto;
 }
 
-.vbn.environment .zisterne .value {
+.MMM-ValuesByNotification .vbn.environment .zisterne .value {
   min-width: auto;
 }
 
-.vbn.environment .zisterne .valueImgIcon {
+.MMM-ValuesByNotification .vbn.environment .zisterne .valueImgIcon {
   width: 50px;
 }
 
-.vbn.environment .zisterne .itemWrapper {
+.MMM-ValuesByNotification .vbn.environment .zisterne .itemWrapper {
   width: auto;
 }
 
-.vbn.environment .zisterne .itemsWrapper {
+.MMM-ValuesByNotification .vbn.environment .zisterne .itemsWrapper {
   display:block;
 }
 
-.vbn .groupsWrapper {
+.MMM-ValuesByNotification .vbn .groupsWrapper {
   row-gap: 0px;
 }
 
-.vbn .groupWrapper {
+.MMM-ValuesByNotification .vbn .groupWrapper {
   border-style: none;
   padding: 0px;
 }

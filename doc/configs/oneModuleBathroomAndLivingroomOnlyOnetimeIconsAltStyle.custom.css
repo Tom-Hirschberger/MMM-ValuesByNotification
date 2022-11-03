@@ -1,20 +1,20 @@
-.vbn .itemWrapper {
+.MMM-ValuesByNotification .vbn .itemWrapper {
   flex-direction: row;
 }
 
-.vbn .itemTitle {
+.MMM-ValuesByNotification .vbn .itemTitle {
   min-width: 105px;
   text-decoration: none;
 }
 
-.vbn .itemTitle.withIcons {
+.MMM-ValuesByNotification .vbn .itemTitle.withIcons {
   margin-top: 17px;
 }
 
-.vbn .itemWrapper.withIcons {
+.MMM-ValuesByNotification .vbn .itemWrapper.withIcons {
   line-height: 22px;
 }
 
-.vbn .itemWrapper:not(.withIcons) {
+.MMM-ValuesByNotification .vbn .itemWrapper:not(.withIcons) {
   line-height: 10px;
 }

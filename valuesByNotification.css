@@ -1,4 +1,4 @@
-.vbn .groupWrapper {
+.MMM-ValuesByNotification .vbn .groupWrapper {
     border-radius: 5px;
     border-color: gray;
     border-style: solid;
@@ -6,38 +6,38 @@
     width: fit-content;
 }
 
-.vbn .groupsWrapper, .vbn .groupWrapper, .vbn .itemsWrapper, .vbn .valueWrapper{
+.MMM-ValuesByNotification .vbn .groupsWrapper, .MMM-ValuesByNotification .vbn .groupWrapper, .MMM-ValuesByNotification .vbn .itemsWrapper, .MMM-ValuesByNotification .vbn .valueWrapper{
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.vbn .groupsWrapper {
+.MMM-ValuesByNotification .vbn .groupsWrapper {
     row-gap: 10px;
 }
 
-.vbn .itemsWrapper {
+.MMM-ValuesByNotification .vbn .itemsWrapper {
     row-gap: 10px;
 }
 
-.vbn .itemsWrapper:first-child {
+.MMM-ValuesByNotification .vbn .itemsWrapper:first-child {
     row-gap: 0px;
 }
 
-.vbn .itemTitle {
+.MMM-ValuesByNotification .vbn .itemTitle {
     text-align: left;
     text-decoration: underline;
     margin: 5px;
 }
 
-.vbn .itemWrapper {
+.MMM-ValuesByNotification .vbn .itemWrapper {
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.vbn .valuesWrapper {
+.MMM-ValuesByNotification .vbn .valuesWrapper {
     display:flex;
     flex-direction: row;
     justify-content: left;
@@ -45,26 +45,26 @@
     gap: 15px;
 }
 
-.vbn .valueWrapper {
+.MMM-ValuesByNotification .vbn .valueWrapper {
     position: relative;
 }
 
-.vbn .groupIcon, .vbn .itemIcon, .vbn .valueIcon {
+.MMM-ValuesByNotification .vbn .groupIcon, .MMM-ValuesByNotification .vbn .itemIcon, .MMM-ValuesByNotification .vbn .valueIcon {
     font-size: 15px;
     display: block;
     z-index: 5;
 }
 
-.vbn .groupsImgIcon, .vbn .groupImgIcon, .vbn .itemImgIcon, .vbn .valueImgIcon {
+.MMM-ValuesByNotification .vbn .groupsImgIcon, .MMM-ValuesByNotification .vbn .groupImgIcon, .MMM-ValuesByNotification .vbn .itemImgIcon, .MMM-ValuesByNotification .vbn .valueImgIcon {
     width: 15px;
 }
 /*
-.vbn .red .valueImgIcon {
+.MMM-ValuesByNotification .vbn .red .valueImgIcon {
     fill: red;
     filter: brightness(0) saturate(100%) invert(22%) sepia(90%) saturate(4983%) hue-rotate(352deg) brightness(91%) contrast(127%);
 } */
 
-.vbn .wrap1 {
+.MMM-ValuesByNotification .vbn .wrap1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -73,14 +73,14 @@
     z-index: 10; */
 }
 
-.vbn .itemIconWrapper, .vbn .itemTitleWrapper, .vbn .itemImgIconWrapper{
+.MMM-ValuesByNotification .vbn .itemIconWrapper, .MMM-ValuesByNotification .vbn .itemTitleWrapper, .MMM-ValuesByNotification .vbn .itemImgIconWrapper{
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
 }
 
-.vbn .groupsImgIconWrapper, .vbn .groupsTitleWrapper, .vbn .groupTitleWrapper {
+.MMM-ValuesByNotification .vbn .groupsImgIconWrapper, .MMM-ValuesByNotification .vbn .groupsTitleWrapper, .MMM-ValuesByNotification .vbn .groupTitleWrapper {
   width: 100%;
   display: flex;
   flex-direction: row;
