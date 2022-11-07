@@ -4,7 +4,8 @@
   "description": "",
   "main": "MMM-ValuesByNotification",
   "dependencies": {
-    "jsonpath-plus": "5.0.1"
+    "jsonpath-plus": "5.0.1",
+    "@iconify/iconify": "latest"
   },
   "devDependencies": {},
   "repository": {

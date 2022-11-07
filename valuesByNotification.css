@@ -55,6 +55,13 @@
     z-index: 5;
 }
 
+.MMM-ValuesByNotification .vbn .groupIcon.iconify, 
+.MMM-ValuesByNotification .vbn .itemIcon.iconify, 
+.MMM-ValuesByNotification .vbn .valueIcon.iconify {
+    width: 15px;
+    height: 15px;
+}
+
 .MMM-ValuesByNotification .vbn .groupsImgIcon, .MMM-ValuesByNotification .vbn .groupImgIcon, .MMM-ValuesByNotification .vbn .itemImgIcon, .MMM-ValuesByNotification .vbn .valueImgIcon {
     width: 15px;
 }
