@@ -1,15 +1,15 @@
-.vbn .itemWrapper {
+.MMM-ValuesByNotification .vbn .itemWrapper {
   flex-direction: row;
 }
 
-.vbn .itemTitle {
+.MMM-ValuesByNotification .vbn .itemTitle {
   min-width: 105px;
   margin-top: 17px;
   margin-left: 0px;
   text-decoration: none;
 }
 
-.vbn .groupWrapper {
+.MMM-ValuesByNotification .vbn .groupWrapper {
   border-radius: none;
   border-style: none;
   padding: 0px;

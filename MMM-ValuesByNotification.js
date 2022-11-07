@@ -55,7 +55,7 @@ Module.register('MMM-ValuesByNotification', {
 
 
 	getScripts: function () {
-		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js')];
+		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
 
@@ -374,23 +374,37 @@ Module.register('MMM-ValuesByNotification', {
 					additionalClasses.concat(thresholdClasses).forEach(element => iconElement.classList.add(element))
 					let idx = 0
 					for (let curIconConfig of iconConfig) {
-						let curIconElement = document.createElement("i")
-						curIconElement.classes = curIconConfig
+						let curIconElement = null
+						if(curGroupConfig.startsWith("fa ")){
+							curIconElement = document.createElement("i")
+							curIconElement.classes = curIconConfig
+							curIconElement.setAttribute("aria-hidden", "true")
+						} else {
+							curIconElement = document.createElement("span")
+							curIconElement.classList.add("iconify-inline")
+							curIconElement.setAttribute("data-icon", curIconConfig)
+						}
+						
 						curIconElement.classList.add("valueIcon")
 						curIconElement.classList.add("valueIcon" + idx)
 						curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 						additionalClasses.concat(thresholdClasses).forEach(element => curIconElement.classList.add(element))
-						curIconElement.setAttribute("aria-hidden", "true")
 						iconElement.appendChild(curIconElement)
 						idx += 1
 					}
 				} else {
-					iconElement = document.createElement("i")
-					iconElement.classes = iconConfig
+					if(iconConfig.startsWith("fa ")){
+						iconElement = document.createElement("i")
+						iconElement.classes = iconConfig
+						iconElement.setAttribute("aria-hidden", "true")
+					} else {
+						iconElement = document.createElement("span")
+						iconElement.classList.add("iconify-inline")
+						iconElement.setAttribute("data-icon", iconConfig)
+					}
 					iconElement.classList.add("valueIcon")
 					iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
 					additionalClasses.concat(thresholdClasses).forEach(element => iconElement.classList.add(element))
-					iconElement.setAttribute("aria-hidden", "true")
 				}
 				additionalClasses.concat(thresholdClasses).forEach(element => iconElement.classList.add(element))
 			}
@@ -630,23 +644,39 @@ Module.register('MMM-ValuesByNotification', {
 						additionalClasses.forEach(element => iconElement.classList.add(element))
 						let idx = 0
 						for (let curIconConfig of iconConfig) {
-							let curIconElement = document.createElement("i")
-							curIconElement.classes = curIconConfig
+							let curIconElement
+							if(curIconConfig.startsWith("fa ")){
+								curIconElement = document.createElement("i")
+								curIconElement.classes = curIconConfig
+								curIconElement.setAttribute("aria-hidden", "true")
+							} else {
+								curIconElement = document.createElement("span")
+								curIconElement.classList.add("iconify-inline")
+								curIconElement.setAttribute("data-icon", curIconConfig)
+							}
+							
 							curIconElement.classList.add("itemIcon")
 							curIconElement.classList.add("itemIcon" + idx)
 							curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 							additionalClasses.forEach(element => curIconElement.classList.add(element))
-							curIconElement.setAttribute("aria-hidden", "true")
+							
 							iconElement.appendChild(curIconElement)
 							idx += 1
 						}
 					} else {
-						iconElement = document.createElement("i")
-						iconElement.classes = iconConfig
+						if(iconConfig.startsWith("fa ")){
+							iconElement = document.createElement("i")
+							iconElement.classes = iconConfig
+							iconElement.setAttribute("aria-hidden", "true")
+						} else {
+							iconElement = document.createElement("span")
+							iconElement.classList.add("iconify-inline")
+							iconElement.setAttribute("data-icon", iconConfig)
+						}
+						
 						iconElement.classList.add("itemIcon")
 						iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
 						additionalClasses.forEach(element => iconElement.classList.add(element))
-						iconElement.setAttribute("aria-hidden", "true")
 					}
 					additionalClasses.forEach(element => iconElement.classList.add(element))
 				}
@@ -834,23 +864,37 @@ Module.register('MMM-ValuesByNotification', {
 						additionalClasses.forEach(element => iconElement.classList.add(element))
 						let idx = 0
 						for (let curIconConfig of iconConfig) {
-							let curIconElement = document.createElement("i")
-							curIconElement.classes = curIconConfig
+							let curIconElement
+							if(curIconConfig.startsWith("fa ")){
+								curIconElement = document.createElement("i")
+								curIconElement.classes = curIconConfig
+								curIconElement.setAttribute("aria-hidden", "true")
+							} else {
+								curIconElement = document.createElement("span")
+								curIconElement.classList.add("iconify-inline")
+								curIconElement.setAttribute("data-icon", curIconConfig)
+							}
+							
 							curIconElement.classList.add("groupIcon")
 							curIconElement.classList.add("groupIcon" + idx)
 							curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 							additionalClasses.forEach(element => curIconElement.classList.add(element))
-							curIconElement.setAttribute("aria-hidden", "true")
 							iconElement.appendChild(curIconElement)
 							idx += 1
 						}
 					} else {
-						iconElement = document.createElement("i")
-						iconElement.classes = iconConfig
+						if(iconConfig.startsWith("fa ")){
+							iconElement = document.createElement("i")
+							iconElement.classes = iconConfig
+							iconElement.setAttribute("aria-hidden", "true")
+						} else {
+							iconElement = document.createElement("span")
+							iconElement.classList.add("iconify-inline")
+							iconElement.setAttribute("data-icon", iconConfig)
+						}
 						iconElement.classList.add("groupIcon")
 						iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
 						additionalClasses.forEach(element => iconElement.classList.add(element))
-						iconElement.setAttribute("aria-hidden", "true")
 					}
 					additionalClasses.forEach(element => iconElement.classList.add(element))
 				}

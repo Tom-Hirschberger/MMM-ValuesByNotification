@@ -1,7 +1,7 @@
-.vbn .valueIcon.lt20 {
+.MMM-ValuesByNotification .vbn .valueIcon.lt20 {
     color: yellow;
 }
 
-.vbn .valueIcon.lt15 {
+.MMM-ValuesByNotification .vbn .valueIcon.lt15 {
     color: red;
 }

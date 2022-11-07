@@ -1,10 +1,11 @@
 {
   "name": "MMM-ValuesByNotification",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "MMM-ValuesByNotification",
   "dependencies": {
-    "jsonpath-plus": "5.0.1"
+    "jsonpath-plus": "5.0.1",
+    "@iconify/iconify": "latest"
   },
   "devDependencies": {},
   "repository": {
