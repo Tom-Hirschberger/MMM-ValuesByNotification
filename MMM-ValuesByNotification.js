@@ -259,7 +259,7 @@ Module.register('MMM-ValuesByNotification', {
 			let isNaValue = false
 			if ((jsonpathConfig != null) && (curNotifcationObj["isJSON"])) {
 				try {
-					value = JSONPath.JSONPath({ path: jsonpathConfig, json: value });
+					value = JSONPath.JSONPath({ path: jsonpathConfig, json: value })[0];
 					if(value == ""){
 						isNaValue = true
 						value = naValueConfig
