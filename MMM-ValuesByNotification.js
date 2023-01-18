@@ -71,7 +71,15 @@ Module.register('MMM-ValuesByNotification', {
 		var template = document.createElement('template');
 		theString = theString.trim(); // Never return a text node of whitespace as the result
 		template.innerHTML = theString;
-		return template.content.firstChild;
+		if (template.content.childNodes.length > 1){
+			let wrapper = document.createElement("span")
+			for (let curChild of template.content.childNodes){
+				wrapper.appendChild(curChild)
+			}
+			return wrapper
+		} else {
+			return template.content.firstChild;
+		}
 	},
 
 	/*
@@ -259,7 +267,7 @@ Module.register('MMM-ValuesByNotification', {
 			let isNaValue = false
 			if ((jsonpathConfig != null) && (curNotifcationObj["isJSON"])) {
 				try {
-					value = JSONPath.JSONPath({ path: jsonpathConfig, json: value });
+					value = JSONPath.JSONPath({ path: jsonpathConfig, json: value })[0];
 					if(value == ""){
 						isNaValue = true
 						value = naValueConfig
