@@ -1,6 +1,6 @@
 # Thresholds
 
-With the tresholds configuration you are able to override the "valueIcon" and "valueImgIcon" option of value element if a specific condition mets or you can add "classes" to this and all parent elements in this case.
+With the tresholds configuration you are able to override the "valueIcon", "valueImgIcon" and "valuePositions" option of value element if a specific condition mets or you can add "classes" to this and all parent elements in this case. The value of `valuePositions` will override `valueNaPositions`, too!
 The decision about the threshold is based on the value (after reformat so be careful with the "valueFormat" option in this case).
 
 The following threshold types are possible:
@@ -19,10 +19,15 @@ The thresholds of a value will be specified as a list.
 
 A thresholds needs a type, the value to compare to and at least one of "classes", "valueImgIcon", "valueIcon" configured.
 
-In this example the path of the imgIcon of the value is changed to "modules/MMM-ValuesByNotification/icons/tom.jpg" if the value is lower than 15 and a class "lt15" is added to the value element. If the general configuration option "letClassesBubbleUp" is set to "true" (default) the elements of the itemWrapper and groupWrapper as well as the groupsWrapper all get the class added as well. If the value is greater or eqal to 15 but lower than 20 the icon is changed to a fontawesome 4.7 icon and the class "lt20" is added instead. If the value does not met any of the thresholds nothing happens.
+In this example the `valuePositions` are set to only display the value without the unit if the value is equal to "Loading" and the path of the imgIcon of the value is changed to "modules/MMM-ValuesByNotification/icons/tom.jpg" if the value is lower than 15 and a class "lt15" is added to the value element. If the general configuration option "letClassesBubbleUp" is set to "true" (default) the elements of the itemWrapper and groupWrapper as well as the groupsWrapper all get the class added as well. If the value is greater or eqal to 15 but lower than 20 the icon is changed to a fontawesome 4.7 icon and the class "lt20" is added instead. If the value does not met any of the thresholds nothing happens.
 
 ```json5
   thresholds: [
+      {
+          type: "eq",
+          value: "Loading",
+          valuePositions: "[v]",
+      },
       {
           type: "lt",
           value: "15",

@@ -12,6 +12,7 @@
 | jsonpath | Specify a [jsonpath-plus](https://github.com/JSONPath-Plus/JSONPath) path to select a value if your notification contains a json object. | String | null |
 | newlineReplacement | Newline characters like \r and \n will be replaced with this string after a possible json is parsed but before the value gets formatted. | String | " " |
 | valuePositions | Specify in which order the elements should be added to the value element. t=title(s), i=icon(s), v=value, u=unit, d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](positions.md) section to get more information. | String | "ti[vu]" |
+| valueNaPositions | Specify in which order the elements should be added to the value element if `naValue` is used. t=title(s), i=icon(s), v=value, u=unit, d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](positions.md) section to get more information. | String | value of `valuePositions` |
 | classes | Specify css classes here that will be configured to each element of the value element. The classes need to be specified space separated in a string. | String | null |
 | thresholds | Specify a array of thresholds which can be used to add classes or manipulate the icons. Look to the [Thresholds](thresholds.md) section to get more information. | Array | null |
 | profiles | Specify a space separated list of profiles if you like this value element only to be displayed if a certain profile is active currently. | Stirng | null |
