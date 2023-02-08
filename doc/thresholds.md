@@ -1,6 +1,6 @@
 # Thresholds
 
-With the tresholds configuration you are able to override the "valueIcon", "valueImgIcon" and "valuePositions" option of value element if a specific condition mets or you can add "classes" to this and all parent elements in this case.
+With the tresholds configuration you are able to override the "valueIcon", "valueImgIcon" and "valuePositions" option of value element if a specific condition mets or you can add "classes" to this and all parent elements in this case. The value of `valuePositions` will override `valueNaPositions`, too!
 The decision about the threshold is based on the value (after reformat so be careful with the "valueFormat" option in this case).
 
 The following threshold types are possible:

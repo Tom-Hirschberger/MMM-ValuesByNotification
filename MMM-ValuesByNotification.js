@@ -166,6 +166,17 @@ Module.register('MMM-ValuesByNotification', {
 			positionsConfig = curGroupConfig["valuePositions"]
 		}
 
+		let naPositionsConfig = positionsConfig
+		if (typeof curValueConfig["valueNaPositions"] !== "undefined") {
+			naPositionsConfig = curValueConfig["valueNaPositions"]
+		} else if (typeof curItemConfig["valueNaPositions"] !== "undefined") {
+			naPositionsConfig = curItemConfig["valueNaPositions"]
+		} else if (typeof curGroupConfig["valueNaPositions"] !== "undefined") {
+			naPositionsConfig = curGroupConfig["valueNaPositions"]
+		} else if (typeof self.config["valueNaPositions"] !== "undefined") {
+			naPositionsConfig = self.config["valueNaPositions"]
+		}
+
 		let valueFormatConfig = self.config["valueFormat"]
 		if (typeof curValueConfig["valueFormat"] !== "undefined") {
 			valueFormatConfig = curValueConfig["valueFormat"]
@@ -263,6 +274,7 @@ Module.register('MMM-ValuesByNotification', {
 		    ((curNotifcationObj[groupIdx][itemIdx]["reuseCount"] > 0) && (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"]))) {
 			value = naValueConfig
 			additionalClasses.push("naValue")
+			positionsConfig = naPositionsConfig
 		} else {
 			let isNaValue = false
 			if ((jsonpathConfig != null) && (curNotifcationObj["isJSON"])) {
@@ -276,6 +288,7 @@ Module.register('MMM-ValuesByNotification', {
 				} catch {
 					isNaValue = true
 					value = naValueConfig
+					positionsConfig = naPositionsConfig
 					additionalClasses.push("naValue")
 				}
 			}
