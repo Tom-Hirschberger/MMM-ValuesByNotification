@@ -332,6 +332,10 @@ Module.register('MMM-ValuesByNotification', {
 						if (typeof curThresholdConfig["classes"] !== "undefined") {
 							curThresholdConfig["classes"].split(" ").forEach(element => thresholdClasses.push(element))
 						}
+
+						if (typeof curThresholdConfig["valuePositions"] !== "undefined") {
+							positionsConfig = curThresholdConfig["valuePositions"]
+						}
 						break
 					}
 				}
