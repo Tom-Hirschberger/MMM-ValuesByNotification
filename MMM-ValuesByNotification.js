@@ -32,7 +32,7 @@ Module.register('MMM-ValuesByNotification', {
 		itemImgIcon: null, //which is the default image icon url to use for items
 		valueImgIcon: null, //which is the default image icon url to use for values
 		valueUnit: null, //what is the default unit of the values
-		valueFormat: "{value}", //use an javascript script to format the value; {value} will be the value of the parsed notifcation; i.e. Number(${value}).toFixed(2) to display the number with two decimals
+		valueFormat: null,//"{value}", //use an javascript script to format the value; {value} will be the value of the parsed notifcation; i.e. Number(${value}).toFixed(2) to display the number with two decimals
 		formatNaValue: false, //should the na value be formatted as it would be a regular value
 		thresholds: null, //specifify thresholds to add classes or change the icon based on the current value; possible compare types are eq=equal,lt=lower then,le=lower equal,gt=greater than,ge=greater equal
 		groups: [], //specify groups of items which contain values; the used notification can be specified for each item
@@ -293,16 +293,18 @@ Module.register('MMM-ValuesByNotification', {
 				}
 			}
 
-			try {
-				if((!isNaValue) || formatNaValue){
-					if (newlineReplacement != null) {
-						value = value.replace(/(?:\r\n|\r|\n)/g, newlineReplacement)
+			if (valueFormatConfig != null){
+				try {
+					if((!isNaValue) || formatNaValue){
+						if (newlineReplacement != null) {
+							value = String(value).replace(/(?:\r\n|\r|\n)/g, newlineReplacement)
+						}
+						value = eval(eval("`" + valueFormatConfig + "`"))
 					}
-					value = eval(eval("`" + valueFormatConfig + "`"))
+				} catch (exception){
+					console.log(exception)
 				}
-			} catch (exception){
-				console.log(exception)
-			 }
+			}
 		}
 
 		let thresholdClasses = []
