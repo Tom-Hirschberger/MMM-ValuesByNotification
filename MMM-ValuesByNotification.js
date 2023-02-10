@@ -95,7 +95,7 @@ Module.register('MMM-ValuesByNotification', {
 		}
 
 		let curValueConfig
-		if (typeof curItemConfig["values"] != "undefined") {
+		if (typeof curItemConfig["values"] !== "undefined") {
 			curValueConfig = curItemConfig["values"][valueIdx]
 		} else {
 			curValueConfig = {}
@@ -280,7 +280,7 @@ Module.register('MMM-ValuesByNotification', {
 			if ((jsonpathConfig != null) && (curNotifcationObj["isJSON"])) {
 				try {
 					value = JSONPath.JSONPath({ path: jsonpathConfig, json: value })[0];
-					if(value == ""){
+					if(value === ""){
 						isNaValue = true
 						value = naValueConfig
 						additionalClasses.push("naValue")
