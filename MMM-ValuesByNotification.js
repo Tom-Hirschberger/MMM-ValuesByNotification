@@ -42,6 +42,8 @@ Module.register('MMM-ValuesByNotification', {
 		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
 		automaticWrapperClassPrefix: "wrap", //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
 		newlineReplacement: " ",
+		compass: false, // If user requests, convert values to compass direction, for weather stations and the like.
+		unitSpace: false, // If user requests, add a space for units.  
 	},
 
 	suspend: function () {
@@ -87,6 +89,14 @@ Module.register('MMM-ValuesByNotification', {
 	*/
 	getValueDomElement: function (groupIdx, itemIdx, valueIdx) {
 		const self = this
+		
+		const degToCompass = (num) => {
+			val = ((num/22.5)+.5) | 0;
+			arr = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+			res = arr[(val % 16)];
+			return res;
+		}
+
 		let curGroupConfig = self.config["groups"][groupIdx]
 		let curItemConfig = curGroupConfig["items"][itemIdx]
 
@@ -249,6 +259,24 @@ Module.register('MMM-ValuesByNotification', {
 			automaticWrapperClassPrefix = curGroupConfig["automaticWrapperClassPrefix"]
 		}
 
+		let compass = self.config["compass"]
+		if (typeof curValueConfig["compass"] !== "undefined") {
+			compass = curValueConfig["compass"]
+		} else if (typeof curItemConfig["compass"] !== "undefined") {
+			compass = curItemConfig["compass"]
+		} else if (typeof curGroupConfig["compass"] !== "undefined") {
+			compass = curGroupConfig["compass"]
+		}
+		
+		let unitSpace = self.config["unitSpace"]
+		if (typeof curValueConfig["unitSpace"] !== "undefined") {
+			unitSpace = curValueConfig["unitSpace"]
+		} else if (typeof curItemConfig["unitSpace"] !== "undefined") {
+			unitSpace = curItemConfig["unitSpace"]
+		} else if (typeof curGroupConfig["unitSpace"] !== "undefined") {
+			unitSpace = curGroupConfig["unitSpace"]
+		}
+
 		let additionalClasses = []
 		if (self.config.addClassesRecursive) {
 			if (self.config["classes"] != null) {
@@ -360,7 +388,11 @@ Module.register('MMM-ValuesByNotification', {
 		let valueElement = null
 		if (positionsConfig.includes("v")) {
 			valueElement = document.createElement(self.config["basicElementType"])
-			valueElement.appendChild(self.htmlToElement(String(value)))
+			if (compass) {
+				valueElement.appendChild(self.htmlToElement(degToCompass(value)))
+			}else{
+				valueElement.appendChild(self.htmlToElement(String(value)))
+			}
 			valueElement.classList.add("value")
 			additionalClasses.concat(thresholdClasses).forEach(element => valueElement.classList.add(element))
 		}
@@ -463,7 +495,11 @@ Module.register('MMM-ValuesByNotification', {
 		let unitElement = null
 		if ((valueUnitConfig != null) && (positionsConfig.includes("u"))) {
 			unitElement = document.createElement(self.config["basicElementType"])
-			unitElement.appendChild(self.htmlToElement(String(valueUnitConfig)))
+			if (unitSpace) {
+				unitElement.appendChild(self.htmlToElement(String("&nbsp;" + valueUnitConfig)))
+			}else{
+				unitElement.appendChild(self.htmlToElement(String(valueUnitConfig)))
+			}				
 			unitElement.classList.add("unit")
 			additionalClasses.concat(thresholdClasses).forEach(element => unitElement.classList.add(element))
 		}
