@@ -11,6 +11,7 @@
 | formatNaValue | Should the naValue be formatted as like it would be a regular value? | Boolean | false |
 | jsonpath | Specify a [jsonpath-plus](https://github.com/JSONPath-Plus/JSONPath) path to select a value if your notification contains a json object. | String | null |
 | newlineReplacement | Newline characters like \r and \n will be replaced with this string after a possible json is parsed but before the value gets formatted. Newlinepreplacement will only happen if `valueFormat` is set. If you want to use `newlineReplacement` but do not want to format the value use `${value}` as `valueFormat`! | String | " " |
+| valueTransformers | Specify a array of functions that should be called before the `valueFormat` to transform the value in a more complex way (i.e. transform degrees to a point of the compass). The functions need to be specified in the configuration option `transformerFunctions` of the main configuration. | Array of Strings | null |
 | valuePositions | Specify in which order the elements should be added to the value element. t=title(s), i=icon(s), v=value, u=unit, d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](positions.md) section to get more information. | String | "ti[vu]" |
 | valueNaPositions | Specify in which order the elements should be added to the value element if `naValue` is used. t=title(s), i=icon(s), v=value, u=unit, d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](positions.md) section to get more information. | String | value of `valuePositions` |
 | classes | Specify css classes here that will be configured to each element of the value element. The classes need to be specified space separated in a string. | String | null |
@@ -29,6 +30,17 @@ If for example a "naValue" is configured directly in the "config" section but th
             config: {
                 naValue: "n1",
                 valueUnit: "abc",
+                transformerFunctions: {
+                    degToCompass: (num) => {
+                        val = ((num/22.5)+.5) | 0;
+                        arr = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+                        res = arr[(val % 16)];
+                        return res;
+                    },
+                    blaBlub: (value) => {
+                        return "<p>foo</p><div>"+value+"</div><p>bar</p>"
+                    }
+                },
                 groups: [
                     {
                         naValue: "n2",
@@ -44,6 +56,10 @@ If for example a "naValue" is configured directly in the "config" section but th
                                     {
                                         valueTitle: "Value-2",
                                     },
+                                    {
+                                        valueTitle: "Value-3",
+                                        valueTransformers: ["degToCompass", "blaBlub"]
+                                    },
                                 ]
                             },
                         ]
@@ -54,6 +70,8 @@ If for example a "naValue" is configured directly in the "config" section but th
 ```
 
 ## valueFormat examples
+
+**As of version 0.0.10 of the module i suggest to use the transformer functions instead of `valueFormat`. But both will work!**
 
 Remeber that \${value} contains the actual value!
 
@@ -107,6 +125,20 @@ The result value will be:
 ```text
 13
 ```
+
+## Tranformer functions example
+
+As of version 0.0.10 of the module you can use the transformer functions feature to write your own javascript functions to transform the values.  
+In the example above the two tranformer functions `degToCompass` and `blaBlub` are defined a and the third value makes use of them cause `valueTransformers` is configured to `["degToCompass", "blaBlub"]`.
+If i.e. a value of `20.0` will be processed by these functions the result will be:
+
+```html
+<p>foo</p>
+<div>NNE</div
+><p>bar</p>
+```
+
+If `valueTransformers` only had contained `["degToCompass"]` the output would be a simple `NNE`.
 
 ## jsonpath examples
 

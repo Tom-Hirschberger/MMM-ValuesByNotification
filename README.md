@@ -128,7 +128,12 @@ This very basic example has the following features:
 | groupsImgIcon | Specify one or more images that should be displayed as icon(s) **instead** of [Fontawesome 4.7](https://fontawesome.com/v4/icons/) or [Iconify](https://icon-sets.iconify.design/) icon(s). This value needs to be either a string which contains the path to the icon or an array of strings containing the paths in each element. Look at in the section [Icons](doc/icons.md) for more information. | String or array of Strings | null |
 | groupPositions | Specify in which order the elements should be added to the groups element. t=title(s), i=icon(s), e=elements (the group elements), d=dummy (empty element to act as placeholder), [] to create a sub wrapper. Look to [Positions](doc/positions.md) section to get more information. | String | "tie" |
 | automaticWrapperClassPrefix | If a wrapper is specified in the groupsPositions, option this class will be added to every wrapper. Additionally a class starting with this prefix and a number starting with 0 will be added. | String | "wrap" |
+| transformerFunctions | Specify a map of functions that can be used as transformer functions (see [Values](doc/value.md) for more details). New as of version 0.0.10. | Map of functions | {} |
 
 ## More configuration
 
 Look at [Documentation](doc/README.md) to get more configuration options!
+
+## Thanks for Contribution and Ideas
+
+@BKeyport

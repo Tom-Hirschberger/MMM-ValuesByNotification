@@ -33,6 +33,8 @@ Module.register('MMM-ValuesByNotification', {
 		valueImgIcon: null, //which is the default image icon url to use for values
 		valueUnit: null, //what is the default unit of the values
 		valueFormat: null,//"{value}", //use an javascript script to format the value; {value} will be the value of the parsed notifcation; i.e. Number(${value}).toFixed(2) to display the number with two decimals
+		transformerFunctions: {}, //specify a map of functions which should be usable as transformers
+		valueTransformers: null,//specify a list of transformer function names that should be called
 		formatNaValue: false, //should the na value be formatted as it would be a regular value
 		thresholds: null, //specifify thresholds to add classes or change the icon based on the current value; possible compare types are eq=equal,lt=lower then,le=lower equal,gt=greater than,ge=greater equal
 		groups: [], //specify groups of items which contain values; the used notification can be specified for each item
@@ -42,6 +44,8 @@ Module.register('MMM-ValuesByNotification', {
 		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
 		automaticWrapperClassPrefix: "wrap", //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
 		newlineReplacement: " ",
+		compass: false, // If user requests, convert values to compass direction, for weather stations and the like.
+		unitSpace: false, // If user requests, add a space for units.  
 	},
 
 	suspend: function () {
@@ -65,20 +69,14 @@ Module.register('MMM-ValuesByNotification', {
 
 	/*
 	** creates html objects based on a given string
-	** see: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
+	** different approach: https://davidwalsh.name/convert-html-stings-dom-nodes
 	*/
 	htmlToElement: function (theString) {
-		var template = document.createElement('template');
-		theString = theString.trim(); // Never return a text node of whitespace as the result
-		template.innerHTML = theString;
-		if (template.content.childNodes.length > 1){
-			let wrapper = document.createElement("span")
-			for (let curChild of template.content.childNodes){
-				wrapper.appendChild(curChild)
-			}
-			return wrapper
+		theString = theString.trim()
+		if (theString == ""){
+			return theString
 		} else {
-			return template.content.firstChild;
+			return document.createRange().createContextualFragment(theString)
 		}
 	},
 
@@ -87,6 +85,7 @@ Module.register('MMM-ValuesByNotification', {
 	*/
 	getValueDomElement: function (groupIdx, itemIdx, valueIdx) {
 		const self = this
+
 		let curGroupConfig = self.config["groups"][groupIdx]
 		let curItemConfig = curGroupConfig["items"][itemIdx]
 
@@ -186,6 +185,15 @@ Module.register('MMM-ValuesByNotification', {
 			valueFormatConfig = curGroupConfig["valueFormat"]
 		}
 
+		let valueTransformersConfig = self.config["valueTransformers"]
+		if (typeof curValueConfig["valueTransformers"] !== "undefined") {
+			valueTransformersConfig = curValueConfig["valueTransformers"]
+		} else if (typeof curItemConfig["valueTransformers"] !== "undefined") {
+			valueTransformersConfig = curItemConfig["valueTransformers"]
+		} else if (typeof curGroupConfig["valueTransformers"] !== "undefined") {
+			valueTransformersConfig = curGroupConfig["valueTransformers"]
+		}
+
 		let formatNaValue = self.config["formatNaValue"]
 		if (typeof curValueConfig["formatNaValue"] !== "undefined") {
 			formatNaValue = curValueConfig["formatNaValue"]
@@ -248,6 +256,15 @@ Module.register('MMM-ValuesByNotification', {
 		} else if (typeof curGroupConfig["automaticWrapperClassPrefix"] !== "undefined") {
 			automaticWrapperClassPrefix = curGroupConfig["automaticWrapperClassPrefix"]
 		}
+		
+		let unitSpace = self.config["unitSpace"]
+		if (typeof curValueConfig["unitSpace"] !== "undefined") {
+			unitSpace = curValueConfig["unitSpace"]
+		} else if (typeof curItemConfig["unitSpace"] !== "undefined") {
+			unitSpace = curItemConfig["unitSpace"]
+		} else if (typeof curGroupConfig["unitSpace"] !== "undefined") {
+			unitSpace = curGroupConfig["unitSpace"]
+		}
 
 		let additionalClasses = []
 		if (self.config.addClassesRecursive) {
@@ -270,13 +287,14 @@ Module.register('MMM-ValuesByNotification', {
 
 		let value = curNotifcationObj["currentRawValue"];
 
+		let isNaValue = false
 		if ((typeof value === "undefined") ||
 		    ((curNotifcationObj[groupIdx][itemIdx]["reuseCount"] > 0) && (curNotifcationObj["currentUses"] > curNotifcationObj[groupIdx][itemIdx]["reuseCount"]))) {
 			value = naValueConfig
+			isNaValue = true
 			additionalClasses.push("naValue")
 			positionsConfig = naPositionsConfig
 		} else {
-			let isNaValue = false
 			if ((jsonpathConfig != null) && (curNotifcationObj["isJSON"])) {
 				try {
 					value = JSONPath.JSONPath({ path: jsonpathConfig, json: value })[0];
@@ -292,15 +310,30 @@ Module.register('MMM-ValuesByNotification', {
 					additionalClasses.push("naValue")
 				}
 			}
+		}
+
+		if((!isNaValue) || formatNaValue){
+			if (valueTransformersConfig != null){
+				for (let curTransformerIdentifier of valueTransformersConfig){
+					let curTransformer = self.config.transformerFunctions[curTransformerIdentifier]
+					if (typeof curTransformer !== "undefined") {
+						try {
+							value = curTransformer(value)
+						} catch (exception) {
+							console.log("Error during call of transformer function: "+curTransformerIdentifier+".")
+							console.log(exception)
+						}
+					}
+				}
+			}
 
 			if (valueFormatConfig != null){
 				try {
-					if((!isNaValue) || formatNaValue){
-						if (newlineReplacement != null) {
-							value = String(value).replace(/(?:\r\n|\r|\n)/g, newlineReplacement)
-						}
-						value = eval(eval("`" + valueFormatConfig + "`"))
+					
+					if (newlineReplacement != null) {
+						value = String(value).replace(/(?:\r\n|\r|\n)/g, newlineReplacement)
 					}
+					value = eval(eval("`" + valueFormatConfig + "`"))
 				} catch (exception){
 					console.log(exception)
 				}
@@ -360,6 +393,7 @@ Module.register('MMM-ValuesByNotification', {
 		let valueElement = null
 		if (positionsConfig.includes("v")) {
 			valueElement = document.createElement(self.config["basicElementType"])
+			console.log("Converting value: "+value+" to html!")
 			valueElement.appendChild(self.htmlToElement(String(value)))
 			valueElement.classList.add("value")
 			additionalClasses.concat(thresholdClasses).forEach(element => valueElement.classList.add(element))
@@ -463,7 +497,11 @@ Module.register('MMM-ValuesByNotification', {
 		let unitElement = null
 		if ((valueUnitConfig != null) && (positionsConfig.includes("u"))) {
 			unitElement = document.createElement(self.config["basicElementType"])
-			unitElement.appendChild(self.htmlToElement(String(valueUnitConfig)))
+			if (unitSpace) {
+				unitElement.appendChild(self.htmlToElement(String("&nbsp;" + valueUnitConfig)))
+			}else{
+				unitElement.appendChild(self.htmlToElement(String(valueUnitConfig)))
+			}				
 			unitElement.classList.add("unit")
 			additionalClasses.concat(thresholdClasses).forEach(element => unitElement.classList.add(element))
 		}
