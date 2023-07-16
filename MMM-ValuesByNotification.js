@@ -44,7 +44,6 @@ Module.register('MMM-ValuesByNotification', {
 		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
 		automaticWrapperClassPrefix: "wrap", //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
 		newlineReplacement: " ",
-		compass: false, // If user requests, convert values to compass direction, for weather stations and the like.
 		unitSpace: false, // If user requests, add a space for units.  
 	},
 
