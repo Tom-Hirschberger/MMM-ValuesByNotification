@@ -59,7 +59,7 @@ Module.register('MMM-ValuesByNotification', {
 
 
 	getScripts: function () {
-		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
+		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.cjs'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
 
