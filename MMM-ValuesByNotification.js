@@ -42,9 +42,10 @@ Module.register('MMM-ValuesByNotification', {
 		profiles: null, //should some elements only be visible if some of this profiles is the current active one? Enter the profiles in this string separted by spaces
 		addClassesRecursive: false, //should classes that are defined for elements be added to all sub elements as well?
 		letClassesBubbleUp: true, //should classes set to elements in upper hirarchies?
+		reusedClass: "reused", //this class will be added to the elments if the value is reused
 		automaticWrapperClassPrefix: "wrap", //if wrappers are configured in the positions strings what is the prefix of the classes that should be added?
 		newlineReplacement: " ",
-		unitSpace: false, // If user requests, add a space for units.  
+		unitSpace: false, // If user requests, add a space for units.
 	},
 
 	suspend: function () {
@@ -58,7 +59,7 @@ Module.register('MMM-ValuesByNotification', {
 
 
 	getScripts: function () {
-		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
+		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.cjs'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
 
@@ -255,7 +256,7 @@ Module.register('MMM-ValuesByNotification', {
 		} else if (typeof curGroupConfig["automaticWrapperClassPrefix"] !== "undefined") {
 			automaticWrapperClassPrefix = curGroupConfig["automaticWrapperClassPrefix"]
 		}
-		
+
 		let unitSpace = self.config["unitSpace"]
 		if (typeof curValueConfig["unitSpace"] !== "undefined") {
 			unitSpace = curValueConfig["unitSpace"]
@@ -294,6 +295,10 @@ Module.register('MMM-ValuesByNotification', {
 			additionalClasses.push("naValue")
 			positionsConfig = naPositionsConfig
 		} else {
+			if (curNotifcationObj["currentUses"] > 0){
+				additionalClasses.push(self.config.reusedClass)
+				additionalClasses.push(self.config.reusedClass+"-"+curNotifcationObj["currentUses"])
+			}
 			if ((jsonpathConfig != null) && (curNotifcationObj["isJSON"])) {
 				try {
 					value = JSONPath.JSONPath({ path: jsonpathConfig, json: value })[0];
@@ -328,7 +333,7 @@ Module.register('MMM-ValuesByNotification', {
 
 			if (valueFormatConfig != null){
 				try {
-					
+
 					if (newlineReplacement != null) {
 						value = String(value).replace(/(?:\r\n|\r|\n)/g, newlineReplacement)
 					}
@@ -444,7 +449,7 @@ Module.register('MMM-ValuesByNotification', {
 							curIconElement.classList.add("iconify-inline")
 							curIconElement.setAttribute("data-icon", curIconConfig)
 						}
-						
+
 						curIconElement.classList.add("valueIcon")
 						curIconElement.classList.add("valueIcon" + idx)
 						curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
@@ -500,7 +505,7 @@ Module.register('MMM-ValuesByNotification', {
 				unitElement.appendChild(self.htmlToElement(String("&nbsp;" + valueUnitConfig)))
 			}else{
 				unitElement.appendChild(self.htmlToElement(String(valueUnitConfig)))
-			}				
+			}
 			unitElement.classList.add("unit")
 			additionalClasses.concat(thresholdClasses).forEach(element => unitElement.classList.add(element))
 		}
@@ -718,12 +723,12 @@ Module.register('MMM-ValuesByNotification', {
 								curIconElement.classList.add("iconify-inline")
 								curIconElement.setAttribute("data-icon", curIconConfig)
 							}
-							
+
 							curIconElement.classList.add("itemIcon")
 							curIconElement.classList.add("itemIcon" + idx)
 							curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
 							additionalClasses.forEach(element => curIconElement.classList.add(element))
-							
+
 							iconElement.appendChild(curIconElement)
 							idx += 1
 						}
@@ -737,7 +742,7 @@ Module.register('MMM-ValuesByNotification', {
 							iconElement.classList.add("iconify-inline")
 							iconElement.setAttribute("data-icon", iconConfig)
 						}
-						
+
 						iconElement.classList.add("itemIcon")
 						iconConfig.split(" ").forEach(element => iconElement.classList.add(element))
 						additionalClasses.forEach(element => iconElement.classList.add(element))
@@ -938,7 +943,7 @@ Module.register('MMM-ValuesByNotification', {
 								curIconElement.classList.add("iconify-inline")
 								curIconElement.setAttribute("data-icon", curIconConfig)
 							}
-							
+
 							curIconElement.classList.add("groupIcon")
 							curIconElement.classList.add("groupIcon" + idx)
 							curIconConfig.split(" ").forEach(element => curIconElement.classList.add(element))
