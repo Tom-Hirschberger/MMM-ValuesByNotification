@@ -9,6 +9,7 @@
 Module.register('MMM-ValuesByNotification', {
 
 	defaults: {
+		debug: false, //if set to true some more information will be printed to console
 		basicElementType: "span", //this module uses a lot of wrappers and basic elements. This option decides about the basic element (div or span)
 		updateInterval: 60, //how often should the module be refreshed
 		reuseCount: 1, //how often should a value of a notification be reused before it is marked as stale and the na value is used instead
@@ -59,7 +60,7 @@ Module.register('MMM-ValuesByNotification', {
 
 
 	getScripts: function () {
-		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.cjs'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
+		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
 
@@ -397,8 +398,14 @@ Module.register('MMM-ValuesByNotification', {
 		let valueElement = null
 		if (positionsConfig.includes("v")) {
 			valueElement = document.createElement(self.config["basicElementType"])
-			console.log("Converting value: "+value+" to html!")
-			valueElement.appendChild(self.htmlToElement(String(value)))
+			if (self.config.debug){
+				console.log("Converting value: \""+value+"\" to html!")
+			}
+
+			if (value !== ""){
+				valueElement.appendChild(self.htmlToElement(String(value)))
+			}
+
 			valueElement.classList.add("value")
 			additionalClasses.concat(thresholdClasses).forEach(element => valueElement.classList.add(element))
 		}
@@ -555,7 +562,9 @@ Module.register('MMM-ValuesByNotification', {
 			} else if (posChar === "]") {
 				curWrapper = wrappers.pop()
 			} else {
-				console.log("UNKNOWN CHARACTER")
+				if (self.config.debug) {
+					console.log("UNKNOWN CHARACTER")
+				}
 			}
 		}
 
@@ -822,7 +831,9 @@ Module.register('MMM-ValuesByNotification', {
 				} else if (posChar === "]") {
 					curWrapper = wrappers.pop()
 				} else {
-					console.log("UNKNOWN CHARACTER")
+					if (self.config.debug) {
+						console.log("UNKNOWN CHARACTER")
+					}
 				}
 			}
 
