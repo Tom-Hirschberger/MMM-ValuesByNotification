@@ -1,6 +1,6 @@
 /* global Module
 
-/* Magic Mirror²
+/* MagiMirror²
  * Module: ValuesByNotification
  *
  * By Tom Hirschberger

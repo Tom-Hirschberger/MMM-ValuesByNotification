@@ -1,4 +1,4 @@
-/* Magic Mirror²
+/* MagicMirror²
  * Module: ValuesByNotification
  *
  * By Tom Hirschberger
