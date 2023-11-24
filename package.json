@@ -1,13 +1,22 @@
 {
   "name": "MMM-ValuesByNotification",
   "version": "0.1.1",
-  "description": "",
+  "description": "A MagicMirror² to display JSON or plain text values provided by notifications in a very flexible way.",
   "main": "MMM-ValuesByNotification",
   "dependencies": {
     "jsonpath-plus": "5.1.0",
     "@iconify/iconify": "latest"
   },
   "devDependencies": {},
+  "keywords": [
+    "MagicMirror",
+    "MM",
+    "json",
+    "jsonpath",
+    "flexible",
+    "thresholds",
+    "conditions"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:Tom-Hirschberger/MMM-ValuesByNotification.git"
