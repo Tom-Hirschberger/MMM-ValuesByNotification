@@ -17,8 +17,9 @@ module.exports = NodeHelper.create({
 		if (notification === 'CONFIG' && self.started === false) {
 			self.config = payload
 			self.started = true
-		} else {
-			console.log(this.name + ': Received Notification: ' + notification)
-		}
+		} 
+		// else {
+		// 	console.log(this.name + ': Received Notification: ' + notification)
+		// }
 	}
 })
