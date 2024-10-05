@@ -340,6 +340,9 @@ Module.register('MMM-ValuesByNotification', {
 					}
 					value = eval(eval("`" + valueFormatConfig + "`"))
 				} catch (exception){
+					if (self.config.debug){
+						console.log(self.name+": Error during format of value "+value+"\nvalueFormatConfig: "+valueFormatConfig)
+					}
 					console.log(exception)
 				}
 			}
