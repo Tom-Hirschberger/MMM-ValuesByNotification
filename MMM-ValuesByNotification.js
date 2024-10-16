@@ -60,7 +60,7 @@ Module.register('MMM-ValuesByNotification', {
 
 
 	getScripts: function () {
-		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
+		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.cjs'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
 
@@ -340,6 +340,9 @@ Module.register('MMM-ValuesByNotification', {
 					}
 					value = eval(eval("`" + valueFormatConfig + "`"))
 				} catch (exception){
+					if (self.config.debug){
+						console.log(self.name+": Error during format of value "+value+"\nvalueFormatConfig: "+valueFormatConfig)
+					}
 					console.log(exception)
 				}
 			}
