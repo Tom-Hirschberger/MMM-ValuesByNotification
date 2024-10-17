@@ -60,7 +60,7 @@ Module.register('MMM-ValuesByNotification', {
 
 
 	getScripts: function () {
-		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.cjs'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
+		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
 
@@ -295,6 +295,13 @@ Module.register('MMM-ValuesByNotification', {
 			isNaValue = true
 			additionalClasses.push("naValue")
 			positionsConfig = naPositionsConfig
+			if (self.config.debug && typeof value !== "undefined") {
+				if (typeof value === "undefined"){
+					console.log(self.name+": Using na value cause the value of groupIdx: "+groupIdx+" itemIdx: "+itemIdx+" valueIdx: "+valueIdx+" is undefined")
+				} else {
+					console.log(self.name+": Using na value cause reuse count of groupIdx: "+groupIdx+" itemIdx: "+itemIdx+" valueIdx: "+valueIdx+" has reached its limit of "+curNotifcationObj[groupIdx][itemIdx]["reuseCount"]+" with use count of "+curNotifcationObj["currentUses"])
+				}
+			}
 		} else {
 			if (curNotifcationObj["currentUses"] > 0){
 				additionalClasses.push(self.config.reusedClass)
@@ -308,11 +315,15 @@ Module.register('MMM-ValuesByNotification', {
 						value = naValueConfig
 						additionalClasses.push("naValue")
 					}
-				} catch {
+				} catch (err){
 					isNaValue = true
 					value = naValueConfig
 					positionsConfig = naPositionsConfig
 					additionalClasses.push("naValue")
+					if (self.config.debug){
+						console.log("Error during JSONPath validation. Using NA value")
+						console.log(err)
+					}
 				}
 			}
 		}
