@@ -1285,6 +1285,8 @@ Module.register('MMM-ValuesByNotification', {
 					//either use global reuse value or the one set for this item
 					if (typeof curItem["reuseCount"] !== "undefined") {
 						curReuseCount = curItem["reuseCount"]
+					} else if (typeof curGroup["reuseCount"] !== "undefined") {
+						curReuseCount = curGroup["reuseCount"]
 					}
 
 
