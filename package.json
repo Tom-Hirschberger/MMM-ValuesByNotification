@@ -1,10 +1,10 @@
 {
   "name": "MMM-ValuesByNotification",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A MagicMirror² to display JSON or plain text values provided by notifications in a very flexible way.",
   "main": "MMM-ValuesByNotification",
   "dependencies": {
-    "jsonpath-plus": "10.0.4",
+    "jsonpath-plus": "10.1.0",
     "@iconify/iconify": "latest"
   },
   "devDependencies": {},
