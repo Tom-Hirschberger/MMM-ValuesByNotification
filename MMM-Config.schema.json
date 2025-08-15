@@ -1,0 +1,1124 @@
+{
+  "schema": {
+    "MMM-ValuesByNotification": {
+      "type": "object",
+      "title": "properties for MMM-ValuesByNotification",
+      "properties": {
+        "module": {
+          "type": "string",
+          "title": "module",
+          "default": "MMM-ValuesByNotification",
+          "readonly": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "title": "disabled",
+          "default": false
+        },
+        "position": {
+          "type": "string",
+          "title": "module position",
+          "readonly": "true"
+        },
+        "classes": {
+          "type": "string",
+          "title": "classes",
+          "default": ""
+        },
+        "header": {
+          "type": "string",
+          "title": "header",
+          "default": ""
+        },
+        "hiddenOnStartup": {
+          "type": "boolean",
+          "title": "hiddenOnStartup",
+          "default": false
+        },
+        "configDeepMerge": {
+          "type": "boolean",
+          "title": "configDeepMerge",
+          "default": false
+        },
+        "order": {
+          "type": "string",
+          "title": "order",
+          "default": "*"
+        },
+        "inconfig": {
+          "type": "string",
+          "title": "inconfig",
+          "default": "0"
+        },
+        "index": {
+          "type": "integer"
+        },
+        "animateIn": {
+          "type": "string",
+          "enum": [
+            "None",
+            "bounce",
+            "flash",
+            "pulse",
+            "rubberBand",
+            "shakeX",
+            "shakeY",
+            "headShake",
+            "swing",
+            "tada",
+            "wobble",
+            "jello",
+            "heartBeat",
+            "backInDown",
+            "backInLeft",
+            "backInRight",
+            "backInUp",
+            "bounceIn",
+            "bounceInDown",
+            "bounceInLeft",
+            "bounceInRight",
+            "bounceInUp",
+            "fadeIn",
+            "fadeInDown",
+            "fadeInDownBig",
+            "fadeInLeft",
+            "fadeInLeftBig",
+            "fadeInRight",
+            "fadeInRightBig",
+            "fadeInUp",
+            "fadeInUpBig",
+            "fadeInTopLeft",
+            "fadeInTopRight",
+            "fadeInBottomLeft",
+            "fadeInBottomRight",
+            "flip",
+            "flipInX",
+            "flipInY",
+            "lightSpeedInRight",
+            "lightSpeedInLeft",
+            "rotateIn",
+            "rotateInDownLeft",
+            "rotateInDownRight",
+            "rotateInUpLeft",
+            "rotateInUpRight",
+            "jackInTheBox",
+            "rollIn",
+            "zoomIn",
+            "zoomInDown",
+            "zoomInLeft",
+            "zoomInRight",
+            "zoomInUp",
+            "slideInDown",
+            "slideInLeft",
+            "slideInRight",
+            "slideInUp"
+          ]
+        },
+        "animateOut": {
+          "type": "string",
+          "enum": [
+            "None",
+            "backOutDown",
+            "backOutLeft",
+            "backOutRight",
+            "backOutUp",
+            "bounceOut",
+            "bounceOutDown",
+            "bounceOutLeft",
+            "bounceOutRight",
+            "bounceOutUp",
+            "fadeOut",
+            "fadeOutDown",
+            "fadeOutDownBig",
+            "fadeOutLeft",
+            "fadeOutLeftBig",
+            "fadeOutRight",
+            "fadeOutRightBig",
+            "fadeOutUp",
+            "fadeOutUpBig",
+            "fadeOutTopLeft",
+            "fadeOutTopRight",
+            "fadeOutBottomRight",
+            "fadeOutBottomLeft",
+            "flipOutX",
+            "flipOutY",
+            "lightSpeedOutRight",
+            "lightSpeedOutLeft",
+            "rotateOut",
+            "rotateOutDownLeft",
+            "rotateOutDownRight",
+            "rotateOutUpLeft",
+            "rotateOutUpRight",
+            "hinge",
+            "rollOut",
+            "zoomOut",
+            "zoomOutDown",
+            "zoomOutLeft",
+            "zoomOutRight",
+            "zoomOutUp",
+            "slideOutDown",
+            "slideOutLeft",
+            "slideOutRight",
+            "slideOutUp"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "config",
+          "properties": {
+            "debug": {
+              "type": "boolean"
+            },
+            "basicElementType": {
+              "type": "string",
+              "enum":[
+                "span",
+                "div"
+              ]
+            },
+            "updateInterval": {
+              "type": "integer"
+            },
+            "reuseCount": {
+              "type": "integer"
+            },
+            "animationSpeed": {
+              "type": "integer"
+            },
+            "groupsPositions": {
+              "type": "string"
+            },
+            "groupPositions": {
+              "type": "string"
+            },
+            "itemPositions": {
+              "type": "string"
+            },
+            "valuePositions": {
+              "type": "string"
+            },
+            "naValue": {
+              "type": "string"
+            },
+            "groupsTitle": {
+              "type": "string"
+            },
+            "groupTitle": {
+              "type": "string"
+            },
+            "itemTitle": {
+              "type": "string"
+            },
+            "valueTitle": {
+              "type": "string"
+            },
+            "classes": {
+              "type": "string"
+            },
+            "groupsIcon": {
+              "type": "string"
+            },
+            "groupIcon": {
+              "type": "string"
+            },
+            "itemIcon": {
+              "type": "string"
+            },
+            "valueIcon": {
+              "type": "string"
+            },
+            "groupsImgIcon": {
+              "type": "string"
+            },
+            "groupImgIcon": {
+              "type": "string"
+            },
+            "Icon": {
+              "type": "string"
+            },
+            "valueUnit": {
+              "type": "string"
+            },
+            "valueFormat": {
+              "type": "string"
+            },
+            "transformerFunctions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "valueTransformers": {
+              "type":"array",
+              "items": {
+              "type": "string"
+              }
+            },
+            "formatNaValue": {
+              "type": "boolean"
+            },
+            "thresholds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "threshtype":{
+                    "type":"string",
+                     "enum": [
+                        "string",
+                        "number"
+                      ]
+                  },
+                  "typenumber": {
+                    "type": "integer",
+                    "enum": [
+                      "lt",
+                      "le",
+                      "gt",
+                      "ge"
+                    ]
+                  },
+                  "typestring": {
+                    "type": "string",
+                    "enum": [
+                      "lt",
+                      "le",
+                      "gt",
+                      "ge",
+                      "eq"
+                    ]
+                  },
+                  "valuenumber": {
+                    "type": "integer"
+                  },
+                  "valuestring": {
+                    "type": "string"
+                  },
+                  "valuePositions": {
+                    "type": "string"
+                  },
+                  "classes": {
+                    "type": "string"
+                  },
+                  "Icon": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "notification":{
+                         "type":"string"
+                        },
+                        "values": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "valueUnit": {
+                                "type": "string"
+                              },
+                              "naValue": {
+                                "type": "string"
+                              },
+                              "valueTitle": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "Icon": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "valueFormat": {
+                                "type": "string"
+                              },
+                              "formatNaValue": {
+                                "type": "boolean"
+                              },
+                              "jsonpath": {
+                                "type": "string"
+                              },
+                              "newlineReplacement": {
+                                "type": "string"
+                              },
+                              "valueTransformers": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "valuePositions": {
+                                "type": "string"
+                              },
+                              "valueNaPositions": {
+                                "type": "string"
+                              },
+                              "unitSpace": {
+                                "type": "boolean"
+                              },
+                              "classes": {
+                                "type": "string"
+                              },
+                              "thresholds": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "threshtype":{
+                                      "type":"string",
+                                       "enum": [
+                                          "string",
+                                          "number"
+                                        ]
+                                    },
+                                    "typenumber": {
+                                      "type": "integer",
+                                      "enum": [
+                                        "lt",
+                                        "le",
+                                        "gt",
+                                        "ge"
+                                      ]
+                                    },
+                                    "typestring": {
+                                      "type": "string",
+                                      "enum": [
+                                        "lt",
+                                        "le",
+                                        "gt",
+                                        "ge",
+                                        "eq"
+                                      ]
+                                    },
+                                    "valuenumber": {
+                                      "type": "integer"
+                                    },
+                                    "valuestring": {
+                                      "type": "string"
+                                    },
+                                    "valuePositions": {
+                                      "type": "string"
+                                    },
+                                    "classes": {
+                                      "type": "string"
+                                    },
+                                    "Icon": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "profiles": {
+                                "type": "string"
+                              },
+                              "automaticWrapperClassPrefix": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "itemTitle": {
+                          "type": "string"
+                        },
+                        "itemIcon": {
+                          "type": "string"
+                        },
+                        "itemImgIcon": {
+                          "type": "string"
+                        },
+                        "itemPositions": {
+                          "type": "string"
+                        },
+                        "classes": {
+                          "type": "string"
+                        },
+                        "profiles": {
+                          "type": "string"
+                        },
+                        "automaticWrapperClassPrefix": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "groupTitle": {
+                    "type": "string"
+                  },
+                  "groupIcon": {
+                    "type": "string"
+                  },
+                  "groupImgIcon": {
+                    "type": "string"
+                  },
+                  "groupPositions": {
+                    "type": "string"
+                  },
+                  "classes": {
+                    "type": "string"
+                  },
+                  "profiles": {
+                    "type": "string"
+                  },
+                  "automaticWrapperClassPrefix": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "notificationPrefix": {
+              "type": "string"
+            },
+            "profiles": {
+              "type": "string"
+            },
+            "addClassesRecursive": {
+              "type": "boolean"
+            },
+            "letClassesBubbleUp": {
+              "type": "boolean"
+            },
+            "reusedClass": {
+              "type": "string"
+            },
+            "automaticWrapperClassPrefix": {
+              "type": "string"
+            },
+            "newlineReplacement": {
+              "type": "string"
+            },
+            "unitSpace": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "form": [
+    {
+      "key": "MMM-ValuesByNotification.disabled",
+      "htmlClass": "disabled_checkbox",
+      "description": "when checked the module will not be used by MagicMirror<br> but will remain in config.js if already present"
+    },
+    {
+      "key": "MMM-ValuesByNotification.position",
+      "description": "use Module Positions section below to set or change"
+    },
+    {
+      "key": "MMM-ValuesByNotification.header",
+      "description": "header to use for this module"
+    },
+    {
+      "key": "MMM-ValuesByNotification.hiddenOnStartup",
+      "description": "Set module as being hidden on startup. This field is optional."
+    },
+    {
+      "key": "MMM-ValuesByNotification.configDeepMerge",
+      "description": "Allow to merge with internal configuration in deep"
+    },
+    {
+      "key": "MMM-ValuesByNotification.classes",
+      "description": "css classes to use for this module, beyond what MM provides"
+    },
+    {
+      "key": "MMM-ValuesByNotification.order",
+      "type": "hidden"
+    },
+    {
+      "key": "MMM-ValuesByNotification.inconfig",
+      "type": "hidden"
+    },
+    {
+      "key": "MMM-ValuesByNotification.animateIn",
+      "title": "animateIn",
+      "description": "select one of these to change the behavior when the module is shown"
+    },
+    {
+      "key": "MMM-ValuesByNotification.animateOut",
+      "title": "animateOut",
+      "description": "select one of these to change the behavior when the module is hidden"
+    },
+    {
+      "key": "MMM-ValuesByNotification.index",
+      "type": "hidden"
+    },
+    {
+      "type": "fieldset",
+      "title": "config",
+      "htmlClass": "moduleConfig",
+      "items": [
+        {
+          "type": "button",
+          "title": "Open module readme",
+          "htmlClass": "repo_button",
+          "onClick": "(evt,node)=>{let siblings=$(evt.target).siblings('.readme_url');let element=siblings.toArray()[0];let url=element.innerText;let pos=$(evt.target).offset();process_readme(url,pos)}"
+        },
+        {
+          "type": "button",
+          "htmlClass": "hidden readme_url",
+          "title": "http://localhost:xxxx/modules/MMM-ValuesByNotification/README.md"
+        },
+        {
+          "title": "debug",
+          "key": "MMM-ValuesByNotification.config.debug"
+        },
+        {
+          "title": "basicElementType",
+          "key": "MMM-ValuesByNotification.config.basicElementType"
+        },
+        {
+          "title": "updateInterval",
+          "key": "MMM-ValuesByNotification.config.updateInterval"
+        },
+        {
+          "title": "reuseCount",
+          "key": "MMM-ValuesByNotification.config.reuseCount"
+        },
+        {
+          "title": "animationSpeed",
+          "key": "MMM-ValuesByNotification.config.animationSpeed"
+        },
+        {
+          "title": "groupsPositions",
+          "key": "MMM-ValuesByNotification.config.groupsPositions"
+        },
+        {
+          "title": "groupPositions",
+          "key": "MMM-ValuesByNotification.config.groupPositions"
+        },
+        {
+          "title": "itemPositions",
+          "key": "MMM-ValuesByNotification.config.itemPositions"
+        },
+        {
+          "title": "valuePositions",
+          "key": "MMM-ValuesByNotification.config.valuePositions"
+        },
+        {
+          "title": "naValue",
+          "key": "MMM-ValuesByNotification.config.naValue"
+        },
+        {
+          "title": "groupsTitle",
+          "key": "MMM-ValuesByNotification.config.groupsTitle"
+        },
+        {
+          "title": "groupTitle",
+          "key": "MMM-ValuesByNotification.config.groupTitle"
+        },
+        {
+          "title": "itemTitle",
+          "key": "MMM-ValuesByNotification.config.itemTitle"
+        },
+        {
+          "title": "valueTitle",
+          "key": "MMM-ValuesByNotification.config.valueTitle"
+        },
+        {
+          "title": "classes",
+          "key": "MMM-ValuesByNotification.config.classes"
+        },
+        {
+          "title": "global groupsIcon",
+          "key": "MMM-ValuesByNotification.config.groupsIcon",
+          "description":"this value will be used if not specified on the group"
+        },
+        {
+          "title": "global groupIcon",
+          "key": "MMM-ValuesByNotification.config.groupIcon",
+          "description":"this value will be used if not specified on the group"
+        },
+        {
+          "title": "global itemIcon",
+          "key": "MMM-ValuesByNotification.config.itemIcon",
+          "description":"this value will be used if not specified on the item"
+        },
+        {
+          "title": "global valueIcon",
+          "key": "MMM-ValuesByNotification.config.valueIcon",
+          "description":"this value will be used if not specified on the value"
+        },
+        {
+          "title": "global groupsImgIcon",
+          "key": "MMM-ValuesByNotification.config.groupsImgIcon",
+          "description":"this value will be used if not specified on the group"
+        },
+        {
+          "title": "global groupImgIcon",
+          "key": "MMM-ValuesByNotification.config.groupImgIcon",
+          "description":"this value will be used if not specified on the group"
+        },
+        {
+          "title": "global item Icon or path",
+          "key": "MMM-ValuesByNotification.config.Icon",
+          "description":"this value will be used if not specified on the item"
+        },
+        {
+          "title": "valueUnit",
+          "key": "MMM-ValuesByNotification.config.valueUnit"
+        },
+        {
+          "key": "MMM-ValuesByNotification.config.valueFormat",
+          "title": "valueFormat",
+          "description":"a piece of javascript code to re-format the value before displaying it",
+          "type": "ace",
+          "aceMode": "json",
+          "aceTheme": "twilight",
+          "width": "100%",
+          "height": "100px"
+        },
+        {
+          "type": "array",
+          "title": "transformerFunctions",
+          "deleteCurrent": false,
+          "description":"these are the definitons of all the transformers available in other settings",
+          "items": [
+            {
+              "key": "MMM-ValuesByNotification.config.transformerFunctions[]",
+              "title": "transformerFunction {{idx}}",
+              "type": "ace",
+              "aceMode": "json",
+              "aceTheme": "twilight",
+              "width": "100%",
+              "height": "100px"
+            }
+          ]
+        },
+        {
+          "title": "valueTransformers",
+          "key": "MMM-ValuesByNotification.config.valueTransformers",
+          "description":"list of transformer names used, but defined above"
+        },
+        {
+          "title": "formatNaValue",
+          "key": "MMM-ValuesByNotification.config.formatNaValue"
+        },
+        {
+        "type": "array",
+        "title": "global thresholds",
+        "deleteCurrent": true,
+        "draggable":true,
+        "items": {
+          "type": "fieldset",
+          "title": "threshold {{idx}}",
+          "items": [
+            {
+              "title": "threshold type",
+              "key": "MMM-ValuesByNotification.config.thresholds[].threshtype",
+              "titleMap":{
+                "string":"value is a string",
+                "number":"value is a number"
+              },
+              "onChange":"(evt,node)=>{let classes=['string','number'];let value=evt.target.value;let number = (value ==='number'?1:0);var parentElement=$(evt.target).closest('fieldset');let fs='div[class$=\"'+classes[number]+'\"]'; parentElement.find(fs).css('display','block');fs='div[class$=\"'+classes[(number?0:1)]+'\"]';parentElement.find(fs).css('display','none')}"
+            },
+            {
+              "title": "compare type",
+              "key": "MMM-ValuesByNotification.config.thresholds[].typestring",
+              "htmlClass":"threshold_string"
+            },
+            {
+              "title": "compare type",
+              "key": "MMM-ValuesByNotification.config.thresholds[].typenumber",
+              "htmlClass":"threshold_number"
+            },
+            {
+              "title": "value",
+              "key": "MMM-ValuesByNotification.config.thresholds[].valuestring",
+              "htmlClass":"threshold_string"
+            },
+            {
+              "title": "value",
+              "key": "MMM-ValuesByNotification.config.thresholds[].valuenumber",
+              "htmlClass":"threshold_number"
+            },
+            {
+              "title": "valuePositions",
+              "key": "MMM-ValuesByNotification.config.thresholds[].valuePositions"
+            },
+            {
+              "title": "classes",
+              "key": "MMM-ValuesByNotification.config.thresholds[].classes"
+            },
+            {
+              "title": "valueIcon",
+              "key": "MMM-ValuesByNotification.config.thresholds[].Icon"
+            }
+          ]
+        }
+      },
+        {
+          "type": "array",
+          "title": "groups",
+          "deleteCurrent": false,
+          "items": {
+            "type": "fieldset",
+            "title": "group {{idx}}",
+            "items": [
+              {
+                "type": "array",
+                "title": "items",
+                "deleteCurrent": false,
+                "items": {
+                  "type": "fieldset",
+                  "title": "item {{idx}}",
+                  "items": [
+                    {
+                      "title": "notification",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].notification"
+                    },
+                    {
+                      "type": "array",
+                      "title": "values",
+                      "deleteCurrent": true,
+                      "draggable":true,
+                      "items": {
+                        "type": "fieldset",
+                        "title": "value {{idx}}",
+                        "description":"you can drag/drop these to change the order of use",
+                        "items": [
+                          {
+                            "title": "valueUnit",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueUnit"
+                          },
+                          {
+                            "title": "naValue",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].naValue"
+                          },
+                          {
+                            "type": "array",
+                            "title": "valueTitle",
+                            "deleteCurrent": false,
+                            "items": [
+                              {
+                                "title": "valueTitle {{idx}}",
+                                "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueTitle[]"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "array",
+                            "title": "Icon",
+                            "deleteCurrent": false,
+                            "items": [
+                              {
+                                "title": "valueIcon {{idx}}",
+                                "key": "MMM-ValuesByNotification.config.groups[].items[].values[].Icon[]"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "valueFormat",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueFormat"
+                          },
+                          {
+                            "title": "formatNaValue",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].formatNaValue"
+                          },
+                          {
+                            "title": "jsonpath",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].jsonpath"
+                          },
+                          {
+                            "title": "newlineReplacement",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].newlineReplacement"
+                          },
+                          {
+                            "type": "array",
+                            "title": "valueTransformers",
+                            "description":"list of transformer names used, but defined previously",
+                            "deleteCurrent": false,
+                            "items": [
+                              {
+                                "title": "valueTransformers {{idx}}",
+                                "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueTransformers[]"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "valuePositions",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valuePositions"
+                          },
+                          {
+                            "title": "valueNaPositions",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueNaPositions"
+                          },
+                          {
+                            "title": "unitSpace",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].unitSpace"
+                          },
+                          {
+                            "title": "classes",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].classes"
+                          },
+                          {
+                            "type": "array",
+                            "title": "thresholds",
+                            "deleteCurrent": true,
+                            "draggable":true,
+                            "items": {
+                              "type": "fieldset",
+                              "title": "thresholds",
+                              "items": [
+
+                                {
+                                  "title": "threshold type",
+                                  "key": "MMM-ValuesByNotification.config.thresholds[].threshtype",
+                                  "titleMap":{
+                                    "string":"value is a string",
+                                    "number":"value is a number"
+                                  },
+                                  "onChange":"(evt,node)=>{let classes=['string','number'];let value=evt.target.value;let number = (value ==='number'?1:0);var parentElement=$(evt.target).closest('fieldset');let fs='div[class$=\"'+classes[number]+'\"]'; parentElement.find(fs).css('display','block');fs='div[class$=\"'+classes[(number?0:1)]+'\"]';parentElement.find(fs).css('display','none')}"
+                                },
+                                {
+                                  "title": "compare type",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].typenumber",
+                                  "htmlClass":"threshold_number"
+                                },
+                                {
+                                  "title": "compare type",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].typestring",
+                                  "htmlClass":"threshold_string"
+                                },
+                                {
+                                  "title": "value",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].valuenumber",
+                                  "htmlClass":"threshold_number"
+                                },
+                                {
+                                  "title": "value",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].valuestring",
+                                  "htmlClass":"threshold_string"
+                                },
+                                {
+                                  "title": "valuePositions",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].valuePositions"
+                                },
+                                {
+                                  "title": "classes",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].classes"
+                                },
+                                {
+                                  "title": "valueIcon",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].Icon"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "title": "profiles",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].profiles"
+                          },
+                          {
+                            "title": "automaticWrapperClassPrefix",
+                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].automaticWrapperClassPrefix"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "title": "itemTitle",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemTitle"
+                    },
+                    {
+                      "title": "itemIcon",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemIcon"
+                    },
+                    {
+                      "title": "itemImgIcon",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemImgIcon"
+                    },
+                    {
+                      "title": "itemPositions",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemPositions"
+                    },
+                    {
+                      "title": "classes",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].classes"
+                    },
+                    {
+                      "title": "profiles",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].profiles"
+                    },
+                    {
+                      "title": "automaticWrapperClassPrefix",
+                      "key": "MMM-ValuesByNotification.config.groups[].items[].automaticWrapperClassPrefix"
+                    }
+                  ]
+                }
+              },
+              {
+                "title": "groupTitle",
+                "key": "MMM-ValuesByNotification.config.groups[].groupTitle"
+              },
+              {
+                "title": "groupIcon",
+                "key": "MMM-ValuesByNotification.config.groups[].groupIcon"
+              },
+              {
+                "title": "groupImgIcon",
+                "key": "MMM-ValuesByNotification.config.groups[].groupImgIcon"
+              },
+              {
+                "title": "groupPositions",
+                "key": "MMM-ValuesByNotification.config.groups[].groupPositions"
+              },
+              {
+                "title": "classes",
+                "key": "MMM-ValuesByNotification.config.groups[].classes"
+              },
+              {
+                "title": "profiles",
+                "key": "MMM-ValuesByNotification.config.groups[].profiles"
+              },
+              {
+                "title": "automaticWrapperClassPrefix",
+                "key": "MMM-ValuesByNotification.config.groups[].automaticWrapperClassPrefix"
+              }
+            ]
+          }
+        },
+        {
+          "title": "notificationPrefix",
+          "key": "MMM-ValuesByNotification.config.notificationPrefix"
+        },
+        {
+          "title": "profiles",
+          "key": "MMM-ValuesByNotification.config.profiles"
+        },
+        {
+          "title": "addClassesRecursive",
+          "key": "MMM-ValuesByNotification.config.addClassesRecursive"
+        },
+        {
+          "title": "letClassesBubbleUp",
+          "key": "MMM-ValuesByNotification.config.letClassesBubbleUp"
+        },
+        {
+          "title": "reusedClass",
+          "key": "MMM-ValuesByNotification.config.reusedClass"
+        },
+        {
+          "title": "automaticWrapperClassPrefix",
+          "key": "MMM-ValuesByNotification.config.automaticWrapperClassPrefix"
+        },
+        {
+          "title": "newlineReplacement",
+          "key": "MMM-ValuesByNotification.config.newlineReplacement"
+        },
+        {
+          "title": "unitSpace",
+          "key": "MMM-ValuesByNotification.config.unitSpace"
+        }
+      ]
+    }
+  ],
+  "value": {
+    "disabled": true,
+    "module": "MMM-ValuesByNotification",
+    "position": "none",
+    "order": "*",
+    "inconfig": "0",
+    "config": {
+      "debug": false,
+      "basicElementType": "span",
+      "updateInterval": 60,
+      "reuseCount": 1,
+      "animationSpeed": 500,
+      "groupsPositions": "tie",
+      "groupPositions": "tie",
+      "itemPositions": "tie",
+      "valuePositions": "ti[vu]",
+      "naValue": "na",
+      "groupsTitle": null,
+      "groupTitle": null,
+      "itemTitle": null,
+      "valueTitle": null,
+      "classes": null,
+      "groupsIcon": null,
+      "groupIcon": null,
+      "itemIcon": null,
+      "valueIcon": null,
+      "groupsImgIcon": null,
+      "groupImgIcon": null,
+      "itemImgIcon": null,
+      "valueImgIcon": null,
+      "valueUnit": null,
+      "valueFormat": null,
+      "transformerFunctions": {},
+      "valueTransformers": null,
+      "formatNaValue": false,
+      "thresholds": [],
+      "groups": [
+        {
+          "items": [
+            {
+              "values": [
+                {
+                  "valueUnit": null,
+                  "naValue": null,
+                  "valueTitle": [
+                  ],
+                  "valueIcon": [
+                  ],
+                  "valueImgIcon": [
+                  ],
+                  "valueFormat": null,
+                  "formatNaValue": false,
+                  "jsonpath": null,
+                  "newlineReplacement": "",
+                  "valueTransformers": [
+                  ],
+                  "valuePositions": "",
+                  "valueNaPositions": "",
+                  "unitSpace": false,
+                  "classes": null,
+                  "thresholds": [
+                  ],
+                  "profiles": null,
+                  "automaticWrapperClassPrefix": null
+                }
+              ],
+              "itemTitle": "",
+              "itemIcon": "",
+              "itemImgIcon": "",
+              "itemPositions": "",
+              "classes": "",
+              "profiles": "",
+              "automaticWrapperClassPrefix": ""
+            }
+          ],
+          "groupTitle": "",
+          "groupIcon": "",
+          "groupImgIcon": "",
+          "groupPositions": "",
+          "classes": "",
+          "profiles": "",
+          "automaticWrapperClassPrefix": ""
+        }
+      ],
+      "notificationPrefix": "",
+      "profiles": null,
+      "addClassesRecursive": false,
+      "letClassesBubbleUp": true,
+      "reusedClass": "reused",
+      "automaticWrapperClassPrefix": "wrap",
+      "newlineReplacement": " ",
+      "unitSpace": false
+    },
+    "animateIn": "none",
+    "animateOut": "none"
+  }
+}
