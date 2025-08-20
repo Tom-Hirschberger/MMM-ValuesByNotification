@@ -186,55 +186,123 @@
               "type": "integer"
             },
             "groupsPositions": {
-              "type": "string"
+             "type": "array",
+              "items": {
+              "type": "string",
+                "enum":[
+                  "t",
+                  "i",
+                  "e",
+                  "[",
+                  "]"
+                ]
+              }
             },
             "groupPositions": {
-              "type": "string"
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum":[
+                  "t",
+                  "i",
+                  "e",
+                  "[",
+                  "]"
+                ]
+              }
             },
             "itemPositions": {
-              "type": "string"
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum":[
+                  "t",
+                  "i",
+                  "e",
+                  "[",
+                  "]"
+                ]
+              }
             },
             "valuePositions": {
-              "type": "string"
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum":[
+                  "t",
+                  "i",
+                  "e",
+                  "v",
+                  "u",
+                  "[",
+                  "]"
+                ]
+              }
             },
             "naValue": {
               "type": "string"
             },
             "groupsTitle": {
+              "type":"array",
+              "items":[
+                {
               "type": "string"
+                }
+              ]
             },
             "groupTitle": {
+              "type":"array",
+              "items":[
+                {
               "type": "string"
+                }
+              ]
             },
             "itemTitle": {
+              "type":"array",
+              "items":[
+                {
               "type": "string"
+                }
+              ]
             },
             "valueTitle": {
+              "type":"array",
+              "items":[
+                {
               "type": "string"
+                }
+              ]
             },
             "classes": {
-              "type": "string"
+              "type":"array",
+              "items":{
+                "type": "string"
+              }
             },
             "groupsIcon": {
-              "type": "string"
+              "type":"array",
+              "items":{
+                "type": "string"
+              }
             },
             "groupIcon": {
-              "type": "string"
+              "type":"array",
+              "items":{
+                "type": "string"
+              }
             },
             "itemIcon": {
-              "type": "string"
+              "type":"array",
+              "items":{
+                "type": "string"
+              }
             },
             "valueIcon": {
-              "type": "string"
-            },
-            "groupsImgIcon": {
-              "type": "string"
-            },
-            "groupImgIcon": {
-              "type": "string"
-            },
-            "Icon": {
-              "type": "string"
+              "type":"array",
+              "items":{
+                "type": "string"
+              }
             },
             "valueUnit": {
               "type": "string"
@@ -243,15 +311,31 @@
               "type": "string"
             },
             "transformerFunctions": {
-              "type": "array",
-              "items": {
-                "type": "string"
+              "type":"array",
+              "items":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "function":{
+                    "type":"string"
+                  }
+                }
               }
             },
             "valueTransformers": {
               "type":"array",
               "items": {
-              "type": "string"
+                "type":"object",
+                "properties":{
+                   "used": {
+                     "type":"boolean"
+                   } ,
+                   "name":{
+                     "type": "string"
+                   }
+                }
               }
             },
             "formatNaValue": {
@@ -295,13 +379,31 @@
                     "type": "string"
                   },
                   "valuePositions": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum":[
+                        "t",
+                        "i",
+                        "e",
+                        "v",
+                        "u",
+                        "[",
+                        "]"
+                      ]
+                    }
                   },
                   "classes": {
-                    "type": "string"
+                    "type":"array",
+                    "items":{
+                      "type": "string"
+                    }
                   },
                   "Icon": {
-                    "type": "string"
+                    "type":"array",
+                    "items":{
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -355,22 +457,57 @@
                                 "type": "string"
                               },
                               "valueTransformers": {
-                                "type": "array",
+                                "type":"array",
                                 "items": {
-                                  "type": "string"
+                                  "type":"object",
+                                  "properties":{
+                                     "used": {
+                                       "type":"boolean"
+                                     } ,
+                                     "name":{
+                                       "type": "string"
+                                     }
+                                  }
                                 }
                               },
                               "valuePositions": {
-                                "type": "string"
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "enum":[
+                                    "t",
+                                    "i",
+                                    "e",
+                                    "v",
+                                    "u",
+                                    "[",
+                                    "]"
+                                  ]
+                                }
                               },
                               "valueNaPositions": {
-                                "type": "string"
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "enum":[
+                                    "t",
+                                    "i",
+                                    "e",
+                                    "v",
+                                    "u",
+                                    "[",
+                                    "]"
+                                  ]
+                                }
                               },
                               "unitSpace": {
                                 "type": "boolean"
                               },
                               "classes": {
-                                "type": "string"
+                                "type":"array",
+                                "items":{
+                                  "type": "string"
+                                }
                               },
                               "thresholds": {
                                 "type": "array",
@@ -410,19 +547,40 @@
                                       "type": "string"
                                     },
                                     "valuePositions": {
-                                      "type": "string"
+                                      "type":"array",
+                                      "items": {
+                                        "type": "string",
+                                        "enum":[
+                                          "t",
+                                          "i",
+                                          "e",
+                                          "v",
+                                          "u",
+                                          "[",
+                                          "]"
+                                        ]
+                                      }
                                     },
                                     "classes": {
-                                      "type": "string"
+                                      "type":"array",
+                                      "items":{
+                                        "type": "string"
+                                      }
                                     },
                                     "Icon": {
-                                      "type": "string"
+                                      "type":"array",
+                                      "items":{
+                                        "type": "string"
+                                      }
                                     }
                                   }
                                 }
                               },
                               "profiles": {
-                                "type": "string"
+                                "type":"array",
+                                "items":{
+                                  "type": "string"
+                                }
                               },
                               "automaticWrapperClassPrefix": {
                                 "type": "string"
@@ -431,22 +589,43 @@
                           }
                         },
                         "itemTitle": {
+                          "type":"array",
+                          "items":[
+                            {
                           "type": "string"
+                            }
+                          ]
                         },
                         "itemIcon": {
-                          "type": "string"
-                        },
-                        "itemImgIcon": {
-                          "type": "string"
+                          "type":"array",
+                          "items":{
+                            "type": "string"
+                          }
                         },
                         "itemPositions": {
-                          "type": "string"
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum":[
+                              "t",
+                              "i",
+                              "e",
+                              "[",
+                              "]"
+                            ]
+                          }
                         },
                         "classes": {
-                          "type": "string"
+                          "type":"array",
+                          "items":{
+                            "type": "string"
+                          }
                         },
                         "profiles": {
-                          "type": "string"
+                          "type":"array",
+                          "items":{
+                            "type": "string"
+                          }
                         },
                         "automaticWrapperClassPrefix": {
                           "type": "string"
@@ -455,22 +634,43 @@
                     }
                   },
                   "groupTitle": {
+                    "type":"array",
+                    "items":[
+                      {
                     "type": "string"
+                      }
+                    ]
                   },
                   "groupIcon": {
-                    "type": "string"
-                  },
-                  "groupImgIcon": {
-                    "type": "string"
+                    "type":"array",
+                    "items":{
+                      "type": "string"
+                    }
                   },
                   "groupPositions": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum":[
+                        "t",
+                        "i",
+                        "e",
+                        "[",
+                        "]"
+                      ]
+                    }
                   },
                   "classes": {
-                    "type": "string"
+                    "type":"array",
+                    "items":{
+                      "type": "string"
+                    }
                   },
                   "profiles": {
-                    "type": "string"
+                    "type":"array",
+                    "items":{
+                      "type": "string"
+                    }
                   },
                   "automaticWrapperClassPrefix": {
                     "type": "string"
@@ -482,7 +682,10 @@
               "type": "string"
             },
             "profiles": {
-              "type": "string"
+              "type":"array",
+              "items":{
+                "type": "string"
+              }
             },
             "addClassesRecursive": {
               "type": "boolean"
@@ -592,24 +795,91 @@
           "key": "MMM-ValuesByNotification.config.animationSpeed"
         },
         {
-          "title": "groupsPositions",
-          "key": "MMM-ValuesByNotification.config.groupsPositions"
+          "type": "array",
+          "title":"groups positions composition settings, left-right order",
+          "deleteCurrent": true,
+          "draggable":true,
+          "items":
+            {
+            "key": "MMM-ValuesByNotification.config.groupsPositions[]",
+            "title":"visual position selector",
+            "titleMap":{
+              "t":"title",
+              "i":"item",
+              "e":"element",
+              "[":"begin group",
+              "]":"end group"
+            },
+            "description":"select the item type for the module display here."
+          }
         },
         {
-          "title": "groupPositions",
-          "key": "MMM-ValuesByNotification.config.groupPositions"
+          "type": "help",
+          "helpvalue": "The basic idea is that a string of characters defines in which order the elements should be displayed., and any sub group you might want to make and possibly style differently,<br>here we will use an array to form the items and order<br>add an element, pick its type, if you need to change the order, you can drag/drop to move them. you can delete any item by pressing its -(minus sign) button"
         },
         {
-          "title": "itemPositions",
-          "key": "MMM-ValuesByNotification.config.itemPositions"
+          "type": "array",
+          "title":"group positions composition settings, left-right order",
+          "deleteCurrent": true,
+          "draggable":true,
+          "items":
+            {
+            "key": "MMM-ValuesByNotification.config.groupPositions[]",
+            "title":"visual position selector",
+            "titleMap":{
+              "t":"title",
+              "i":"item",
+              "e":"element",
+              "[":"begin group",
+              "]":"end group"
+            },
+          "description":"select the item type for the module display here."
+          }
         },
         {
-          "title": "valuePositions",
-          "key": "MMM-ValuesByNotification.config.valuePositions"
+          "type": "array",
+          "title":"item position composition settings, left-right order",
+          "deleteCurrent": true,
+          "draggable":true,
+          "items":
+            {
+            "key": "MMM-ValuesByNotification.config.itemPositions[]",
+            "title":"visual position selector",
+            "titleMap":{
+              "t":"title",
+              "i":"item",
+              "e":"element",
+              "[":"begin group",
+              "]":"end group"
+            },
+          "description":"select the item type for the module display here."
+          }
+        },
+        {
+          "type": "array",
+          "title":"value position composition settings, left-right order",
+          "deleteCurrent": true,
+          "draggable":true,
+          "items":
+            {
+            "key": "MMM-ValuesByNotification.config.valuePositions[]",
+            "title":"visual position selector",
+            "titleMap":{
+              "t":"title",
+              "i":"item",
+              "e":"element",
+              "v":"value",
+              "u":"unit",
+              "[":"begin group",
+              "]":"end group"
+            },
+          "description":"select the item type for the module display here."
+          }
         },
         {
           "title": "naValue",
-          "key": "MMM-ValuesByNotification.config.naValue"
+          "key": "MMM-ValuesByNotification.config.naValue",
+          "description":"Specify a value that will be displayed if the notification has not been received or the information is to old., used if not overriden by some other setting below"
         },
         {
           "title": "groupsTitle",
@@ -620,16 +890,41 @@
           "key": "MMM-ValuesByNotification.config.groupTitle"
         },
         {
+          "type": "array",
           "title": "itemTitle",
-          "key": "MMM-ValuesByNotification.config.itemTitle"
+          "deleteCurrent": false,
+          "description":"Specify an array of strings containing title(s) which will be added as element(s) to the value element",
+          "items": [
+            {
+              "title": "itemTitle {{idx}}",
+              "key": "MMM-ValuesByNotification.config.itemTitle[]"
+            }
+          ]
         },
         {
-          "title": "valueTitle",
-          "key": "MMM-ValuesByNotification.config.valueTitle"
+          "type": "array",
+          "title": "valueTitle(s)",
+          "deleteCurrent": false,
+          "items": [
+            {
+              "title": "valueTitle {{idx}}",
+              "key": "MMM-ValuesByNotification.config.valueTitle[]",
+              "description":"Specify an array of strings containing title(s) which will be added as element(s) to the value element"
+            }
+          ]
         },
         {
-          "title": "classes",
-          "key": "MMM-ValuesByNotification.config.classes"
+          "type": "array",
+          "title":"classes",
+          "deleteCurrent": true,
+          "draggable":true,
+          "items":
+            {
+            "notitle":true,
+            "key": "MMM-ValuesByNotification.config.classes[]",
+            "description":"enter a class name string"
+            },
+            "description":"classes to be added to each html element"
         },
         {
           "title": "global groupsIcon",
@@ -652,21 +947,6 @@
           "description":"this value will be used if not specified on the value"
         },
         {
-          "title": "global groupsImgIcon",
-          "key": "MMM-ValuesByNotification.config.groupsImgIcon",
-          "description":"this value will be used if not specified on the group"
-        },
-        {
-          "title": "global groupImgIcon",
-          "key": "MMM-ValuesByNotification.config.groupImgIcon",
-          "description":"this value will be used if not specified on the group"
-        },
-        {
-          "title": "global item Icon or path",
-          "key": "MMM-ValuesByNotification.config.Icon",
-          "description":"this value will be used if not specified on the item"
-        },
-        {
           "title": "valueUnit",
           "key": "MMM-ValuesByNotification.config.valueUnit"
         },
@@ -683,24 +963,58 @@
         {
           "type": "array",
           "title": "transformerFunctions",
-          "deleteCurrent": false,
+          "htmlClass":"transformerFunctions",
+          "deleteCurrent": true,
+          "expandable":true,
           "description":"these are the definitons of all the transformers available in other settings",
-          "items": [
-            {
-              "key": "MMM-ValuesByNotification.config.transformerFunctions[]",
-              "title": "transformerFunction {{idx}}",
-              "type": "ace",
-              "aceMode": "json",
-              "aceTheme": "twilight",
-              "width": "100%",
-              "height": "100px"
-            }
-          ]
+          "onChange":"(evt,node)=>{console.log(' test of transformer list changing'); updatevalueTransformerlist('list update', evt)}",
+          "items": {
+            "type": "fieldset",
+            "notitle": true,
+            "items": [
+              {
+                "title": "function name",
+                "key": "MMM-ValuesByNotification.config.transformerFunctions[].name",
+                "description":"the name of the function to be used in valueTransformer lists later",
+                "htmlClass":"transformerFunctionName",
+                "onChange":"(evt,node)=>{console.log(' test of transformer name update');/* updatevalueTransformerlist('field update', evt)*/}"
+              },
+              {
+                "key": "MMM-ValuesByNotification.config.transformerFunctions[].function",
+                "title": "transformerFunction",
+                "type": "ace",
+                "aceMode": "json",
+                "aceTheme": "twilight",
+                "width": "100%",
+                "height": "100px"
+              }
+            ]
+          }
         },
         {
+          "type": "array",
           "title": "valueTransformers",
-          "key": "MMM-ValuesByNotification.config.valueTransformers",
-          "description":"list of transformer names used, but defined above"
+          "deleteCurrent": false,
+          "hide_add_remove":true,
+          "htmlClass":"valueTransformerlist",
+          "expandable":true,
+          "description":"these are the names of the transformers defined to be used on value conversions<br>select each transformer to be used for transforming values if not specified otherwise, by checking the box<br>you can also change the order of the function execution by drag/dropping to change the position in the list",
+          "items": {
+            "type":"section",
+            "items":[
+              {
+                "notitle":true,
+                "key": "MMM-ValuesByNotification.config.valueTransformers[].used",
+                "type":"checkbox"
+              },
+              {
+                "notitle":true,
+                "key": "MMM-ValuesByNotification.config.valueTransformers[].name",
+                "htmlClass":"valuename",
+                "readonly":true
+              }
+            ]
+          }
         },
         {
           "title": "formatNaValue",
@@ -718,6 +1032,7 @@
             {
               "title": "threshold type",
               "key": "MMM-ValuesByNotification.config.thresholds[].threshtype",
+              "htmlClass":"threshtype",
               "titleMap":{
                 "string":"value is a string",
                 "number":"value is a number"
@@ -727,34 +1042,61 @@
             {
               "title": "compare type",
               "key": "MMM-ValuesByNotification.config.thresholds[].typestring",
-              "htmlClass":"threshold_string"
+              "htmlClass":"type_string"
             },
             {
               "title": "compare type",
               "key": "MMM-ValuesByNotification.config.thresholds[].typenumber",
-              "htmlClass":"threshold_number"
+              "htmlClass":"type_number"
             },
             {
               "title": "value",
               "key": "MMM-ValuesByNotification.config.thresholds[].valuestring",
-              "htmlClass":"threshold_string"
+              "htmlClass":"value_string"
             },
             {
               "title": "value",
               "key": "MMM-ValuesByNotification.config.thresholds[].valuenumber",
-              "htmlClass":"threshold_number"
+              "htmlClass":"value_number"
             },
             {
-              "title": "valuePositions",
-              "key": "MMM-ValuesByNotification.config.thresholds[].valuePositions"
+              "type": "array",
+              "title":"value positions composition settings, left-right order",
+              "deleteCurrent": true,
+              "draggable":true,
+              "items":
+                {
+                "key": "MMM-ValuesByNotification.config.thresholds[].valuePositions[]",
+                "title":"visual position selector",
+                "titleMap":{
+                  "t":"title",
+                  "i":"item",
+                  "e":"element",
+                  "v":"value",
+                  "u":"unit",
+                  "[":"begin group",
+                  "]":"end group"
+                },
+              "description":"select the item type for the module display here."
+              }
             },
             {
-              "title": "classes",
-              "key": "MMM-ValuesByNotification.config.thresholds[].classes"
+              "type": "array",
+              "title":"classes",
+              "deleteCurrent": true,
+              "draggable":true,
+              "items":
+                {
+                "notitle":true,
+                "key": "MMM-ValuesByNotification.config.thresholds[].classes[]",
+                "description":"enter a class name string"
+                },
+                "description":"classes to be added to each html element"
             },
             {
               "title": "valueIcon",
-              "key": "MMM-ValuesByNotification.config.thresholds[].Icon"
+              "key": "MMM-ValuesByNotification.config.thresholds[].Icon",
+              "description":"Specify one or more images that should be displayed as icon(s) **instead** of [Fontawesome 4.7](https://fontawesome.com/v4/icons/) or [Iconify](https://icon-sets.iconify.design/) icon(s)<br> this is a single input field and will be separated out to the Icon, or imgIcon field on save(if it has a path)"
             }
           ]
         }
@@ -799,12 +1141,13 @@
                           },
                           {
                             "type": "array",
-                            "title": "valueTitle",
+                            "title": "valueTitle(s)",
                             "deleteCurrent": false,
                             "items": [
                               {
                                 "title": "valueTitle {{idx}}",
-                                "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueTitle[]"
+                                "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueTitle[]",
+                                "description":"Specify a string or a array of strings containing title(s) which will be added as element(s) to the value element"
                               }
                             ]
                           },
@@ -838,30 +1181,85 @@
                           {
                             "type": "array",
                             "title": "valueTransformers",
-                            "description":"list of transformer names used, but defined previously",
                             "deleteCurrent": false,
-                            "items": [
+                            "hide_add_remove":true,
+                            "expandable":true,
+                            "htmlClass":"valueTransformerlist",
+                            "description":"these are the names of the transformers defined to be used on value conversions<br>select each transformer to be used on this value by checking the box<br>you can also change the order of the function execution by drag/dropping to change the position in the list",
+                            "items": {
+                              "type":"section",
+                              "items":[
+                                {
+                                  "notitle":true,
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueTransformers[].used",
+                                  "type":"checkbox"
+                                },
+                                {
+                                  "notitle":true,
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueTransformers[].name",
+                                  "readonly":true
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "title":"value positions composition settings, left-right order",
+                            "deleteCurrent": true,
+                            "draggable":true,
+                            "items":
                               {
-                                "title": "valueTransformers {{idx}}",
-                                "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueTransformers[]"
-                              }
-                            ]
+                              "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valuePositions[]",
+                              "title":"visual position selector",
+                              "titleMap":{
+                                "t":"title",
+                                "i":"item",
+                                "e":"element",
+                                "v":"value",
+                                "u":"unit",
+                                "[":"begin group",
+                                "]":"end group"
+                              },
+                            "description":"select the item type for the module display here."
+                            }
                           },
                           {
-                            "title": "valuePositions",
-                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valuePositions"
-                          },
-                          {
-                            "title": "valueNaPositions",
-                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueNaPositions"
+                            "type": "array",
+                            "title":"value Na positions composition settings, left-right order",
+                            "deleteCurrent": true,
+                            "draggable":true,
+                            "items":
+                              {
+                              "key": "MMM-ValuesByNotification.config.groups[].items[].values[].valueNaPositions[]",
+                              "title":"visual position selector",
+                              "titleMap":{
+                                "t":"title",
+                                "i":"item",
+                                "e":"element",
+                                "v":"value",
+                                "u":"unit",
+                                "[":"begin group",
+                                "]":"end group"
+                              },
+                            "description":"select the item type for the module display here."
+                            }
                           },
                           {
                             "title": "unitSpace",
                             "key": "MMM-ValuesByNotification.config.groups[].items[].values[].unitSpace"
                           },
                           {
-                            "title": "classes",
-                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].classes"
+                            "type": "array",
+                            "title":"classes",
+                            "deleteCurrent": true,
+                            "draggable":true,
+                            "items":
+                              {
+                              "notitle":true,
+                              "key": "MMM-ValuesByNotification.config.groups[].items[].values[].classes[]",
+                              "description":"enter a class name string"
+                              },
+                              "description":"classes to be added to each html element"
                           },
                           {
                             "type": "array",
@@ -870,12 +1268,12 @@
                             "draggable":true,
                             "items": {
                               "type": "fieldset",
-                              "title": "thresholds",
+                              "title": "threshold {{idx}}",
                               "items": [
-
                                 {
                                   "title": "threshold type",
-                                  "key": "MMM-ValuesByNotification.config.thresholds[].threshtype",
+                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].threshtype",
+                                  "htmlClass":"threshtype",
                                   "titleMap":{
                                     "string":"value is a string",
                                     "number":"value is a number"
@@ -903,12 +1301,38 @@
                                   "htmlClass":"threshold_string"
                                 },
                                 {
-                                  "title": "valuePositions",
-                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].valuePositions"
+                                  "type": "array",
+                                  "title":"value positions composition settings, left-right order",
+                                  "deleteCurrent": true,
+                                  "draggable":true,
+                                  "items":
+                                    {
+                                    "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].valuePositions[]",
+                                    "title":"visual position selector",
+                                    "titleMap":{
+                                      "t":"title",
+                                      "i":"item",
+                                      "e":"element",
+                                      "v":"value",
+                                      "u":"unit",
+                                      "[":"begin group",
+                                      "]":"end group"
+                                    },
+                                  "description":"select the item type for the module display here."
+                                  }
                                 },
                                 {
-                                  "title": "classes",
-                                  "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].classes"
+                                  "type": "array",
+                                  "title":"classes",
+                                  "deleteCurrent": true,
+                                  "draggable":true,
+                                  "items":
+                                    {
+                                    "notitle":true,
+                                    "key": "MMM-ValuesByNotification.config.groups[].items[].values[].thresholds[].classes[]",
+                                    "description":"enter a class name string"
+                                    },
+                                    "description":"classes to be added to each html element"
                                 },
                                 {
                                   "title": "valueIcon",
@@ -918,8 +1342,17 @@
                             }
                           },
                           {
-                            "title": "profiles",
-                            "key": "MMM-ValuesByNotification.config.groups[].items[].values[].profiles"
+                            "type": "array",
+                            "title":"profile",
+                            "deleteCurrent": true,
+                            "draggable":false,
+                            "items":
+                              {
+                              "notitle":true,
+                              "key": "MMM-ValuesByNotification.config.groups[].items[].values[].profiles[]",
+                              "description":"enter a profile name"
+                            },
+                            "description":"list of profiles if you like this value element only to be displayed if a certain profile is active currently"
                           },
                           {
                             "title": "automaticWrapperClassPrefix",
@@ -929,28 +1362,65 @@
                       }
                     },
                     {
-                      "title": "itemTitle",
-                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemTitle"
+                      "type": "array",
+                      "title": "itemTitle(s)",
+                      "deleteCurrent": false,
+                      "description":"Specify an array of strings containing title(s) which will be added as element(s) to the value element",
+                      "items": [
+                        {
+                          "title": "itemTitle {{idx}}",
+                          "key": "MMM-ValuesByNotification.config.groups[].items[].itemTitle[]"
+                        }
+                      ]
                     },
                     {
                       "title": "itemIcon",
                       "key": "MMM-ValuesByNotification.config.groups[].items[].itemIcon"
                     },
                     {
-                      "title": "itemImgIcon",
-                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemImgIcon"
+                      "type": "array",
+                      "title":"item position composition settings, left-right order",
+                      "deleteCurrent": true,
+                      "draggable":true,
+                      "items":
+                        {
+                        "key": "MMM-ValuesByNotification.config.groups[].items[].itemPositions[]",
+                        "title":"visual position selector",
+                        "titleMap":{
+                          "t":"title",
+                          "i":"item",
+                          "e":"element",
+                          "[":"begin group",
+                          "]":"end group"
+                        },
+                      "description":"select the item type for the module display here."
+                      }
                     },
                     {
-                      "title": "itemPositions",
-                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemPositions"
+                      "type": "array",
+                      "title":"classes",
+                      "deleteCurrent": true,
+                      "draggable":true,
+                      "items":
+                        {
+                        "notitle":true,
+                        "key": "MMM-ValuesByNotification.config.groups[].items[].classes[]",
+                        "description":"enter a class name string"
+                        },
+                        "description":"classes to be added to each html element"
                     },
                     {
-                      "title": "classes",
-                      "key": "MMM-ValuesByNotification.config.groups[].items[].classes"
-                    },
-                    {
-                      "title": "profiles",
-                      "key": "MMM-ValuesByNotification.config.groups[].items[].profiles"
+                      "type": "array",
+                      "title":"profile",
+                      "deleteCurrent": true,
+                      "draggable":false,
+                      "items":
+                        {
+                        "notitle":true,
+                        "key": "MMM-ValuesByNotification.config.groups[].items[].profiles[]",
+                        "description":"enter a profile name"
+                        },
+                        "description":"list of profiles if you like this value element only to be displayed if a certain profile is active currently"
                     },
                     {
                       "title": "automaticWrapperClassPrefix",
@@ -964,24 +1434,62 @@
                 "key": "MMM-ValuesByNotification.config.groups[].groupTitle"
               },
               {
-                "title": "groupIcon",
-                "key": "MMM-ValuesByNotification.config.groups[].groupIcon"
+                "type": "array",
+                "title":"groupIcon(s)",
+                "deleteCurrent": true,
+                "draggable":true,
+                "items":
+                  {
+                  "notitle":true,
+                  "key": "MMM-ValuesByNotification.config.groups[].groupIcon[]",
+                  "description":"enter an icon name string"
+                  },
+                  "description":"enter the list of icons to be used for this group"
               },
               {
-                "title": "groupImgIcon",
-                "key": "MMM-ValuesByNotification.config.groups[].groupImgIcon"
+                "type": "array",
+                "title":"group positions composition settings, left-right order",
+                "deleteCurrent": true,
+                "draggable":true,
+                "items":
+                  {
+                  "key": "MMM-ValuesByNotification.config.groups[].groupPositions[]",
+                  "title":"visual position selector",
+                  "titleMap":{
+                    "t":"title",
+                    "i":"item",
+                    "e":"element",
+                    "[":"begin group",
+                    "]":"end group"
+                  },
+                "description":"select the item type for the module display here."
+                }
               },
               {
-                "title": "groupPositions",
-                "key": "MMM-ValuesByNotification.config.groups[].groupPositions"
+                "type": "array",
+                "title":"classes",
+                "deleteCurrent": true,
+                "draggable":true,
+                "items":
+                  {
+                  "notitle":true,
+                  "key": "MMM-ValuesByNotification.config.groups[].classes[]",
+                  "description":"enter a class name string"
+                  },
+                  "description":"classes to be added to each html element"
               },
               {
-                "title": "classes",
-                "key": "MMM-ValuesByNotification.config.groups[].classes"
-              },
-              {
-                "title": "profiles",
-                "key": "MMM-ValuesByNotification.config.groups[].profiles"
+                "type": "array",
+                "title":"profile",
+                "deleteCurrent": true,
+                "draggable":false,
+                "items":
+                  {
+                  "notitle":true,
+                  "key": "MMM-ValuesByNotification.config.groups[].profiles[]",
+                  "description":"enter a profile name"
+                  },
+                  "description":"list of profiles if you like this value element only to be displayed if a certain profile is active currently"
               },
               {
                 "title": "automaticWrapperClassPrefix",
@@ -995,8 +1503,17 @@
           "key": "MMM-ValuesByNotification.config.notificationPrefix"
         },
         {
-          "title": "profiles",
-          "key": "MMM-ValuesByNotification.config.profiles"
+          "type": "array",
+          "title":"profile",
+          "deleteCurrent": true,
+          "draggable":false,
+          "items":
+            {
+            "notitle":true,
+            "key": "MMM-ValuesByNotification.config.profiles[]",
+            "description":"enter a profile name"
+            },
+            "description":"list of profiles if you like this value element only to be displayed if a certain profile is active currently"
         },
         {
           "title": "addClassesRecursive",
@@ -1037,30 +1554,27 @@
       "updateInterval": 60,
       "reuseCount": 1,
       "animationSpeed": 500,
-      "groupsPositions": "tie",
-      "groupPositions": "tie",
-      "itemPositions": "tie",
-      "valuePositions": "ti[vu]",
+      "groupsPositions":"tie" ,
+      "groupPositions":  "tie" ,
+      "itemPositions":  "tie" ,
+      "valuePositions": "ti[vu]" ,
       "naValue": "na",
       "groupsTitle": null,
       "groupTitle": null,
       "itemTitle": null,
       "valueTitle": null,
       "classes": null,
-      "groupsIcon": null,
+      "groupsIcon":null,
       "groupIcon": null,
       "itemIcon": null,
       "valueIcon": null,
-      "groupsImgIcon": null,
-      "groupImgIcon": null,
-      "itemImgIcon": null,
-      "valueImgIcon": null,
       "valueUnit": null,
       "valueFormat": null,
-      "transformerFunctions": {},
-      "valueTransformers": null,
+      "transformerFunctions": null,
+      "valueTransformers": [
+      ],
       "formatNaValue": false,
-      "thresholds": [],
+      "thresholds": null,
       "groups": [
         {
           "items": [
@@ -1073,39 +1587,34 @@
                   ],
                   "valueIcon": [
                   ],
-                  "valueImgIcon": [
-                  ],
                   "valueFormat": null,
                   "formatNaValue": false,
                   "jsonpath": null,
                   "newlineReplacement": "",
                   "valueTransformers": [
                   ],
-                  "valuePositions": "",
-                  "valueNaPositions": "",
+                  "valuePositions": null,
+                  "valueNaPositions": null,
                   "unitSpace": false,
                   "classes": null,
-                  "thresholds": [
-                  ],
+                  "thresholds": null,
                   "profiles": null,
                   "automaticWrapperClassPrefix": null
                 }
               ],
-              "itemTitle": "",
-              "itemIcon": "",
-              "itemImgIcon": "",
-              "itemPositions": "",
-              "classes": "",
-              "profiles": "",
+              "itemTitle": null,
+              "itemIcon": null,
+              "itemPositions": null,
+              "classes": null,
+              "profiles": null,
               "automaticWrapperClassPrefix": ""
             }
           ],
-          "groupTitle": "",
-          "groupIcon": "",
-          "groupImgIcon": "",
-          "groupPositions": "",
-          "classes": "",
-          "profiles": "",
+          "groupTitle": null,
+          "groupIcon": null,
+          "groupPositions": null,
+          "classes": null,
+          "profiles": null,
           "automaticWrapperClassPrefix": ""
         }
       ],

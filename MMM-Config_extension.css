@@ -1,0 +1,19 @@
+.m_MMM-ValuesByNotification .valueTransformerlist li, .valueTransformerlist li div {
+	display: flex;
+	flex-direction: row;
+}
+.m_MMM-ValuesByNotification .valueTransformerlist li span.draggable {
+	margin-top:10px;
+}
+
+.m_MMM-ValuesByNotification .valueTransformerlist input[type="text"] {
+    width: 50%;
+}
+
+.m_MMM-ValuesByNotification .threshold_number  {
+	display:none;
+}
+
+.m_MMM-ValuesByNotification .threshold_string {
+	display:none;
+}
