@@ -354,7 +354,7 @@
                       ]
                   },
                   "typenumber": {
-                    "type": "integer",
+                    "type": "number",
                     "enum": [
                       "lt",
                       "le",
@@ -522,7 +522,7 @@
                                         ]
                                     },
                                     "typenumber": {
-                                      "type": "integer",
+                                      "type": "number",
                                       "enum": [
                                         "lt",
                                         "le",
@@ -541,7 +541,7 @@
                                       ]
                                     },
                                     "valuenumber": {
-                                      "type": "integer"
+                                      "type": "number"
                                     },
                                     "valuestring": {
                                       "type": "string"
