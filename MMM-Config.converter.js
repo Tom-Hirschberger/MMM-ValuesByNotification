@@ -206,6 +206,7 @@ function fixup_valueTransformerList(list, used){
 			used_functions= used_functions.join(' ')
 		}
 	}
+
 	return used_functions
 }
 function isNumeric(n) {
@@ -270,7 +271,7 @@ function converter(config_data, direction){
 		transformerFunctions, from hash name/function, to array with functioname in editor, from = array to hash
 		valueTransformers array to checkbox list of selected vs defined in transformerFunctions
 		*/
-	let fn_names
+	let fn_names=[]
 	if (direction == 'toForm'){
 
 		Object.keys(data_items).forEach(key=>{
