@@ -104,8 +104,13 @@ function fixupImgList(item, type, direction){
 			}
 			else{
 				if(debug)
-					console.log("type of ="+ typeof item[type])
-				item[nf].push.apply(item[nf], clone(item[type]))
+					console.log("type of ="+ typeof item[nf])
+				if(!Array.isArray(item[nf])){ // if not an array
+					if(debug)
+						console.log("make "+item[nf]+" into an array")
+					item[nf] = [].push(item.nf) // make it an array
+				}
+				item[nf].concat(item[type])
 			}
 		  delete item[type]
 		} else if(type.endsWith("Icon")){
