@@ -311,6 +311,7 @@ function converter(config_data, direction){
 										case "groupTitle":
 										case "itemTitle":
 										case "valueTitle":
+										case "itemIcon":
 											//console.log("config-type ="+config_data[type]+" type="+type)
 											//console.log("type="+typeof config_data[type])
 											if(typeof config_data[type] ==='string'){
@@ -374,6 +375,7 @@ function converter(config_data, direction){
 														item[type]=item[type].split(" ")
 														break;
 													case "itemTitle":
+													case "itemIcon":
 														if(typeof item[type] ==='string'){
 															let x = []
 															x.push(clone(item[type]))
