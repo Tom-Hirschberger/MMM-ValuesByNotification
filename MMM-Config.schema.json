@@ -1374,8 +1374,16 @@
                       ]
                     },
                     {
-                      "title": "itemIcon",
-                      "key": "MMM-ValuesByNotification.config.groups[].items[].itemIcon"
+                      "type": "array",
+                      "title": "itemIcon(s)",
+                      "deleteCurrent": false,
+                      "description":"Specify an array of strings containing icons or icon names which will be added as element(s) to the value element",
+                      "items":[
+                        {
+                          "title": "itemIcon",
+                          "key": "MMM-ValuesByNotification.config.groups[].items[].itemIcon[]"
+                        }
+                      ]
                     },
                     {
                       "type": "array",

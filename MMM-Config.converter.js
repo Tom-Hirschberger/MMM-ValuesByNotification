@@ -104,8 +104,13 @@ function fixupImgList(item, type, direction){
 			}
 			else{
 				if(debug)
-					console.log("type of ="+ typeof item[type])
-				item[nf].push.apply(item[nf], clone(item[type]))
+					console.log("type of ="+ typeof item[nf])
+				if(!Array.isArray(item[nf])){ // if not an array
+					if(debug)
+						console.log("make "+item[nf]+" into an array")
+					item[nf] = [].push(item.nf) // make it an array
+				}
+				item[nf].concat(item[type])
 			}
 		  delete item[type]
 		} else if(type.endsWith("Icon")){
@@ -306,6 +311,7 @@ function converter(config_data, direction){
 										case "groupTitle":
 										case "itemTitle":
 										case "valueTitle":
+										case "itemIcon":
 											//console.log("config-type ="+config_data[type]+" type="+type)
 											//console.log("type="+typeof config_data[type])
 											if(typeof config_data[type] ==='string'){
@@ -369,6 +375,7 @@ function converter(config_data, direction){
 														item[type]=item[type].split(" ")
 														break;
 													case "itemTitle":
+													case "itemIcon":
 														if(typeof item[type] ==='string'){
 															let x = []
 															x.push(clone(item[type]))
